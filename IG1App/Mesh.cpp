@@ -220,4 +220,31 @@ Mesh* Mesh::generaRectanguloTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh)
 
 	return mesh;
  }
+Mesh* Mesh::generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
+	Mesh* mesh = generaEstrella3D(re, np, h);
+
+	//los vertices para la textura
+
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	//el de centro
+	mesh->vTexCoords.emplace_back(0.5, 0.5);
+
+
+	double x;
+	double y;
+	double ang = 0;	//El primer vértice siempre se genera con este angulo
+
+	for (int i = 0; i < np * 2 + 1; i++) {
+			x = 0.5 + 0.5 * cos(radians(ang));	//x = Cx + rd*cos(ang) Cx es 0 porque la circunferencia tiene centro en (0,0)
+			y = 0.5 + 0.5 * sin(radians(ang));	//No podemos olvidar pasar de grados a radianes
+		//Creamos los vertices y asignamos los colores
+		mesh->vTexCoords.emplace_back(y, x);
+
+		//Actualizamos el angulo
+		ang += 360.0 / (np * 2.0);
+
+	}
+	return mesh;
+}
 
