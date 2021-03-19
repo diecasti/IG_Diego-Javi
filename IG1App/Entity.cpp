@@ -260,8 +260,8 @@ void Suelo::render(glm::dmat4 const& modelViewMat)const
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
 
-		mTexture->bind(GL_REPLACE);
-
+		//mTexture->bind(GL_REPLACE);
+		glColor4dv(value_ptr(mColor));
 		mTexture->bind(GL_MODULATE);
 		glLineWidth(2);
 		mMesh->render();
