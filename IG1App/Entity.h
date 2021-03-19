@@ -120,4 +120,13 @@ public:
 	~Suelo();
 	virtual void render(glm::dmat4 const& modelViewMat)const;
 };
+//-------------------------------------------------------------------------
+class EstrellaTexCor : public Abs_Entity {
+public:
+	EstrellaTexCor(GLdouble re, GLuint np, GLdouble h);
+	~EstrellaTexCor();
+	virtual void render(glm::dmat4 const& modelViewMat)const;
+	void update();
+};
+//-------------------------------------------------------------------------
 #endif //_H_Entities_H_

@@ -181,6 +181,7 @@ void Estrella3D::render(glm::dmat4 const& modelViewMat)const
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	}
+
 }
 //-------------------------------------------------------------------------
 
@@ -263,10 +264,58 @@ void Suelo::render(glm::dmat4 const& modelViewMat)const
 		//mTexture->bind(GL_REPLACE);
 		glColor4dv(value_ptr(mColor));
 		mTexture->bind(GL_MODULATE);
-		glLineWidth(2);
 		mMesh->render();
 		glLineWidth(1);
 		mTexture->unbind();
 	}
+}
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+EstrellaTexCor::EstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
+	mMesh = Mesh::generaEstrellaTexCor(re, np, h);
+	anguloDesplazamiento = 0;
+}
+//-------------------------------------------------------------------------
+EstrellaTexCor::~EstrellaTexCor() {
+	delete mMesh; mMesh = nullptr;
+}
+//-------------------------------------------------------------------------
+void EstrellaTexCor::render(glm::dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		//upload(aMat);
+		glLineWidth(2);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glColor4dv(value_ptr(mColor));
+		mTexture->bind(GL_MODULATE);
+		mMesh->render();
+
+		//Segunda matriz
+		aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
+		upload(aMat);
+		mMesh->render();
+
+		glLineWidth(1);
+		mTexture->unbind();
+
+	}
+
+}
+//-------------------------------------------------------------------------
+
+
+
+void EstrellaTexCor::update() {
+	anguloDesplazamiento = anguloDesplazamiento + 0.5;
+	//Actualizamos giro en Z
+	dmat4 aMat = rotate(dmat4(1), radians(anguloDesplazamiento), dvec3(0, 1.0, 0));
+	aMat = rotate(aMat, radians(anguloDesplazamiento), dvec3(0, 0, 1.0));
+
+
+	//Actualizar giro en Y
+	setModelMat(aMat);
+	upload(aMat);
 }
 //-------------------------------------------------------------------------
