@@ -256,16 +256,17 @@ Suelo::~Suelo() {
 void Suelo::render(glm::dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
-
-		aMat = rotate(aMat, radians(90.0), dvec3(1.0, 0, 0));
 		upload(aMat);
+
+		mTexture->bind(GL_REPLACE);
+
+		mTexture->bind(GL_MODULATE);
 		glLineWidth(2);
-		glPolygonMode(GL_BACK, GL_LINE);
-		glPolygonMode(GL_FRONT, GL_FILL);
 		mMesh->render();
 		glLineWidth(1);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		mTexture->unbind();
 	}
 }
 //-------------------------------------------------------------------------

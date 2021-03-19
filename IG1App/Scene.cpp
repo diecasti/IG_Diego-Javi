@@ -30,8 +30,13 @@ void Scene::scene2() {
 	// Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
 	gObjects.push_back(new CajaConFondo(400.0));
-
+	auto t = new Texture();
+	t->load("..\\Bmps\\baldosaC.bmp");
+	gTextures.push_back(t);
 	gObjects.push_back(new Suelo(400.0, 600.0, 10, 10));
+	gObjects.back()->setTexture(t);
+	gObjects.back()->setColor(dvec4(1.0, 0.5, 1.0, 1));
+	gObjects.back()->setModelMat(glm::rotate(dmat4(1), radians(-90.0), dvec3(1, 0, 0)));
 
 	//gObjects.push_back(new Estrella3D(400.0,6,20.0));
 }
