@@ -319,3 +319,45 @@ void EstrellaTexCor::update() {
 	upload(aMat);
 }
 //-------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------
+ContCuboTexCo::ContCuboTexCo(GLdouble nl) {
+	mMesh = Mesh::generaContCuboTexCor(nl);
+}
+//-------------------------------------------------------------------------
+ContCuboTexCo::~ContCuboTexCo() {
+	delete mMesh; mMesh = nullptr;
+}
+//-------------------------------------------------------------------------
+void ContCuboTexCo::render(glm::dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+
+
+		//las texturas, supongo que ahbra que hacer dos renders segun he entendido
+		
+		
+		glColor4dv(value_ptr(mColor));
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
+		mTexture->bind(GL_MODULATE);
+		mMesh->render();
+		mTexture->unbind();
+
+		//INTERIOR
+		glCullFace(GL_BACK);
+		interior->bind(GL_MODULATE);
+		mMesh->render();
+		interior->unbind();
+
+		glLineWidth(1);
+		glDisable(GL_CULL_FACE);
+		//interior->unbind();
+
+	}
+}
+//-------------------------------------------------------------------------

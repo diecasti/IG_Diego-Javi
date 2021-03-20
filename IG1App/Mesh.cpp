@@ -181,7 +181,7 @@ Mesh* Mesh::generaEstrella3D(GLdouble re, GLuint numL, GLdouble h) {
 		mesh->vVertices.emplace_back(x, y, z);
 		//mesh->vColors.emplace_back(0.0, 0.0, 0.0, 1.0);
 		//Actualizamos el angulo
-		ang += 360.0 / (numL * 2);
+		ang += 360.0 / (numL * 2.0);
 
 	}
 	return mesh;
@@ -191,19 +191,19 @@ Mesh* Mesh::generaContCubo(GLdouble ld) {
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
 	mesh->mNumVertices = 10;							//Definimos el nº de vertices
 	mesh->vVertices.reserve(mesh->mNumVertices);	//Y los reservamos
-	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
 	mesh->vVertices.emplace_back(-ld / 2, -ld / 2, ld / 2);
-	mesh->vVertices.emplace_back(ld / 2, ld / 2, ld / 2);
+	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
 	mesh->vVertices.emplace_back(ld / 2, -ld / 2, ld / 2);
+	mesh->vVertices.emplace_back(ld / 2, ld / 2, ld / 2);
 	//esto genera la primera cara, ahora la de la lado serian
-	mesh->vVertices.emplace_back(ld / 2, ld / 2, -ld / 2);
 	mesh->vVertices.emplace_back(ld / 2, -ld / 2, -ld / 2);
+	mesh->vVertices.emplace_back(ld / 2, ld / 2, -ld / 2);
 	//la siguiente cara igual al contrario
-	mesh->vVertices.emplace_back(-ld / 2, ld / 2, -ld / 2);
 	mesh->vVertices.emplace_back(-ld / 2, -ld / 2, -ld / 2);
+	mesh->vVertices.emplace_back(-ld / 2, ld / 2, -ld / 2);
 	//finalmente los mismos dos ultimos puntos que son los mismos que el principio
-	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
 	mesh->vVertices.emplace_back(-ld / 2, -ld / 2, ld / 2);
+	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
 	//cubo cerrado
 	return mesh;
 }
@@ -245,6 +245,28 @@ Mesh* Mesh::generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
 		ang += 360.0 / (np * 2.0);
 
 	}
+	return mesh;
+}
+
+Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
+	Mesh* mesh = generaContCubo(nl);
+	
+	
+	
+								//Definimos el nº de vertices
+	mesh->vTexCoords.reserve(10);	//Y los reservamos
+	mesh->vTexCoords.emplace_back(0,0);
+	mesh->vTexCoords.emplace_back(1,0);
+	mesh->vTexCoords.emplace_back(0,1);
+	mesh->vTexCoords.emplace_back(1,1);
+	//OTRAS CARAS
+	mesh->vTexCoords.emplace_back(0, 0);
+	mesh->vTexCoords.emplace_back(1, 0);
+	mesh->vTexCoords.emplace_back(0, 1);
+	mesh->vTexCoords.emplace_back(1, 1);
+	//
+	mesh->vTexCoords.emplace_back(0, 0);
+	mesh->vTexCoords.emplace_back(1, 0);
 	return mesh;
 }
 
