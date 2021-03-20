@@ -139,5 +139,18 @@ public:
 private:
 	Texture* interior = nullptr;
 };
+//-------------------------------------------------------------------------//-------------------------------------------------------------------------
+class CajaConFondoTx : public Abs_Entity {
+public:
+	CajaConFondoTx(GLdouble ld);
+	~CajaConFondoTx();
+	virtual void render(glm::dmat4 const& modelViewMat)const;
+	void setTexture(Texture* tex, Texture* tex2) { mTexture = tex; interior = tex2; };
+protected:
+	Mesh* fondo = nullptr;   // the fondo
+	Texture* interior = nullptr;
+	GLdouble ld_ = NULL; // the lado
+};
+
 //-------------------------------------------------------------------------
 #endif //_H_Entities_H_
