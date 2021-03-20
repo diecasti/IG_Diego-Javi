@@ -29,7 +29,7 @@ void Scene::init()
 void Scene::scene2() {
 	// Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
-	gObjects.push_back(new CajaConFondo(400.0));
+	//gObjects.push_back(new CajaConFondo(400.0));
 
 	//crear una textura
 	auto t = new Texture();
@@ -37,13 +37,15 @@ void Scene::scene2() {
 	gTextures.push_back(t);
 
 	//el objeto
+	/*
 	gObjects.push_back(new Suelo(400.0, 600.0, 10, 10));
 
 	//el objeto añadir textura
 	gObjects.back()->setTexture(t);
 	//gObjects.back()->setColor(dvec4(1.0, 0.5, 1.0, 1));
 	gObjects.back()->setModelMat(glm::rotate(dmat4(1), radians(-90.0), dvec3(1, 0, 0)));
-
+	*/
+	/*
 	//crear textura
 	auto e = new Texture();
 	e->load("..\\Bmps\\baldosaP.bmp");
@@ -54,6 +56,26 @@ void Scene::scene2() {
 
 	//objeto con textura
 	gObjects.back()->setTexture(e);
+	*/
+
+
+	//crear textura
+	auto exterior = new Texture();
+	exterior->load("..\\Bmps\\container.bmp");
+	gTextures.push_back(exterior);
+	//
+	auto interior = new Texture();
+	interior->load("..\\Bmps\\papelE.bmp");
+	gTextures.push_back(interior);
+
+	//la caja
+	auto caja = new ContCuboTexCo(400.0);
+	gObjects.push_back(caja);
+	//darles las texturas
+	//tmb & tal vez deberia de haber hecho un cast aqui
+	//TODO
+	caja->setTexture(exterior, interior);
+
 
 	//gObjects.push_back(new Estrella3D(400.0,6,20.0));
 }

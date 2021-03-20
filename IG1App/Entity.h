@@ -31,7 +31,7 @@ public:
 	virtual void update() {};	//Definimos el metodo vacio
 
 	//texturas
-	void setTexture(Texture* tex) { mTexture = tex; };
+	virtual void setTexture(Texture* tex) { mTexture = tex; };
 protected:
 
 	Mesh* mMesh = nullptr;   // the mesh
@@ -127,6 +127,17 @@ public:
 	~EstrellaTexCor();
 	virtual void render(glm::dmat4 const& modelViewMat)const;
 	void update();
+};
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+class ContCuboTexCo : public Abs_Entity {
+public:
+	ContCuboTexCo(GLdouble nl);
+	~ContCuboTexCo();
+	virtual void render(glm::dmat4 const& modelViewMat)const;
+	void setTexture(Texture* tex, Texture* tex2) { mTexture = tex; interior = tex2; };
+private:
+	Texture* interior = nullptr;
 };
 //-------------------------------------------------------------------------
 #endif //_H_Entities_H_
