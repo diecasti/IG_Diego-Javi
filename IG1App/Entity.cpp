@@ -238,8 +238,8 @@ void CajaConFondo::render(glm::dmat4 const& modelViewMat)const
 		glLineWidth(2);
 		mMesh->render();
 		//ahora el fondo hayq ue ahcer la translacion y bla bla
-		auto bMat = rotate(aMat, radians(90.0), dvec3(1.0, 0 ,0));
-		bMat = translate(bMat, dvec3(0, 0, ld_ / 2));
+		auto bMat = rotate(aMat, radians(-90.0), dvec3(1.0, 0 ,0));
+		bMat = translate(bMat, dvec3(0, 0, -ld_ / 2));
 		upload(bMat);
 		fondo->render();
 		glLineWidth(1);
@@ -351,6 +351,60 @@ void ContCuboTexCo::render(glm::dmat4 const& modelViewMat)const
 		//INTERIOR
 		glCullFace(GL_BACK);
 		interior->bind(GL_MODULATE);
+		mMesh->render();
+		interior->unbind();
+
+		glLineWidth(1);
+		glDisable(GL_CULL_FACE);
+		//interior->unbind();
+
+	}
+}
+//-------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------
+CajaConFondoTx::CajaConFondoTx(GLdouble nl) {
+	mMesh = Mesh::generaContCuboTexCor(nl);
+	fondo = Mesh::generaRectanguloTexCor(nl, nl, 1, 1);
+	ld_ = nl;
+}
+//-------------------------------------------------------------------------
+CajaConFondoTx::~CajaConFondoTx() {
+	delete mMesh; mMesh = nullptr;
+}
+//-------------------------------------------------------------------------
+void CajaConFondoTx::render(glm::dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		auto bMat = rotate(aMat, radians(-90.0), dvec3(1.0, 0, 0));
+		bMat = translate(bMat, dvec3(0, 0, -ld_ / 2));
+		
+
+		upload(aMat);
+		glLineWidth(2);
+
+
+		//las texturas, supongo que ahbra que hacer dos renders segun he entendido
+
+
+		glColor4dv(value_ptr(mColor));
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
+		mTexture->bind(GL_MODULATE);
+		mMesh->render();
+		upload(bMat);
+		fondo->render();
+
+
+		mTexture->unbind();
+
+		//INTERIOR
+		glCullFace(GL_BACK);
+		interior->bind(GL_MODULATE);
+		fondo->render(); 
+		upload(aMat);
 		mMesh->render();
 		interior->unbind();
 
