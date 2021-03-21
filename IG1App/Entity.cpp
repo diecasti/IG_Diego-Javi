@@ -2,6 +2,7 @@
 
 #include <gtc/matrix_transform.hpp>  
 #include <gtc/type_ptr.hpp>
+#include "IG1App.h"
 
 using namespace glm;
 
@@ -430,5 +431,35 @@ void CajaConFondoTx::update() {
 
 	//Primero se realiza la traslación con la matriz identidad 
 	setModelMat(translate(dmat4(1), dvec3(x, y, 0.0)));
+}
 
+//-------------------------------------------------------------------------
+Foto::Foto(GLdouble w, GLdouble h) {
+	mMesh = Mesh::generaRectanguloTexCor(w, h, 1, 1);
+	mTexture = new Texture();
+	mTexture->loadColorBuffer(IG1App::s_ig1app.winWidth(), IG1App::s_ig1app.winHeight(), GL_FRONT);
+}
+//-------------------------------------------------------------------------
+Foto::~Foto() {
+	delete mMesh; mMesh = nullptr;
+}
+//-------------------------------------------------------------------------
+void Foto::render(glm::dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+
+		//mTexture->bind(GL_REPLACE);
+		glColor4dv(value_ptr(mColor));
+		mTexture->bind(GL_MODULATE);
+		mMesh->render();
+		glLineWidth(1);
+		mTexture->unbind();
+	}
+}
+//-------------------------------------------------------------------------
+void Foto::update() {
+	mTexture->loadColorBuffer(IG1App::s_ig1app.winWidth(), IG1App::s_ig1app.winHeight(), GL_FRONT);
 }
