@@ -254,7 +254,7 @@ Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
 	
 	
 								//Definimos el nº de vertices
-	mesh->vTexCoords.reserve(10);	//Y los reservamos
+	mesh->vTexCoords.reserve(mesh->mNumVertices);	//Y los reservamos
 	mesh->vTexCoords.emplace_back(0,0);
 	mesh->vTexCoords.emplace_back(1,0);
 	mesh->vTexCoords.emplace_back(0,1);

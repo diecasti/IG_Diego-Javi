@@ -363,10 +363,12 @@ void ContCuboTexCo::render(glm::dmat4 const& modelViewMat)const
 //-------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------
-CajaConFondoTx::CajaConFondoTx(GLdouble nl) {
+CajaConFondoTx::CajaConFondoTx(GLdouble nl, GLdouble dist) {
 	mMesh = Mesh::generaContCuboTexCor(nl);
 	fondo = Mesh::generaRectanguloTexCor(nl, nl, 1, 1);
 	ld_ = nl;
+	distancia = dist;
+	anguloDesplazamiento = 0;
 }
 //-------------------------------------------------------------------------
 CajaConFondoTx::~CajaConFondoTx() {
@@ -415,3 +417,18 @@ void CajaConFondoTx::render(glm::dmat4 const& modelViewMat)const
 	}
 }
 //-------------------------------------------------------------------------
+void CajaConFondoTx::update() {
+	//Coordenadas de traslación
+	double x = 0;
+	double y = 0;
+
+	anguloDesplazamiento++;
+	//Actualizamos las coordenadas de traslación respecto al radio del círculo (100) y el angulo de desplazamiento
+	x = distancia * cos(radians(anguloDesplazamiento));
+	y = distancia * sin(radians(anguloDesplazamiento));
+
+
+	//Primero se realiza la traslación con la matriz identidad 
+	setModelMat(translate(dmat4(1), dvec3(x, y, 0.0)));
+
+}

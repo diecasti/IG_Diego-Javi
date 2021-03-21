@@ -142,14 +142,18 @@ private:
 //-------------------------------------------------------------------------//-------------------------------------------------------------------------
 class CajaConFondoTx : public Abs_Entity {
 public:
-	CajaConFondoTx(GLdouble ld);
+	CajaConFondoTx(GLdouble ld, GLdouble dist);
 	~CajaConFondoTx();
 	virtual void render(glm::dmat4 const& modelViewMat)const;
 	void setTexture(Texture* tex, Texture* tex2) { mTexture = tex; interior = tex2; };
+	void update();
 protected:
 	Mesh* fondo = nullptr;   // the fondo
 	Texture* interior = nullptr;
 	GLdouble ld_ = NULL; // the lado
+	GLdouble distancia; // distancia al centro de coordenadas;
+	GLdouble anguloDesplazamiento;
+
 };
 
 //-------------------------------------------------------------------------
