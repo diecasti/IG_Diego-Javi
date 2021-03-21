@@ -69,7 +69,7 @@ void Scene::scene2() {
 	gTextures.push_back(interior);
 
 	//la caja
-	auto caja = new CajaConFondoTx(400.0);
+	auto caja = new CajaConFondoTx(50.0, 200);
 	gObjects.push_back(caja);
 	//darles las texturas
 	//tmb & tal vez deberia de haber hecho un cast aqui
