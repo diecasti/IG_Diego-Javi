@@ -36,6 +36,9 @@ public:
 	void close();  // the application
 
 	void update();	//Para la animacion
+
+	int winWidth() { return mWinW; };
+	int winHeight() { return mWinH; };
 	
 protected:
 

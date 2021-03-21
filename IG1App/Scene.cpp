@@ -77,6 +77,8 @@ void Scene::scene2() {
 	caja->setTexture(exterior, interior);
 
 
+	gObjects.push_back(new Foto(100.0, 150.0));
+
 	//gObjects.push_back(new Estrella3D(400.0,6,20.0));
 }
 //-------------------------------------------------------------------------

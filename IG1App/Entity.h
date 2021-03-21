@@ -155,6 +155,15 @@ protected:
 	GLdouble anguloDesplazamiento;
 
 };
+//-------------------------------------------------------------------------
 
+//-------------------------------------------------------------------------
+class Foto : public Abs_Entity {
+public:
+	Foto(GLdouble w, GLdouble h);
+	~Foto();
+	virtual void render(glm::dmat4 const& modelViewMat)const;
+	void update();
+};
 //-------------------------------------------------------------------------
 #endif //_H_Entities_H_
