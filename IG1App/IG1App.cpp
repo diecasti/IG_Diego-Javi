@@ -135,17 +135,8 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			animar = true;
 		break;
-	case '2':
-		mScene->changeScene(2);
-		break;
-	case '1':
-		mScene->changeScene(1);
-		break;
-	case '0':
-		mScene->changeScene(0);
-		break;
 	default:
-		need_redisplay = false;
+		mScene->changeScene(key - '0');
 		break;
 	} //switch
 
