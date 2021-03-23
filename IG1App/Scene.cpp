@@ -13,12 +13,12 @@ void Scene::init()
 	// Lights
 	// Textures
 	//Texture::load();
-	
+
 	/*
 	texture algo = new texture();
 	algo.load(direccion);
 	  */
-	//#Scene selection
+	  //#Scene selection
 	if (mId == 1)
 		scene1();
 	else if (mId == 0)
@@ -115,6 +115,59 @@ void Scene::scene1() {
 	e->setModelMat(translate(e->modelMat(), dvec3(0.0, 0.0, -100.0)));
 }
 
+void Scene::scene3() {
+	//SUELO
+	Texture* t = new Texture();
+	t->load("..\\Bmps\\baldosaC.bmp");
+	gTextures.push_back(t);
+
+	Suelo* h = new Suelo(500, 500, 3, 3);
+	h->setTexture(t);
+	h->setModelMat(glm::rotate(dmat4(1), radians(-90.0), dvec3(1, 0, 0)));
+	gObjects.push_back(h);
+
+	//CAJA
+	Texture* interior = new Texture();
+	interior->load("..\\Bmps\\papelE.bmp");
+	gTextures.push_back(interior);
+
+	Texture* exterior = new Texture();
+	exterior->load("..\\Bmps\\container.bmp");
+	gTextures.push_back(exterior);
+
+	CajaConFondoTx* g = new CajaConFondoTx(100, 50);
+	g->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	g->setTexture(exterior, interior);
+	g->setModelMat(glm::translate(dmat4(1), dvec3(100, 50, 100)));
+	gObjects.push_back(g);
+
+	//ESTRELLA3D
+	Texture* w = nullptr;
+	w = new Texture();
+	w->load("..\\Bmps\\baldosaP.bmp");
+	gTextures.push_back(w);
+
+	EstrellaTexCor* f = new EstrellaTexCor(50, 4, 200);
+	f->setTexture(w);	//Ej13
+	f->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	f->setModelMat(glm::translate(dmat4(1), dvec3(100, 0, 100)));
+	gObjects.push_back(f);
+
+	//CAJA TRASLUCIDA
+	Texture* i = new Texture();
+	i->load("..\\Bmps\\windowV.bmp", 100);
+	gTextures.push_back(i);
+
+	ContCuboTexCo* j = new ContCuboTexCo(500);
+	j->setTexture(i, i);
+	gObjects.push_back(j);
+
+	//FOTO
+	Foto* u = new Foto(100.0, 150.0);
+	u->setModelMat(glm::translate(dmat4(1), dvec3(0, 10, 0)));
+	u->setModelMat(glm::rotate(u->modelMat(), radians(90.0), dvec3(1, 0, 0)));
+	gObjects.push_back(u);
+}
 //-------------------------------------------------------------------------
 void Scene::changeScene(int id) {
 	if (mId != id) {
@@ -131,6 +184,9 @@ void Scene::changeScene(int id) {
 		}
 		else if (mId == 2) {
 			scene2();
+		}
+		else if (mId == 3) {
+			scene3();
 		}
 	}
 }

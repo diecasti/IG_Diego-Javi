@@ -65,7 +65,7 @@ void Texture::setWrap(GLuint wp) // GL_REPEAT, GL_CLAMP
 
 void Texture::loadColorBuffer(GLuint width, GLuint height, GLuint buffer) {
 	if (mId == 0) init();
-	mWidth = width;
+	mWidth = width;     //Dimensiones de la textura
 	mHeight = height;
 	glReadBuffer(buffer);
 	glBindTexture(GL_TEXTURE_2D, mId);

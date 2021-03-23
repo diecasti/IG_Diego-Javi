@@ -290,11 +290,11 @@ void EstrellaTexCor::render(glm::dmat4 const& modelViewMat)const
 		glLineWidth(2);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glColor4dv(value_ptr(mColor));
-		mTexture->bind(GL_MODULATE);
+		mTexture->bind(GL_REPLACE);
 		mMesh->render();
 
 		//Segunda matriz
-		aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
+		aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
 		upload(aMat);
 		mMesh->render();
 
@@ -395,7 +395,7 @@ void CajaConFondoTx::render(glm::dmat4 const& modelViewMat)const
 		glColor4dv(value_ptr(mColor));
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
-		mTexture->bind(GL_MODULATE);
+		mTexture->bind(GL_REPLACE);
 		mMesh->render();
 		upload(bMat);
 		fondo->render();
@@ -405,7 +405,7 @@ void CajaConFondoTx::render(glm::dmat4 const& modelViewMat)const
 
 		//INTERIOR
 		glCullFace(GL_BACK);
-		interior->bind(GL_MODULATE);
+		interior->bind(GL_REPLACE);
 		fondo->render(); 
 		upload(aMat);
 		mMesh->render();

@@ -18,6 +18,10 @@ void Mesh::render() const
 	  // transfer the coordinates of the vertices
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_DOUBLE, 0, vVertices.data());  // number of coordinates per vertex, type of each coordinate, stride, pointer 
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		if (vColors.size() > 0) { // transfer colors
 			glEnableClientState(GL_COLOR_ARRAY);
 			glColorPointer(4, GL_DOUBLE, 0, vColors.data());  // components number (rgba=4), type of each component, stride, pointer  
@@ -164,21 +168,21 @@ Mesh* Mesh::generaEstrella3D(GLdouble re, GLuint numL, GLdouble h) {
 	double y;
 	double z;
 	double ang = 0;	//El primer vértice siempre se genera con este angulo
-	mesh->vVertices.emplace_back(0, 0, 0.0);
+	mesh->vVertices.emplace_back(0, h, 0.0);
 
 	for (int i = 0; i < numL * 2 + 1; i++) {
 		if (i % 2 == 0) {
 			x = 0 + re * cos(radians(ang));	//x = Cx + rd*cos(ang) Cx es 0 porque la circunferencia tiene centro en (0,0)
 			y = 0 + re * sin(radians(ang));	//No podemos olvidar pasar de grados a radianes
-			z = 250;
+			z = re;
 		}
 		else {
 			x = 0 + (re / 2) * cos(radians(ang));	//x = Cx + rd*cos(ang) Cx es 0 porque la circunferencia tiene centro en (0,0)
 			y = 0 + (re / 2) * sin(radians(ang));	//No podemos olvidar pasar de grados a radianes
-			z = 250;
+			z = re;
 		}
 		//Creamos los vertices y asignamos los colores
-		mesh->vVertices.emplace_back(x, y, z);
+		mesh->vVertices.emplace_back(x, y + h, z);
 		//mesh->vColors.emplace_back(0.0, 0.0, 0.0, 1.0);
 		//Actualizamos el angulo
 		ang += 360.0 / (numL * 2.0);
@@ -219,7 +223,7 @@ Mesh* Mesh::generaRectanguloTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh)
 
 
 	return mesh;
- }
+}
 Mesh* Mesh::generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
 	Mesh* mesh = generaEstrella3D(re, np, h);
 
@@ -236,9 +240,9 @@ Mesh* Mesh::generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
 	double ang = 0;	//El primer vértice siempre se genera con este angulo
 
 	for (int i = 0; i < np * 2 + 1; i++) {
-			x = 0.5 + 0.5 * cos(radians(ang));	//x = Cx + rd*cos(ang) Cx es 0 porque la circunferencia tiene centro en (0,0)
-			y = 0.5 + 0.5 * sin(radians(ang));	//No podemos olvidar pasar de grados a radianes
-		//Creamos los vertices y asignamos los colores
+		x = 0.5 + 0.5 * cos(radians(ang));	//x = Cx + rd*cos(ang) Cx es 0 porque la circunferencia tiene centro en (0,0)
+		y = 0.5 + 0.5 * sin(radians(ang));	//No podemos olvidar pasar de grados a radianes
+	//Creamos los vertices y asignamos los colores
 		mesh->vTexCoords.emplace_back(y, x);
 
 		//Actualizamos el angulo
@@ -250,15 +254,15 @@ Mesh* Mesh::generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
 
 Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
 	Mesh* mesh = generaContCubo(nl);
-	
-	
-	
-								//Definimos el nº de vertices
+
+
+
+	//Definimos el nº de vertices
 	mesh->vTexCoords.reserve(mesh->mNumVertices);	//Y los reservamos
-	mesh->vTexCoords.emplace_back(0,0);
-	mesh->vTexCoords.emplace_back(1,0);
-	mesh->vTexCoords.emplace_back(0,1);
-	mesh->vTexCoords.emplace_back(1,1);
+	mesh->vTexCoords.emplace_back(0, 0);
+	mesh->vTexCoords.emplace_back(1, 0);
+	mesh->vTexCoords.emplace_back(0, 1);
+	mesh->vTexCoords.emplace_back(1, 1);
 	//OTRAS CARAS
 	mesh->vTexCoords.emplace_back(0, 0);
 	mesh->vTexCoords.emplace_back(1, 0);
