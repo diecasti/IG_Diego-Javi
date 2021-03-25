@@ -465,12 +465,19 @@ Hierba::~Hierba() {
 //-------------------------------------------------------------------------
 void Hierba::render(glm::dmat4 const& modelViewMat)const
 {
+
 	if (mMesh != nullptr) {
+
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0.0);
+
+
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
 		//upload(aMat);
 		glLineWidth(2);
 		glColor4dv(value_ptr(mColor));
+		
 		mTexture->bind(GL_MODULATE);
 		mMesh->render();
 
@@ -484,6 +491,8 @@ void Hierba::render(glm::dmat4 const& modelViewMat)const
 
 		glLineWidth(1);
 		mTexture->unbind();
+
+		glDisable(GL_ALPHA_TEST);
 
 	}
 }
