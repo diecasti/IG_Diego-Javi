@@ -168,7 +168,7 @@ Mesh* Mesh::generaEstrella3D(GLdouble re, GLuint numL, GLdouble h) {
 	double y;
 	double z;
 	double ang = 0;	//El primer vértice siempre se genera con este angulo
-	mesh->vVertices.emplace_back(0, h, 0.0);
+	mesh->vVertices.emplace_back(0.0, 0.0, 0.0);
 
 	for (int i = 0; i < numL * 2 + 1; i++) {
 		if (i % 2 == 0) {
@@ -182,7 +182,7 @@ Mesh* Mesh::generaEstrella3D(GLdouble re, GLuint numL, GLdouble h) {
 			z = re;
 		}
 		//Creamos los vertices y asignamos los colores
-		mesh->vVertices.emplace_back(x, y + h, z);
+		mesh->vVertices.emplace_back(x, y, z);
 		//mesh->vColors.emplace_back(0.0, 0.0, 0.0, 1.0);
 		//Actualizamos el angulo
 		ang += 360.0 / (numL * 2.0);
