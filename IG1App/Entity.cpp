@@ -452,3 +452,39 @@ void Foto::render(glm::dmat4 const& modelViewMat)const
 void Foto::update() {
 	mTexture->loadColorBuffer(IG1App::s_ig1app.winWidth(), IG1App::s_ig1app.winHeight(), GL_FRONT);
 }
+
+
+//-------------------------------------------------------------------------
+Hierba::Hierba(GLdouble w, GLdouble h) {
+	mMesh = Mesh::generaRectanguloTexCor(w, h, 1, 1);
+}
+//-------------------------------------------------------------------------
+Hierba::~Hierba() {
+	delete mMesh; mMesh = nullptr;
+}
+//-------------------------------------------------------------------------
+void Hierba::render(glm::dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		//upload(aMat);
+		glLineWidth(2);
+		glColor4dv(value_ptr(mColor));
+		mTexture->bind(GL_MODULATE);
+		mMesh->render();
+
+		
+		for (int i = 0; i < 2; i++) {
+			aMat = rotate(aMat, radians(60.0), dvec3(0, 1, 0));
+			upload(aMat);
+			mMesh->render();
+		}
+		
+
+		glLineWidth(1);
+		mTexture->unbind();
+
+	}
+}
+//-------------------------------------------------------------------------

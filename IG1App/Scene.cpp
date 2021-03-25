@@ -86,6 +86,7 @@ void Scene::scene2() {
 void Scene::scene0() {
 	// Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
+
 }
 //-------------------------------------------------------------------------
 void Scene::scene1() {
@@ -168,6 +169,17 @@ void Scene::scene3() {
 	u->setModelMat(glm::translate(dmat4(1), dvec3(0, 10, 0)));
 	u->setModelMat(glm::rotate(u->modelMat(), radians(90.0), dvec3(1, 0, 0)));
 	gObjects.push_back(u);
+
+	//hierba
+	Texture* hierbaText = new Texture();
+	hierbaText->load("..\\Bmps\\grass.bmp", { 0,0,0 }, 255);
+	gTextures.push_back(hierbaText);
+	Hierba* hierba = new Hierba(100, 100);
+	hierba->setTexture(hierbaText);
+	hierba->setModelMat(glm::translate(dmat4(1), dvec3(-200, 60, 200)));
+
+	gObjects.push_back(hierba);
+
 }
 //-------------------------------------------------------------------------
 void Scene::changeScene(int id) {
