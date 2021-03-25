@@ -311,13 +311,10 @@ void EstrellaTexCor::render(glm::dmat4 const& modelViewMat)const
 void EstrellaTexCor::update() {
 	anguloDesplazamiento = anguloDesplazamiento + 0.5;
 	//Actualizamos giro en Z
-	dmat4 aMat = rotate(dmat4(1), radians(anguloDesplazamiento), dvec3(0, 1.0, 0));
-	aMat = rotate(aMat, radians(anguloDesplazamiento), dvec3(0, 0, 1.0));
+	mModelMat = translate(dmat4(1), dvec3(100, 200, 100));
 
-
-	//Actualizar giro en Y
-	setModelMat(aMat);
-	upload(aMat);
+	mModelMat = rotate(mModelMat, radians(anguloDesplazamiento), dvec3(0, 1.0, 0));
+	mModelMat = rotate(mModelMat, radians(anguloDesplazamiento), dvec3(0, 0, 1.0));
 }
 //-------------------------------------------------------------------------
 
@@ -419,18 +416,10 @@ void CajaConFondoTx::render(glm::dmat4 const& modelViewMat)const
 }
 //-------------------------------------------------------------------------
 void CajaConFondoTx::update() {
-	//Coordenadas de traslación
-	double x = 0;
-	double y = 0;
-
-	anguloDesplazamiento++;
-	//Actualizamos las coordenadas de traslación respecto al radio del círculo (100) y el angulo de desplazamiento
-	x = distancia * cos(radians(anguloDesplazamiento));
-	y = distancia * sin(radians(anguloDesplazamiento));
-
+	anguloDesplazamiento = 1;
 
 	//Primero se realiza la traslación con la matriz identidad 
-	setModelMat(translate(dmat4(1), dvec3(x, y, 0.0)));
+	setModelMat(rotate(modelMat(), radians(anguloDesplazamiento), dvec3(0, 0, 1)));
 }
 
 //-------------------------------------------------------------------------

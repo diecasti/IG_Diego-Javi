@@ -147,10 +147,10 @@ void Scene::scene3() {
 	w->load("..\\Bmps\\baldosaP.bmp");
 	gTextures.push_back(w);
 
-	EstrellaTexCor* f = new EstrellaTexCor(50, 4, 200);
+	EstrellaTexCor* f = new EstrellaTexCor(50, 4, 0);
 	f->setTexture(w);	//Ej13
 	f->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
-	f->setModelMat(glm::translate(dmat4(1), dvec3(100, 0, 100)));
+	f->setModelMat(glm::translate(dmat4(1), dvec3(1000, 200, 100)));
 	gObjects.push_back(f);
 
 	//CAJA TRASLUCIDA
@@ -160,6 +160,7 @@ void Scene::scene3() {
 
 	ContCuboTexCo* j = new ContCuboTexCo(500);
 	j->setTexture(i, i);
+	f->setModelMat(glm::translate(dmat4(1), dvec3(0, 250, 0)));
 	gObjects.push_back(j);
 
 	//FOTO
