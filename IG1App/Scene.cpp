@@ -154,21 +154,6 @@ void Scene::scene3() {
 	f->setModelMat(glm::translate(dmat4(1), dvec3(1000, 200, 100)));
 	gObjects.push_back(f);
 
-	//CAJA TRASLUCIDA
-	Texture* i = new Texture();
-	i->load("..\\Bmps\\windowV.bmp", 100);
-	gTextures.push_back(i);
-
-	ContCuboTexCo* j = new ContCuboTexCo(500);
-	j->setTexture(i, i);
-	f->setModelMat(glm::translate(dmat4(1), dvec3(0, 250, 0)));
-	gObjects.push_back(j);
-
-	//FOTO
-	Foto* u = new Foto(100.0, 150.0);
-	u->setModelMat(glm::translate(dmat4(1), dvec3(0, 10, 0)));
-	u->setModelMat(glm::rotate(u->modelMat(), radians(90.0), dvec3(1, 0, 0)));
-	gObjects.push_back(u);
 
 	//hierba
 	Texture* hierbaText = new Texture();
@@ -179,6 +164,25 @@ void Scene::scene3() {
 	hierba->setModelMat(glm::translate(dmat4(1), dvec3(-200, 60, 200)));
 
 	gObjects.push_back(hierba);
+
+
+	//FOTO
+	Foto* u = new Foto(100.0, 150.0);
+	u->setModelMat(glm::translate(dmat4(1), dvec3(0, 10, 0)));
+	u->setModelMat(glm::rotate(u->modelMat(), radians(90.0), dvec3(1, 0, 0)));
+	gObjects.push_back(u);
+
+	//CAJA TRASLUCIDA
+	Texture* i = new Texture();
+	i->load("..\\Bmps\\windowV.bmp", 100);
+	gTextures.push_back(i);
+
+	ContCuboTexCo* j = new ContCuboTexCo(500);
+	j->setTexture(i, i);
+	f->setModelMat(glm::translate(dmat4(1), dvec3(0, 250, 0)));
+	gObjects.push_back(j);
+
+
 
 }
 //-------------------------------------------------------------------------
