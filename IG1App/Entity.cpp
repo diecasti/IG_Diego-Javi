@@ -82,7 +82,7 @@ void Sierpinski::render(glm::dmat4 const& modelViewMat)const
 		glColor4dv(value_ptr(mColor));
 		mMesh->render();
 		glLineWidth(1);
-		glColor4d(1.0, 1.0, 1.0, 1);	//!Con esto estoy restableciendo los valores por defecto?
+		glColor4d(1.0, 1.0, 1.0, 1);	
 	}
 }
 //-------------------------------------------------------------------------
@@ -109,7 +109,6 @@ void TrianguloRGB::render(glm::dmat4 const& modelViewMat)const
 		glPolygonMode(GL_FRONT, GL_FILL);
 		mMesh->render();
 		glLineWidth(1);
-		//glColor4d(1.0, 1.0, 1.0, 1);	//!Con esto estoy restableciendo los valores por defecto?
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }

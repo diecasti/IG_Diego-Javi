@@ -36,10 +36,9 @@ protected:
 	std::vector<Abs_Entity*> gObjects;  // Entities (graphic objects) of the scene
 	std::vector<Texture*> gTextures; //textures (imagenes a pinyon) of the scene
 	int mId;
-	void scene2();
-	void scene1();
 	void scene0();
-	void scene3();
+	void scene1();
+	void scene2();
 };
 //-------------------------------------------------------------------------
 
