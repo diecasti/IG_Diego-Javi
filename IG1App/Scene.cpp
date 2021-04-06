@@ -18,7 +18,7 @@ void Scene::init()
 	texture algo = new texture();
 	algo.load(direccion);
 	  */
-	  //#Scene selection
+	  //Scene selection
 	if (mId == 1)
 		scene1();
 	else if (mId == 0)
@@ -26,70 +26,8 @@ void Scene::init()
 
 }
 //-------------------------------------------------------------------------
-void Scene::scene2() {
-	// Graphics objects (entities) of the scene
-	gObjects.push_back(new EjesRGB(400.0));
-	//gObjects.push_back(new CajaConFondo(400.0));
-
-	//crear una textura
-	auto t = new Texture();
-	t->load("..\\Bmps\\baldosaC.bmp");
-	gTextures.push_back(t);
-
-	//el objeto
-	/*
-	gObjects.push_back(new Suelo(400.0, 600.0, 10, 10));
-
-	//el objeto añadir textura
-	gObjects.back()->setTexture(t);
-	//gObjects.back()->setColor(dvec4(1.0, 0.5, 1.0, 1));
-	gObjects.back()->setModelMat(glm::rotate(dmat4(1), radians(-90.0), dvec3(1, 0, 0)));
-	*/
-	/*
-	//crear textura
-	auto e = new Texture();
-	e->load("..\\Bmps\\baldosaP.bmp");
-	gTextures.push_back(e);
-
-	//objeto
-	gObjects.push_back(new EstrellaTexCor(400.0, 4, 20.0));
-
-	//objeto con textura
-	gObjects.back()->setTexture(e);
-	*/
-
-
-	//crear textura
-	auto exterior = new Texture();
-	exterior->load("..\\Bmps\\container.bmp");
-	gTextures.push_back(exterior);
-	//
-	auto interior = new Texture();
-	interior->load("..\\Bmps\\papelE.bmp");
-	gTextures.push_back(interior);
-
-	//la caja
-	auto caja = new CajaConFondoTx(50.0, 200);
-	gObjects.push_back(caja);
-	//darles las texturas
-	//tmb & tal vez deberia de haber hecho un cast aqui
-	//TODO
-	caja->setTexture(exterior, interior);
-
-
-	gObjects.push_back(new Foto(100.0, 150.0));
-
-	//gObjects.push_back(new Estrella3D(400.0,6,20.0));
-}
-//-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 void Scene::scene0() {
-	// Graphics objects (entities) of the scene
-	gObjects.push_back(new EjesRGB(400.0));
-
-}
-//-------------------------------------------------------------------------
-void Scene::scene1() {
 	//EJERCICIO 1
 	//Creamos triangulo
 	Poligono* a = new Poligono(3.0, 200);
@@ -116,7 +54,7 @@ void Scene::scene1() {
 	e->setModelMat(translate(e->modelMat(), dvec3(0.0, 0.0, -100.0)));
 }
 
-void Scene::scene3() {
+void Scene::scene1() {
 	//SUELO
 	Texture* t = new Texture();
 	t->load("..\\Bmps\\baldosaC.bmp");
@@ -151,7 +89,8 @@ void Scene::scene3() {
 	EstrellaTexCor* f = new EstrellaTexCor(50, 4, 0);
 	f->setTexture(w);	//Ej13
 	f->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
-	f->setModelMat(glm::translate(dmat4(1), dvec3(1000, 200, 100)));
+	f->setModelMat(glm::translate(dmat4(1), dvec3(100, 200, 100)));	//! AQUI SOLO AFECTA LA Y WTF
+
 	gObjects.push_back(f);
 
 
@@ -181,11 +120,14 @@ void Scene::scene3() {
 	j->setTexture(i, i);
 	f->setModelMat(glm::translate(dmat4(1), dvec3(0, 250, 0)));
 	gObjects.push_back(j);
-
-
-
 }
 //-------------------------------------------------------------------------
+
+void Scene::scene2() {
+	//# Para ver comentarios de estos enunciados en toda la solucion
+}
+//-------------------------------------------------------------------------
+
 void Scene::changeScene(int id) {
 	if (mId != id) {
 		mId = id;
@@ -201,9 +143,6 @@ void Scene::changeScene(int id) {
 		}
 		else if (mId == 2) {
 			scene2();
-		}
-		else if (mId == 3) {
-			scene3();
 		}
 	}
 }
@@ -226,9 +165,9 @@ void Scene::free()
 void Scene::setGL(int id)
 {
 	// OpenGL basic setting
-	if (id == 1)
+	if (id == 0)
 		glClearColor(0.0, 0.0, 0.0, 1.0);  // background color (alpha=1 -> opaque)
-	else if (id == 0)
+	else if (id == 1)
 		glClearColor(1.0, 1.0, 1.0, 1.0);  // background color (alpha=1 -> opaque)
 
 	glEnable(GL_DEPTH_TEST);  // enable Depth test 
@@ -255,7 +194,7 @@ void Scene::render(Camera const& cam) const
 	}
 }
 //-------------------------------------------------------------------------
-//#Llamamos uno por uno a los updates de los elementos que componen la escena
+//Llamamos uno por uno a los updates de los elementos que componen la escena
 void Scene::update() {
 	for (Abs_Entity* el : gObjects)
 	{

@@ -247,7 +247,6 @@ Mesh* Mesh::generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
 
 		//Actualizamos el angulo
 		ang += 360.0 / (np * 2.0);
-
 	}
 	return mesh;
 }
