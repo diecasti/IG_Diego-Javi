@@ -22,6 +22,7 @@ public:
 	
 	void set2D();
 	void set3D();
+	void setCenital();
 	//# Hay que comentar estos 3 metodos
 	//void pitch(GLdouble a); // rotates a degrees on the X axis
 	//void yaw(GLdouble a);   // rotates a degrees on the Y axis

@@ -50,6 +50,8 @@ protected:
 	void free();
 
 	void display() const;   // the scene
+	void display2Vistas() const; //la escena con dos vistas
+
 	void resize(int newWidth, int newHeight);   // the viewport (without changing the scale) 
 	void key(unsigned char key, int x, int y);  // keypress event
 	void specialKey(int key, int x, int y);     // keypress event for special characters
@@ -74,6 +76,7 @@ protected:
 
 	static void s_update() { s_ig1app.update(); };	//Invoca al metodo update
 	bool animar;
+	bool m2Vistas;
 	GLuint mLastUpdateTime;
 };
 //-------------------------------------------------------------------------
