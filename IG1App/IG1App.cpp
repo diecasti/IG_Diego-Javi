@@ -43,6 +43,8 @@ void IG1App::init()
 	mCamera = new Camera(mViewPort);
 	mScene = new Scene(0);
 
+	m2Vistas = false;
+
 	mCamera->set2D();
 	mScene->init();
 }
@@ -92,9 +94,38 @@ void IG1App::display() const
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // clears the back buffer
 
-	mScene->render(*mCamera);  // uploads the viewport and camera to the GPU
+	if (!m2Vistas)
+		mScene->render(*mCamera);  // uploads the viewport and camera to the GPU
+	else
+		display2Vistas();
 
 	glutSwapBuffers();	// swaps the front and back buffer
+}
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+
+void IG1App::display2Vistas() const
+{  // double buffering
+// para renderizar las vistas utilizamos una cámara auxiliar:
+	Camera auxCam = *mCamera; // copiando mCamera
+	// el puerto de vista queda compartido (se copia el puntero)
+	Viewport auxVP = *mViewPort; // lo copiamos en una var. aux. para
+	// el tamaño de los 2 puertos de vista es el mismo, lo configuramos
+	mViewPort->setSize(mWinW / 2, mWinH);
+	// igual que en resize, para que no cambie la escala,
+	// tenemos que cambiar el tamaño de la ventana de vista de la cámara
+	auxCam.setSize(mViewPort->width(), mViewPort->height());
+	// vista izquierda
+	mViewPort->setPos(0, 0);
+	mScene->render(auxCam);
+	//vista derecha
+	mViewPort->setPos(mWinW / 2, 0);
+	auxCam.setCenital();
+	mScene->render(auxCam);
+
+	*mViewPort = auxVP; // restaurar el puerto de vista 
+
+
 }
 //-------------------------------------------------------------------------
 
@@ -159,6 +190,10 @@ void IG1App::key(unsigned char key, int x, int y)
 		break;
 	case 'p':
 		mCamera->changePrj();	//Angulo y altura por iteracion
+		break;
+	case 'k':
+		//cambair al modo dos camaras
+		m2Vistas = !m2Vistas;
 		break;
 	default:
 		mScene->changeScene(key - '0');
