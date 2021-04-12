@@ -273,9 +273,7 @@ void IG1App::motion(int x, int y) { //motion raton, cunado haces click y mueves
 
 	glm::dvec2 mp(mCoord.x - x, mCoord.y - y);
 	mCoord.x = x;
-std:cout << mCoord.y << " ";
 	mCoord.y = y;
-cout << mCoord.y << "\n";
 	//GLUT_LEFT_BUTTON/GLUT_RIGHT_BUTTON
 	if (mBot == GLUT_LEFT_BUTTON) {
 		//cosas del 3
@@ -301,6 +299,16 @@ void IG1App::mouseWheel(int wheelButtonNumber, int direction, int x, int y) { //
 		4. glutPostRedisplay();
 	*/
 
+	int m = glutGetModifiers();
+
+	if (m == 0) {
+		mCamera->moveFB(direction);
+		
+	}
+	else if (m == GLUT_ACTIVE_CTRL) {
+		mCamera->setScale(direction);
+	}
+	glutPostRedisplay();
 }
 //-------------------------------------------------------------------------
 
