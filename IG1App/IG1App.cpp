@@ -250,16 +250,16 @@ void IG1App::specialKey(int key, int x, int y)
 //-------------------------------------------------------------------------
 void IG1App::mouse(int button, int state, int x, int y) { //cosas del raton
 
-	if (state == GLUT_DOWN) { //mientras esta pulsado //POR ALGUNA RAZON ENTRA DOS VECES
+	 //mientras esta pulsado //POR ALGUNA RAZON ENTRA DOS VECES
 		mBot = button;
 		mCoord.x = x;
 		mCoord.y = glutGet(GLUT_WINDOW_HEIGHT) - y;
-	}
+
 
 }
 //-------------------------------------------------------------------------
 void IG1App::motion(int x, int y) { //motion raton, cunado haces click y mueves
-std:cout << "wweeeee\n";
+
 	/*
 		1. Guarda en una variable auxiliar mp la diferencia entre mCoord y
 		(x, y)
@@ -270,6 +270,24 @@ std:cout << "wweeeee\n";
 		y moveLR() según indique mp
 		5. glutPostRedisplay();
 	*/
+
+	glm::dvec2 mp(mCoord.x - x, mCoord.y - y);
+	mCoord.x = x;
+std:cout << mCoord.y << " ";
+	mCoord.y = y;
+cout << mCoord.y << "\n";
+	//GLUT_LEFT_BUTTON/GLUT_RIGHT_BUTTON
+	if (mBot == GLUT_LEFT_BUTTON) {
+		//cosas del 3
+		mCamera->orbit(mp.x * 0.05, mp.y);
+	}
+	if (mBot == GLUT_RIGHT_BUTTON) {
+		//cosas del 4
+		mCamera->moveUD(-mp.y); //por alguna razon la diferencia me sale en nagativa asiq ue asi que va
+		mCamera->moveLR(mp.x);
+	}
+	//cosas del 5 ya esta hecho
+	glutPostRedisplay();
 
 }
 //-------------------------------------------------------------------------
