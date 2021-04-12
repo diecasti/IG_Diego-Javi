@@ -44,8 +44,7 @@ void Camera::set2D()
 
 void Camera::setCenital()
 {
-
-	mEye = dvec3(0, 500, 0);
+	mEye = dvec3(0, 1000, 0);
 	mLook = dvec3(0, 0, 0);
 	mUp = dvec3(1, 0, 0);
 	setVM();
@@ -102,13 +101,12 @@ void Camera::setScale(GLdouble s)
 
 void Camera::setPM()
 {
-	std::cout << mFarVal / 100 << "-" << mFarVal << "-"<<  yTop * 2 << "\n";
 	if (bOrto) { //  if orthogonal projection
 		mProjMat = ortho(xLeft * mScaleFact, xRight * mScaleFact, yBot * mScaleFact, yTop * mScaleFact, mNearVal, mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	}
 	else {	//#Cambiar ortho por frustum si queremos una proyección con perspectiva
-		mProjMat = frustum(xLeft * mScaleFact, xRight * mScaleFact, yBot * mScaleFact, yTop * mScaleFact, mFarVal*0.05, mFarVal);
+		mProjMat = frustum(xLeft * mScaleFact, xRight * mScaleFact, yBot * mScaleFact, yTop * mScaleFact, yTop * 2, mFarVal);	//yTop * 2 porque tag(30) = T/N => 0,5 = T/N => N = T*2
 	}
 }
 //-------------------------------------------------------------------------
@@ -135,8 +133,8 @@ void Camera::moveLR(GLdouble cs) {
 	setVM();
 }
 void Camera::moveFB(GLdouble cs) {	//#Esto no se si es así, hago *= y funciona 😎👌 en verda no funciona uwu
-	mEye *= mFront * cs;
-	mLook *= mFront * cs;
+	mEye += mFront * cs;
+	mLook += mFront * cs;
 	setVM();
 }
 void Camera::moveUD(GLdouble cs) {

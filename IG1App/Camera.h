@@ -65,7 +65,6 @@ protected:
 
 	GLdouble xRight, xLeft, yTop, yBot;      // size of scene visible area
 	GLdouble mNearVal = 1, mFarVal = 10000;  // view volume
-	GLdouble mNearValPerspective = 9000;	//# averlas
 	GLdouble mScaleFact = 1;				 // scale factor
 	GLdouble mAng, mRadio;					 //# Parametros que gestionan el angulo y radio de una circunferencia sobre la que giramos
 	bool bOrto = true;   // orthogonal or perspective projection
