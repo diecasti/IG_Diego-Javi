@@ -75,6 +75,9 @@ void IG1App::iniWinOpenGL()
 	glutSpecialFunc(s_specialKey);
 	glutDisplayFunc(s_display);
 	glutIdleFunc(s_update);
+	glutMouseFunc(s_mouse);
+	glutMotionFunc(s_motion);
+	glutMouseWheelFunc(s_mouseWheel);
 
 	cout << glGetString(GL_VERSION) << '\n';
 	cout << glGetString(GL_VENDOR) << '\n';
@@ -242,6 +245,44 @@ void IG1App::specialKey(int key, int x, int y)
 
 	if (need_redisplay)
 		glutPostRedisplay(); // marks the window as needing to be redisplayed -> calls to display()
+}
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+void IG1App::mouse(int button, int state, int x, int y) { //cosas del raton
+
+	if (state == GLUT_DOWN) { //mientras esta pulsado //POR ALGUNA RAZON ENTRA DOS VECES
+		mBot = button;
+		mCoord.x = x;
+		mCoord.y = glutGet(GLUT_WINDOW_HEIGHT) - y;
+	}
+
+}
+//-------------------------------------------------------------------------
+void IG1App::motion(int x, int y) { //motion raton, cunado haces click y mueves
+std:cout << "wweeeee\n";
+	/*
+		1. Guarda en una variable auxiliar mp la diferencia entre mCoord y
+		(x, y)
+		2. Guarda en mCoord la posición (x, y) del ratón
+		3. Si mBot es el botón izquierdo, la cámara orbita (mp.x*0.05,
+		mp.y)
+		4. Si mBot es el botón derecho, la cámara se desplaza moveUD()
+		y moveLR() según indique mp
+		5. glutPostRedisplay();
+	*/
+
+}
+//-------------------------------------------------------------------------
+void IG1App::mouseWheel(int wheelButtonNumber, int direction, int x, int y) { //la rueda del raton
+	/*
+		1. Averigua el número de teclas pulsadas con glutGetModifiers()
+		2. Si no hay ninguna, la cámara se mueve con moveFB(), según el
+		valor de d
+		3. Si está pulsada la tecla Ctrl (GLUT_ACTIVE_CTRL), la cámara
+		cambia la escala con setScale(), según el valor de d
+		4. glutPostRedisplay();
+	*/
+
 }
 //-------------------------------------------------------------------------
 
