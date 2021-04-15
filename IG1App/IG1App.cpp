@@ -46,7 +46,7 @@ void IG1App::init()
 	mScene1 = new Scene(0);
 
 	m2Vistas = false;
-	m2Scenes = false;
+	m2Scenes = true;
 
 	mCamera->set2D();
 	mCamera1->set2D();
@@ -347,12 +347,11 @@ void IG1App::key(unsigned char key, int x, int y)
 		break;
 	case 'k':
 		//cambair al modo dos camaras
-		//m2Vistas = !m2Vistas;
-
+		m2Vistas = !m2Vistas;
 
 		//Cambiar a 2 escenas
 		m2Scenes = !m2Scenes;
-		if (m2Vistas)m2Vistas = false;	//Si tenemos 2 vistas y pasamos a 2 escenas deshabilitamos las 2 vistas
+		//if (m2Vistas)m2Vistas = false;	//Si tenemos 2 vistas y pasamos a 2 escenas deshabilitamos las 2 vistas
 		break;
 	default:
 		if (m2Scenes) {
