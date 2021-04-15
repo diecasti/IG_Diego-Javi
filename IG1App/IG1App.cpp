@@ -41,12 +41,17 @@ void IG1App::init()
 	// allocate memory and resources
 	mViewPort = new Viewport(mWinW, mWinH); //glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera = new Camera(mViewPort);
+	mCamera1 = new Camera(mViewPort);
 	mScene = new Scene(0);
+	mScene1 = new Scene(0);
 
 	m2Vistas = false;
+	m2Scenes = false;
 
 	mCamera->set2D();
+	mCamera1->set2D();
 	mScene->init();
+	mScene1->init();
 }
 //-------------------------------------------------------------------------
 
@@ -87,7 +92,9 @@ void IG1App::iniWinOpenGL()
 void IG1App::free()
 {  // release memory and resources
 	delete mScene; mScene = nullptr;
+	delete mScene1; mScene1 = nullptr;
 	delete mCamera; mCamera = nullptr;
+	delete mCamera1; mCamera1 = nullptr;
 	delete mViewPort; mViewPort = nullptr;
 }
 //-------------------------------------------------------------------------
@@ -97,10 +104,13 @@ void IG1App::display() const
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // clears the back buffer
 
-	if (!m2Vistas)
-		mScene->render(*mCamera);  // uploads the viewport and camera to the GPU
-	else
+	if (m2Vistas)
 		display2Vistas();
+	else if (m2Scenes)
+		display2Scenes();
+	else
+		mScene->render(*mCamera);  // uploads the viewport and camera to the GPU
+
 
 	glutSwapBuffers();	// swaps the front and back buffer
 }
@@ -131,6 +141,30 @@ void IG1App::display2Vistas() const
 
 }
 //-------------------------------------------------------------------------
+void IG1App::display2Scenes() const
+{  // double buffering
+// para renderizar las vistas utilizamos una cámara auxiliar:
+	Camera auxCam = *mCamera; // copiando mCamera
+	Camera auxCam1 = *mCamera1; // copiando mCamera
+	// el puerto de vista queda compartido (se copia el puntero)
+	Viewport auxVP = *mViewPort; // lo copiamos en una var. aux. para
+	// el tamaño de los 2 puertos de vista es el mismo, lo configuramos
+	mViewPort->setSize(mWinW / 2, mWinH);
+	// igual que en resize, para que no cambie la escala,
+	// tenemos que cambiar el tamaño de la ventana de vista de la cámara
+	auxCam.setSize(mViewPort->width(), mViewPort->height());
+	auxCam1.setSize(mViewPort->width(), mViewPort->height());
+	//Primera camara
+	mViewPort->setPos(0, 0);
+	mScene->render(auxCam);
+	//Segunda camara
+	mViewPort->setPos(mWinW / 2, 0);
+	mScene1->render(auxCam1);
+
+
+	*mViewPort = auxVP; // restaurar el puerto de vista 
+}
+//-------------------------------------------------------------------------
 
 void IG1App::resize(int newWidth, int newHeight)
 {
@@ -138,6 +172,10 @@ void IG1App::resize(int newWidth, int newHeight)
 
 	// Resize Viewport to the new window size
 	mViewPort->setSize(newWidth, newHeight);
+
+
+
+
 
 	// Resize Scene Visible Area such that the scale is not modified
 	mCamera->setSize(mViewPort->width(), mViewPort->height());
@@ -152,54 +190,180 @@ void IG1App::key(unsigned char key, int x, int y)
 	case 27:  // Escape key 
 		glutLeaveMainLoop();  // stops main loop and destroy the OpenGL context
 	case '+':
-		mCamera->setScale(+0.01);  // zoom in  (increases the scale)
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->setScale(+0.01);  // zoom in  (increases the scale)
+			}
+			else
+				mCamera->setScale(+0.01);  // zoom in  (increases the scale)
+		}
+		else
+			mCamera->setScale(+0.01);  // zoom in  (increases the scale)
 		break;
 	case '-':
-		mCamera->setScale(-0.01);  // zoom out (decreases the scale)
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->setScale(-0.01);  // zoom out (decreases the scale)
+			}
+			else
+				mCamera->setScale(-0.01);  // zoom out (decreases the scale)
+		}
+		else
+			mCamera->setScale(-0.01);  // zoom out (decreases the scale)
 		break;
 	case 'l':
-		mCamera->set3D();
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->set3D();
+			}
+			else
+				mCamera->set3D();
+		}
+		else
+			mCamera->set3D();
 		break;
 	case 'o':
-		mCamera->set2D();
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->set2D();
+			}
+			else
+				mCamera->set2D();
+		}
+		else
+			mCamera->set2D();
 		break;
 	case 'u':
-		if (animar)
-			animar = false;
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				if (animar1)
+					animar1 = false;
+				else
+					animar1 = true;
+			}
+			else {
+				if (animar)
+					animar = false;
+				else
+					animar = true;
+			}
+		}
 		else
-			animar = true;
+		{
+			if (animar)
+				animar = false;
+			else
+				animar = true;
+		}
 		break;
 		//Controles camara
 	case 'd':
-		mCamera->moveLR(1.5);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->moveLR(1.5);
+			}
+			else
+				mCamera->moveLR(1.5);
+		}
+		else
+			mCamera->moveLR(1.5);
 		break;
 	case 'a':
-		mCamera->moveLR(-1.5);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->moveLR(-1.5);
+			}
+			else
+				mCamera->moveLR(-1.5);
+		}
+		else
+			mCamera->moveLR(-1.5);
 		break;
 	case 'e':
-		mCamera->moveFB(1.5);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->moveFB(1.5);
+			}
+			else
+				mCamera->moveFB(1.5);
+		}
+		else
+			mCamera->moveFB(1.5);
 		break;
 	case 'q':
-		mCamera->moveFB(-1.5);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->moveFB(-1.5);
+			}
+			else
+				mCamera->moveFB(-1.5);
+		}
+		else
+			mCamera->moveFB(-1.5);
 		break;
 	case 'w':
-		mCamera->moveUD(1);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->moveUD(1);
+			}
+			else
+				mCamera->moveUD(1);
+		}
+		else
+			mCamera->moveUD(1);
 		break;
 	case 's':
-		mCamera->moveUD(-1);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->moveUD(-1);
+			}
+			else
+				mCamera->moveUD(-1);
+		}
+		else
+			mCamera->moveUD(-1);
 		break;
 	case 'r':
-		mCamera->orbit(5, 0);	//Angulo y altura por iteracion
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->orbit(5, 0);	//Angulo y altura por iteracion
+			}
+			else
+				mCamera->orbit(5, 0);	//Angulo y altura por iteracion
+		}
+		else
+			mCamera->orbit(5, 0);	//Angulo y altura por iteracion
 		break;
 	case 'p':
-		mCamera->changePrj();	//Angulo y altura por iteracion
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->changePrj();	//Angulo y altura por iteracion
+			}
+			else
+				mCamera->changePrj();	//Angulo y altura por iteracion
+		}
+		else
+			mCamera->changePrj();	//Angulo y altura por iteracion
 		break;
 	case 'k':
 		//cambair al modo dos camaras
-		m2Vistas = !m2Vistas;
+		//m2Vistas = !m2Vistas;
+
+
+		//Cambiar a 2 escenas
+		m2Scenes = !m2Scenes;
+		if (m2Vistas)m2Vistas = false;	//Si tenemos 2 vistas y pasamos a 2 escenas deshabilitamos las 2 vistas
 		break;
 	default:
-		mScene->changeScene(key - '0');
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mScene1->changeScene(key - '0');
+			}
+			else
+				mScene->changeScene(key - '0');
+		}
+		else
+			mScene->changeScene(key - '0');
 		break;
 	}
 
@@ -250,9 +414,9 @@ void IG1App::specialKey(int key, int x, int y)
 //-------------------------------------------------------------------------
 void IG1App::mouse(int button, int state, int x, int y) { //cosas del raton
 	 //mientras esta pulsado //POR ALGUNA RAZON ENTRA DOS VECES
-		mBot = button;
-		mCoord.x = x;
-		mCoord.y = glutGet(GLUT_WINDOW_HEIGHT) - y;
+	mBot = button;
+	mCoord.x = x;
+	mCoord.y = glutGet(GLUT_WINDOW_HEIGHT) - y;
 }
 //-------------------------------------------------------------------------
 void IG1App::motion(int x, int y) { //motion raton, cunado haces click y mueves
@@ -274,12 +438,34 @@ void IG1App::motion(int x, int y) { //motion raton, cunado haces click y mueves
 	//GLUT_LEFT_BUTTON/GLUT_RIGHT_BUTTON
 	if (mBot == GLUT_LEFT_BUTTON) {
 		//cosas del 3
-		mCamera->orbit(mp.x * 0.05, mp.y);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->orbit(mp.x * 0.05, mp.y);
+			}
+			else {
+				mCamera->orbit(mp.x * 0.05, mp.y);
+			}
+		}
+		else {
+			mCamera->orbit(mp.x * 0.05, mp.y);
+		}
 	}
 	if (mBot == GLUT_RIGHT_BUTTON) {
 		//cosas del 4
-		mCamera->moveUD(mp.y); //por alguna razon la diferencia me sale en nagativa asiq ue asi que va
-		mCamera->moveLR(mp.x);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->moveUD(mp.y); //por alguna razon la diferencia me sale en nagativa asiq ue asi que va
+				mCamera1->moveLR(mp.x);
+			}
+			else {
+				mCamera->moveUD(mp.y); //por alguna razon la diferencia me sale en nagativa asiq ue asi que va
+				mCamera->moveLR(mp.x);
+			}
+		}
+		else {
+			mCamera->moveUD(mp.y); //por alguna razon la diferencia me sale en nagativa asiq ue asi que va
+			mCamera->moveLR(mp.x);
+		}
 	}
 	//cosas del 5 ya esta hecho
 	glutPostRedisplay();
@@ -299,23 +485,63 @@ void IG1App::mouseWheel(int wheelButtonNumber, int direction, int x, int y) { //
 	int m = glutGetModifiers();
 
 	if (m == 0) {
-		mCamera->moveFB(direction);
-		
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->moveFB(direction);
+			}
+			else {
+				mCamera->moveFB(direction);
+			}
+		}
+		else {
+			mCamera->moveFB(direction);
+		}
 	}
 	else if (m == GLUT_ACTIVE_CTRL) {
-		mCamera->setScale(direction);
+		if (m2Scenes) {
+			if (mCoord.x >= mWinW / 2) {
+				mCamera1->setScale(direction);
+			}
+			else {
+				mCamera->setScale(direction);
+			}
+		}
+		else {
+			mCamera->setScale(direction);
+		}
 	}
 	glutPostRedisplay();
 }
 //-------------------------------------------------------------------------
 
 void IG1App::update() {
-
-	if (animar) {
-		if (glutGet(GLUT_ELAPSED_TIME) - mLastUpdateTime > 1000 / 60) {
-			mScene->update();
-			mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
-			glutPostRedisplay();
+	if (m2Scenes) {
+		if (mCoord.x >= mWinW / 2) {
+			if (animar1) {
+				if (glutGet(GLUT_ELAPSED_TIME) - mLastUpdateTime > 1000 / 60) {
+					mScene1->update();
+					mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
+					glutPostRedisplay();
+				}
+			}
+		}
+		else {
+			if (animar) {
+				if (glutGet(GLUT_ELAPSED_TIME) - mLastUpdateTime > 1000 / 60) {
+					mScene->update();
+					mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
+					glutPostRedisplay();
+				}
+			}
+		}
+	}
+	else {
+		if (animar) {
+			if (glutGet(GLUT_ELAPSED_TIME) - mLastUpdateTime > 1000 / 60) {
+				mScene->update();
+				mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
+				glutPostRedisplay();
+			}
 		}
 	}
 }

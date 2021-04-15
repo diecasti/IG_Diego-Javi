@@ -51,6 +51,7 @@ protected:
 
 	void display() const;   // the scene
 	void display2Vistas() const; //la escena con dos vistas
+	void display2Scenes() const; //la escena con dos escenas
 
 	void resize(int newWidth, int newHeight);   // the viewport (without changing the scale) 
 	void key(unsigned char key, int x, int y);  // keypress event
@@ -72,8 +73,10 @@ protected:
 	Viewport* mViewPort = nullptr;
 	// Camera position, view volume and projection
 	Camera* mCamera = nullptr;
+	Camera* mCamera1 = nullptr;
 	// Graphics objects of the scene
 	Scene* mScene = nullptr;
+	Scene* mScene1 = nullptr;
 
 	bool mStop = false; // main event processing loop
 	int mWinId = 0;	    // window's identifier
@@ -82,7 +85,9 @@ protected:
 
 	static void s_update() { s_ig1app.update(); };	//Invoca al metodo update
 	bool animar;
-	bool m2Vistas;
+	bool animar1;	//Booleano controla update de la otra escena
+	bool m2Vistas;	//tener 2 vistas
+	bool m2Scenes;	//Tener 2 escenas
 	GLuint mLastUpdateTime;
 
 	//raton
