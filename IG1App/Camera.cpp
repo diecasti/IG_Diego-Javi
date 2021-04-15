@@ -15,7 +15,7 @@ yTop(vp->height() / 2.0), yBot(-yTop)
 {
 	setPM();
 	mAng = 270;		//#INICIALIZACION DE NUEVAS VARIABLES 270 es el angulo de giro que mira al plano de frente
-	mRadio = 1000;	//#1000 porque si lo pone
+	mRadio = 2000;	//#1000 porque si lo pone
 }
 //-------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ void Camera::setVM()
 
 void Camera::set2D()
 {
-	mEye = dvec3(0, 0, 500);
+	mEye = dvec3(0, 0, mRadio);
 	mLook = dvec3(0, 0, 0);
 	mUp = dvec3(0, 1, 0);
 	setVM();
@@ -44,7 +44,7 @@ void Camera::set2D()
 
 void Camera::setCenital()
 {
-	mEye = dvec3(0, 1000, 0);
+	mEye = dvec3(0, mRadio, 0);
 	mLook = dvec3(0, 0, 0);
 	mUp = dvec3(1, 0, 0);
 	setVM();
