@@ -227,6 +227,7 @@ CajaConFondo::CajaConFondo(GLdouble ld) {
 //-------------------------------------------------------------------------
 CajaConFondo::~CajaConFondo() {
 	delete mMesh; mMesh = nullptr;
+	delete fondo; fondo = nullptr;
 }
 //-------------------------------------------------------------------------
 void CajaConFondo::render(glm::dmat4 const& modelViewMat)const
@@ -370,6 +371,7 @@ CajaConFondoTx::CajaConFondoTx(GLdouble nl, GLdouble dist) {
 //-------------------------------------------------------------------------
 CajaConFondoTx::~CajaConFondoTx() {
 	delete mMesh; mMesh = nullptr;
+	delete fondo; fondo = nullptr;
 }
 //-------------------------------------------------------------------------
 void CajaConFondoTx::render(glm::dmat4 const& modelViewMat)const
@@ -430,6 +432,7 @@ Foto::Foto(GLdouble w, GLdouble h) {
 //-------------------------------------------------------------------------
 Foto::~Foto() {
 	delete mMesh; mMesh = nullptr;
+	delete mTexture; mTexture = nullptr;
 }
 //-------------------------------------------------------------------------
 void Foto::render(glm::dmat4 const& modelViewMat)const
