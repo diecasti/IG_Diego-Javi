@@ -119,7 +119,7 @@ void Scene::scene1() {
 	ContCuboTexCo* j = new ContCuboTexCo(500);
 	j->setTexture(i, i);
 	f->setModelMat(glm::translate(dmat4(1), dvec3(0, 250, 0)));
-	gObjects.push_back(j);
+	gObjectsTranslucid.push_back(j);
 }
 //-------------------------------------------------------------------------
 
@@ -192,11 +192,18 @@ void Scene::render(Camera const& cam) const
 	{
 		el->render(cam.viewMat());
 	}
+	for (Abs_Entity* el : gObjectsTranslucid)
+	{
+		el->render(cam.viewMat());
+	}
 }
 //-------------------------------------------------------------------------
 //Llamamos uno por uno a los updates de los elementos que componen la escena
 void Scene::update() {
 	for (Abs_Entity* el : gObjects)
+	{
+		el->update();
+	}for (Abs_Entity* el : gObjectsTranslucid)
 	{
 		el->update();
 	}

@@ -34,6 +34,7 @@ protected:
 	void resetGL();
 
 	std::vector<Abs_Entity*> gObjects;  // Entities (graphic objects) of the scene
+	std::vector<Abs_Entity*> gObjectsTranslucid;  // Entities (translucid objects) of the scene
 	std::vector<Texture*> gTextures; //textures (imagenes a pinyon) of the scene
 	int mId;
 	void scene0();
