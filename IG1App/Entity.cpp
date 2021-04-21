@@ -330,6 +330,8 @@ ContCuboTexCo::~ContCuboTexCo() {
 void ContCuboTexCo::render(glm::dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
+
+		glDepthMask(GL_FALSE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
@@ -356,6 +358,7 @@ void ContCuboTexCo::render(glm::dmat4 const& modelViewMat)const
 		glDisable(GL_CULL_FACE);
 		//interior->unbind();
 
+		glDepthMask(GL_TRUE);
 	}
 }
 //-------------------------------------------------------------------------
