@@ -79,17 +79,29 @@ private:
 
 class Disk : public QuadricEntity {
 public:
-	Disk();
+	Disk(GLdouble innerRadius,
+		GLdouble outerRadius,
+		GLint  slices,
+		GLint loops);
 	~Disk();
 	void render(glm::dmat4 const& modelViewMat) const;
-
+private:
+	GLdouble innerRadius ,outerRadius;
+	GLint slices, loops;
 };
 
 class PartialDisk : public QuadricEntity {
 public:
-	PartialDisk();
+	PartialDisk(GLdouble            innerRadius,
+		GLdouble            outerRadius,
+		GLint               slices,
+		GLint               loops,
+		GLdouble            startAngle,
+		GLdouble            sweepAngle);
 	~PartialDisk();
 	void render(glm::dmat4 const& modelViewMat) const;
-
+private:
+	GLdouble innerRadius, outerRadius, startAngle, sweepAngle;
+	GLint slices, loops;
 };
 #endif //_H_Entities_H_
