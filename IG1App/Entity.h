@@ -57,28 +57,28 @@ protected:
 class Sphere : public QuadricEntity {
 public:
 	Sphere():QuadricEntity() { };
-	~Sphere();
-	void render(glm::dmat4 const& modelViewMat) const { gluSphere(q, 100, 10, 10); };
+	~Sphere() {};
+	void render(glm::dmat4 const& modelViewMat) const { gluSphere(q, 100, 50, 50); };
 };
 
 class Cylinder : public QuadricEntity {
 public:
-	Cylinder();
-	~Cylinder();
+	Cylinder() {};
+	~Cylinder() {};
 
 };
 
 class Disk : public QuadricEntity {
 public:
-	Disk();
-	~Disk();
+	Disk() {};
+	~Disk() {};
 
 };
 
 class PartialDisk : public QuadricEntity {
 public:
-	PartialDisk();
-	~PartialDisk();
+	PartialDisk() {};
+	~PartialDisk() {};
 
 };
 #endif //_H_Entities_H_

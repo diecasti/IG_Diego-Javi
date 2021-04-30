@@ -16,6 +16,8 @@ void Scene::init()
 
     // Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
+
+	scenePart1();
 	
 }
 //-------------------------------------------------------------------------
@@ -71,6 +73,6 @@ void Scene::sceneDirLight(Camera const& cam) const {
 }
 
 void Scene::scenePart1(){
-
+	gObjects.push_back(new Sphere());
 }
 
