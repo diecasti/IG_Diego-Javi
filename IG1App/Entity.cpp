@@ -38,4 +38,5 @@ void EjesRGB::render(dmat4 const& modelViewMat) const
 	}
 }
 //-------------------------------------------------------------------------
+//!Clases práctica 2
  

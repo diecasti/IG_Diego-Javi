@@ -31,6 +31,9 @@ protected:
 	void resetGL();
 
 	std::vector<Abs_Entity*> gObjects;  // Entities (graphic objects) of the scene
+	//!Métodos practica 2
+	void sceneDirLight(Camera const& cam) const;
+	void scenePart1();
 };
 //-------------------------------------------------------------------------
 

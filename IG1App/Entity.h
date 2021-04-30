@@ -43,5 +43,42 @@ public:
 };
 
 //-------------------------------------------------------------------------
+//!CLASES PRACTICA 2
+class QuadricEntity : public Abs_Entity
+{
+public:
+	QuadricEntity() { q = gluNewQuadric();};
+	~QuadricEntity() { gluDeleteQuadric(q); };
 
+private:
+	GLUquadricObj* q;
+};
+
+class Sphere : public QuadricEntity {
+public:
+	Sphere():QuadricEntity() { };
+	~Sphere();
+	//render(dmat4 const& modelViewMat) const { gluSphere(q, 100, 10, 10); };
+};
+
+class Cylinder : public QuadricEntity {
+public:
+	Cylinder();
+	~Cylinder();
+
+};
+
+class Disk : public QuadricEntity {
+public:
+	Disk();
+	~Disk();
+
+};
+
+class PartialDisk : public QuadricEntity {
+public:
+	PartialDisk();
+	~PartialDisk();
+
+};
 #endif //_H_Entities_H_
