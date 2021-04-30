@@ -58,7 +58,7 @@ class Sphere : public QuadricEntity {
 public:
 	Sphere():QuadricEntity() { };
 	~Sphere() {};
-	void render(glm::dmat4 const& modelViewMat) const { gluSphere(q, 100, 50, 50); };
+	void render(glm::dmat4 const& modelViewMat) const;
 };
 
 class Cylinder : public QuadricEntity {
