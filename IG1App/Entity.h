@@ -50,7 +50,7 @@ public:
 	QuadricEntity() { q = gluNewQuadric();};
 	~QuadricEntity() { gluDeleteQuadric(q); };
 
-private:
+protected:
 	GLUquadricObj* q;
 };
 
@@ -58,7 +58,7 @@ class Sphere : public QuadricEntity {
 public:
 	Sphere():QuadricEntity() { };
 	~Sphere();
-	//render(dmat4 const& modelViewMat) const { gluSphere(q, 100, 10, 10); };
+	void render(glm::dmat4 const& modelViewMat) const { gluSphere(q, 100, 10, 10); };
 };
 
 class Cylinder : public QuadricEntity {
