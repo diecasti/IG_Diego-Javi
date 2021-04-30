@@ -68,10 +68,13 @@ private:
 
 class Cylinder : public QuadricEntity {
 public:
-	Cylinder();
+	Cylinder(GLdouble baseRadius, GLdouble topRadius, GLdouble height, GLint slices, GLint stacks);
 	~Cylinder();
 	void render(glm::dmat4 const& modelViewMat) const;
-
+private:
+	GLdouble baseRadius;
+	GLdouble topRadius, height;
+	GLint slices, stacks;
 };
 
 class Disk : public QuadricEntity {
