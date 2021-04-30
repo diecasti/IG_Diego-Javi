@@ -38,7 +38,12 @@ void EjesRGB::render(dmat4 const& modelViewMat) const
 	}
 }
 //-------------------------------------------------------------------------
+Sphere::Sphere(): QuadricEntity() {
 
+}
+Sphere::~Sphere() {
+
+}
 
 void Sphere::render(glm::dmat4 const& modelViewMat) const
 {
@@ -47,8 +52,61 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 		glEnable(GL_COLOR_MATERIAL);     
 		gluQuadricDrawStyle(q, GL_FILL);    
 		glColor4f(0.0, 0.25, 0.41, 0.0);
-		gluSphere(q, 100, 50, 50);
+		gluSphere(q, 100, 50, 5);
 		glDisable(GL_COLOR_MATERIAL);
+}//-------------------------------------------------------------------------
+Cylinder::Cylinder() : QuadricEntity() {
+
+}
+Cylinder::~Cylinder() {
+
+}
+
+void Cylinder::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	glEnable(GL_COLOR_MATERIAL);
+	gluQuadricDrawStyle(q, GL_FILL);
+	glColor4f(0.0, 0.25, 0.41, 0.0);
+	gluCylinder(q, 100, 100, 50, 3, 3);
+	glDisable(GL_COLOR_MATERIAL);
+}
+//-------------------------------------------------------------------------
+Disk::Disk() : QuadricEntity() {
+
+}
+Disk::~Disk() {
+
+}
+
+void Disk::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	glEnable(GL_COLOR_MATERIAL);
+	gluQuadricDrawStyle(q, GL_FILL);
+	glColor4f(0.0, 0.25, 0.41, 0.0);
+	gluDisk(q, 50, 100, 50, 50);
+	glDisable(GL_COLOR_MATERIAL);
+}
+//-------------------------------------------------------------------------
+PartialDisk::PartialDisk() : QuadricEntity() {
+
+}
+PartialDisk::~PartialDisk() {
+
+}
+
+void PartialDisk::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	glEnable(GL_COLOR_MATERIAL);
+	gluQuadricDrawStyle(q, GL_FILL);
+	glColor4f(0.0, 0.25, 0.41, 0.0);
+	gluPartialDisk(q, 50, 100, 50, 1, 0, 90);
+	glDisable(GL_COLOR_MATERIAL);
 }
 //!Clases práctica 2
  
