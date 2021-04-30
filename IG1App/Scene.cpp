@@ -47,6 +47,7 @@ void Scene::resetGL()
 
 void Scene::render(Camera const& cam) const 
 {
+	glEnable(GL_COLOR_MATERIAL);
 	sceneDirLight(cam);
 	cam.upload();
 
@@ -54,6 +55,8 @@ void Scene::render(Camera const& cam) const
 	{
 	  el->render(cam.viewMat());
 	}
+
+	glDisable(GL_COLOR_MATERIAL);
 }
 //-------------------------------------------------------------------------
 //!Métodos practica 2
@@ -74,5 +77,6 @@ void Scene::sceneDirLight(Camera const& cam) const {
 
 void Scene::scenePart1(){
 	gObjects.push_back(new Sphere());
+
 }
 
