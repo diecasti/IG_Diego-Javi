@@ -76,7 +76,7 @@ void Scene::sceneDirLight(Camera const& cam) const {
 }
 
 void Scene::scenePart1(){
-	gObjects.push_back(new Sphere());
+	gObjects.push_back(new Sphere(100,50,50));
 
 }
 

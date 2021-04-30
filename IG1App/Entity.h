@@ -56,9 +56,14 @@ protected:
 
 class Sphere : public QuadricEntity {
 public:
-	Sphere();
+	Sphere(GLuint radio, GLuint slices, GLuint stacks);
 	~Sphere();
 	void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLuint radio;
+	GLuint slices;
+	GLuint stacks;
+
 };
 
 class Cylinder : public QuadricEntity {

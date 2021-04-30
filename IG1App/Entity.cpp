@@ -38,8 +38,10 @@ void EjesRGB::render(dmat4 const& modelViewMat) const
 	}
 }
 //-------------------------------------------------------------------------
-Sphere::Sphere(): QuadricEntity() {
-
+Sphere::Sphere(GLuint r, GLuint s, GLuint st): QuadricEntity() {
+	radio = r;
+	slices = s; 
+	stacks = st;
 }
 Sphere::~Sphere() {
 
@@ -52,7 +54,7 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 		glEnable(GL_COLOR_MATERIAL);     
 		gluQuadricDrawStyle(q, GL_FILL);    
 		glColor4f(0.0, 0.25, 0.41, 0.0);
-		gluSphere(q, 100, 50, 5);
+		gluSphere(q, radio, slices, stacks);
 		glDisable(GL_COLOR_MATERIAL);
 }//-------------------------------------------------------------------------
 Cylinder::Cylinder() : QuadricEntity() {
