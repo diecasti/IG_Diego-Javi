@@ -18,13 +18,13 @@
 
 class IG1App
 {
-public:
+public:  
 	// static single instance (singleton pattern)
 	static IG1App s_ig1app;
 
-	IG1App(IG1App const& J) = delete; // no copy constructor
-	void operator =(IG1App const& J) = delete; // no copy assignment
-
+	IG1App(IG1App const & J) = delete; // no copy constructor
+	void operator =(IG1App const & J) = delete; // no copy assignment
+	
 	// Viewport position and size
 	Viewport const& viewPort() { return *mViewPort; };
 	// Camera position, view volume and projection
@@ -34,66 +34,38 @@ public:
 
 	void run();    // the main event processing loop
 	void close();  // the application
-
-	void update();	//Para la animacion
-
-	int winWidth() { return mWinW; };
-	int winHeight() { return mWinH; };
 	
 protected:
 
-	IG1App() { animar = false; mLastUpdateTime = 0; };
+	IG1App() {};
 	~IG1App() { close(); };
 
 	void init();
 	void iniWinOpenGL();
-	void free();
-
+	void free();   
+ 
 	void display() const;   // the scene
-	void display2Vistas() const; //la escena con dos vistas
-	void display2Scenes() const; //la escena con dos escenas
-
 	void resize(int newWidth, int newHeight);   // the viewport (without changing the scale) 
 	void key(unsigned char key, int x, int y);  // keypress event
 	void specialKey(int key, int x, int y);     // keypress event for special characters
-	void mouse(int button, int state, int x, int y); //cosas del raton
-	void motion(int x, int y); //motion raton
-	void mouseWheel(int wheelButtonNumber, int direction, int x, int y); //la rueda del raton
 
 	// static callbacks 
 	static void s_display() { s_ig1app.display(); };
 	static void s_resize(int newWidth, int newHeight) { s_ig1app.resize(newWidth, newHeight); };
 	static void s_key(unsigned char key, int x, int y) { s_ig1app.key(key, x, y); };
 	static void s_specialKey(int key, int x, int y) { s_ig1app.specialKey(key, x, y); };
-	static void s_mouse(int button, int state, int x, int y) { s_ig1app.mouse(button, state, x, y); };
-	static void s_motion(int x, int y) { s_ig1app.motion(x, y); };
-	static void s_mouseWheel(int n, int d, int x, int y) { s_ig1app.mouseWheel(n, d, x, y); };
 
 	// Viewport position and size
-	Viewport* mViewPort = nullptr;
+	Viewport *mViewPort = nullptr;
 	// Camera position, view volume and projection
-	Camera* mCamera = nullptr;
-	Camera* mCamera1 = nullptr;
+	Camera *mCamera = nullptr;
 	// Graphics objects of the scene
-	Scene* mScene = nullptr;
-	Scene* mScene1 = nullptr;
-
+	Scene *mScene = nullptr;
+	
 	bool mStop = false; // main event processing loop
 	int mWinId = 0;	    // window's identifier
 	int mWinW = 800;    // window's width 
 	int mWinH = 600;    // window's height
-
-	static void s_update() { s_ig1app.update(); };	//Invoca al metodo update
-	bool animar;
-	bool animar1;	//Booleano controla update de la otra escena
-	bool m2Vistas;	//tener 2 vistas
-	bool m2Scenes;	//Tener 2 escenas
-	GLuint mLastUpdateTime;
-
-	//raton
-	glm::dvec2 mCoord;
-	int mBot = 0;
-
 };
 //-------------------------------------------------------------------------
 
