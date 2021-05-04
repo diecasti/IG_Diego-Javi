@@ -14,7 +14,7 @@ void Scene::init()
 		scene1();
 	else if (mId == 0)
 		scene0();
-	else if(mId == 2)
+	else if (mId == 2)
 		scene2();
 
 	//gObjects.push_back(new EjesRGB(400.0));
@@ -131,7 +131,7 @@ void Scene::changeScene(int id) {
 		else if (mId == 1) {
 			scene1();
 		}
-	
+
 		else if (mId == 2) {
 			scene2();
 		}
@@ -165,7 +165,8 @@ void Scene::setGL(int id)
 		glClearColor(0.0, 0.0, 0.0, 1.0);  // background color (alpha=1 -> opaque)
 	else if (id == 1)
 		glClearColor(1.0, 1.0, 1.0, 1.0);  // background color (alpha=1 -> opaque)
-
+	else if (id == 2)
+		glClearColor(0.7, 0.8, 0.9, 1.0);
 	glEnable(GL_DEPTH_TEST);  // enable Depth test 
 	//Textures
 	glEnable(GL_TEXTURE_2D);
@@ -230,6 +231,7 @@ void Scene::scene2() {
 	noche->load("..\\Bmps\\noche.bmp");
 	gTextures.push_back(noche);
 
+	gObjects.push_back(new EjesRGB(400.0));
 	//NAVE
 	gObjects.push_back(new Sphere(100, 50, 50));
 
