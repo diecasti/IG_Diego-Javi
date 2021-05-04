@@ -40,6 +40,8 @@ protected:
 	void scene0();
 	void scene1();
 	void scene2();
+	//PRACTICA 2
+	void sceneDirLight(Camera const& cam) const;
 };
 //-------------------------------------------------------------------------
 

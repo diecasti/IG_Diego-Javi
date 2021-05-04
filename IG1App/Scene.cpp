@@ -9,20 +9,13 @@ using namespace glm;
 void Scene::init()
 {
 	setGL(mId);
-	// allocate memory and load resources
-	// Lights
-	// Textures
-	//Texture::load();
 
-	/*
-	texture algo = new texture();
-	algo.load(direccion);
-	  */
-	  //Scene selection
 	if (mId == 1)
 		scene1();
 	else if (mId == 0)
 		scene0();
+	else if(mId == 2)
+		scene2();
 
 }
 //-------------------------------------------------------------------------
@@ -122,10 +115,6 @@ void Scene::scene1() {
 	gObjectsTranslucid.push_back(j);
 }
 //-------------------------------------------------------------------------
-
-void Scene::scene2() {
-	//# Para ver comentarios de estos enunciados en toda la solucion
-}
 //-------------------------------------------------------------------------
 
 void Scene::changeScene(int id) {
@@ -186,6 +175,8 @@ void Scene::resetGL()
 
 void Scene::render(Camera const& cam) const
 {
+	glEnable(GL_COLOR_MATERIAL);
+	sceneDirLight(cam);
 	cam.upload();
 
 	for (Abs_Entity* el : gObjects)
@@ -196,6 +187,7 @@ void Scene::render(Camera const& cam) const
 	{
 		el->render(cam.viewMat());
 	}
+	glDisable(GL_COLOR_MATERIAL);
 }
 //-------------------------------------------------------------------------
 //Llamamos uno por uno a los updates de los elementos que componen la escena
@@ -209,3 +201,50 @@ void Scene::update() {
 	}
 }
 //-------------------------------------------------------------------------
+//!Métodos practica 2
+void Scene::sceneDirLight(Camera const& cam) const {
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glm::fvec4 posDir = { 1, 1, 1, 0 };
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixd(value_ptr(cam.viewMat()));
+	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
+	glm::fvec4 ambient = { 0, 0, 0, 1 };
+	glm::fvec4 diffuse = { 1, 1, 1, 1 };
+	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
+	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
+
+void Scene::scene2() {
+	Texture* noche = new Texture();
+	noche->load("..\\Bmps\\noche.bmp");
+	gTextures.push_back(noche);
+
+
+	//# Para ver comentarios de estos enunciados en toda la solucion
+	gObjects.push_back(new Sphere(100, 50, 50));
+
+	gObjects.push_back(new Cylinder(80, 80, 50, 50, 50));
+
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(60, 0, 0)));
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
+
+	gObjects.push_back(new Disk(0, 80, 50, 50));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(110, 0, 0)));
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
+
+	gObjects.push_back(new Cylinder(20, 20, 400, 50, 50));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -200)));
+
+	//ALAS
+	gObjects.push_back(new DiskText(0, 300, 6, 6));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -200)));
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
+	gObjects.back()->setTexture(noche);
+
+	gObjects.push_back(new Disk(0, 300, 6, 6));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, 200)));
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
+}
