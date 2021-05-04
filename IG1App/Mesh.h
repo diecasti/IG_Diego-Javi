@@ -64,3 +64,30 @@ protected:
 };
 
 #endif //_H_Scene_H_
+#ifndef _H_INDEXMESH_H_
+#define _H_INDEXMESH_H_
+
+#include <GL/freeglut.h>
+#include <glm.hpp>
+#include <vector>
+
+//-------------------------------------------------------------------------
+
+class IndexMesh : public Mesh {
+protected:
+	//std::vector<GLuint*> vIndices;  // vertex array
+	GLuint* vIndices = nullptr; // tabla de índices
+	GLuint nNumIndices = 0;
+	//…
+public:
+	IndexMesh() { mPrimitive = GL_TRIANGLES; }
+	~IndexMesh() { delete[] vIndices; }
+	virtual void render() const;
+	virtual void draw() const;
+	//…
+private:
+	//puntero a GLUINT
+	//std::vector<glm::dvec3> indices; // tabla de normales
+};
+
+#endif

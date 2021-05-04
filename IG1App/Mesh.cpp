@@ -299,9 +299,14 @@ Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
 }
 
 //-------------------------------------------------------------------------
+<<<<<<< HEAD
 //Clase Practica 2
 void IndexMesh::render() const {
 	Mesh::render();
+=======
+void IndexMesh::render() const {
+	//… // Comandos OpenGL para enviar datos de arrays a GPU
+>>>>>>> 58d69b5 (antonio te corot los webos)
 	// Nuevos comandos para la tabla de índices
 	if (vIndices != nullptr) {
 		glEnableClientState(GL_INDEX_ARRAY);
@@ -310,12 +315,16 @@ void IndexMesh::render() const {
 	//… // Comandos OpenGL para deshabilitar datos enviados
 	// Nuevo comando para la tabla de índices:
 	glDisableClientState(GL_INDEX_ARRAY);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 58d69b5 (antonio te corot los webos)
 }
 //-------------------------------------------------------------------------
 
 // Comando para renderizar la malla indexada enviada
 void IndexMesh::draw() const {
+<<<<<<< HEAD
 	glDrawElements(mPrimitive, nNumIndices, GL_UNSIGNED_INT, vIndices);
 }
 
@@ -348,4 +357,8 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 
 	return anilloMesh;
+=======
+	glDrawElements(mPrimitive, nNumIndices,
+		GL_UNSIGNED_INT, vIndices);
+>>>>>>> 58d69b5 (antonio te corot los webos)
 }
