@@ -228,7 +228,7 @@ void Scene::sceneDirLight(Camera const& cam) const {
 void Scene::scene2() {
 	//TEXTURAS
 	Texture* noche = new Texture();
-	noche->load("..\\Bmps\\noche.bmp");
+	noche->load("..\\Bmps\\noche.bmp", 200);
 	gTextures.push_back(noche);
 
 	//NAVE
@@ -250,14 +250,14 @@ void Scene::scene2() {
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -200)));
 
 	//ALAS
-	gObjects.push_back(new DiskText(0, 300, 6, 6));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -200)));
-	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
-	gObjects.back()->setTexture(noche);
+	gObjectsTranslucid.push_back(new DiskText(0, 300, 6, 6));
+	gObjectsTranslucid.back()->setModelMat(glm::translate(gObjectsTranslucid.back()->modelMat(), dvec3(0, 0, -200)));
+	gObjectsTranslucid.back()->setModelMat(glm::rotate(gObjectsTranslucid.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
+	gObjectsTranslucid.back()->setTexture(noche);
 
-	gObjects.push_back(new DiskText(0, 300, 6, 6));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, 200)));
-	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
-	gObjects.back()->setTexture(noche);
+	gObjectsTranslucid.push_back(new DiskText(0, 300, 6, 6));
+	gObjectsTranslucid.back()->setModelMat(glm::translate(gObjectsTranslucid.back()->modelMat(), dvec3(0, 0, 200)));
+	gObjectsTranslucid.back()->setModelMat(glm::rotate(gObjectsTranslucid.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
+	gObjectsTranslucid.back()->setTexture(noche);
 
 }
