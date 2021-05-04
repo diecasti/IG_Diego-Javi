@@ -511,7 +511,6 @@ Sphere::Sphere(GLuint r, GLuint s, GLuint st) : QuadricEntity() {
 	stacks = st;
 }
 Sphere::~Sphere() {
-
 }
 
 void Sphere::render(glm::dmat4 const& modelViewMat) const
@@ -584,9 +583,13 @@ void DiskText::render(glm::dmat4 const& modelViewMat) const
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
 	glEnable(GL_COLOR_MATERIAL);
-	gluQuadricDrawStyle(q, GL_FILL);
-	//glColor4f(0.0, 0.25, 0.41, 0.0);
+
+	mTexture->bind(GL_MODULATE);
+	gluQuadricTexture(q, GL_TRUE);
+
 	gluDisk(q, innerRadius, outerRadius, slices, loops);
+
+	mTexture->unbind();
 	glDisable(GL_COLOR_MATERIAL);
 }
 //-------------------------------------------------------------------------
