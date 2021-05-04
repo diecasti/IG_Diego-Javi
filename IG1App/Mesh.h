@@ -20,7 +20,7 @@ public:
 
 	Mesh(const Mesh & m) = delete;  // no copy constructor
 	Mesh & operator=(const Mesh & m) = delete;  // no copy assignment
-			
+	
 	virtual void render() const;
 	
 	GLuint size() const { return mNumVertices; };   // number of elements
@@ -39,6 +39,7 @@ public:
 
 	static Mesh* generaContCuboTexCor(GLdouble nl);
 protected:
+	std::vector<glm::dvec3> vNormals; // tabla de normales
 	
 	GLuint mPrimitive = GL_TRIANGLES;   // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...
 	GLuint mNumVertices = 0;  // number of elements ( = vVertices.size())
