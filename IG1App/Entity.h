@@ -181,7 +181,7 @@ class QuadricEntity : public Abs_Entity
 {
 public:
 	QuadricEntity() { q = gluNewQuadric(); };
-	~QuadricEntity() { gluDeleteQuadric(q); };
+	virtual ~QuadricEntity() { gluDeleteQuadric(q); };
 
 protected:
 	GLUquadricObj* q;
@@ -190,7 +190,7 @@ protected:
 class Sphere : public QuadricEntity {
 public:
 	Sphere(GLuint radio, GLuint slices, GLuint stacks);
-	~Sphere();
+	virtual ~Sphere();
 	void render(glm::dmat4 const& modelViewMat) const;
 private:
 	GLuint radio;
@@ -202,7 +202,7 @@ private:
 class Cylinder : public QuadricEntity {
 public:
 	Cylinder(GLdouble baseRadius, GLdouble topRadius, GLdouble height, GLint slices, GLint stacks);
-	~Cylinder();
+	virtual ~Cylinder();
 	void render(glm::dmat4 const& modelViewMat) const;
 private:
 	GLdouble baseRadius;
@@ -216,7 +216,7 @@ public:
 		GLdouble outerRadius,
 		GLint  slices,
 		GLint loops);
-	~Disk();
+	virtual ~Disk();
 	void render(glm::dmat4 const& modelViewMat) const;
 private:
 	GLdouble innerRadius, outerRadius;
@@ -229,7 +229,7 @@ public:
 		GLdouble outerRadius,
 		GLint  slices,
 		GLint loops);
-	~DiskText();
+	virtual ~DiskText();
 	void render(glm::dmat4 const& modelViewMat) const;
 private:
 	GLdouble innerRadius, outerRadius;
@@ -244,7 +244,7 @@ public:
 		GLint               loops,
 		GLdouble            startAngle,
 		GLdouble            sweepAngle);
-	~PartialDisk();
+	virtual ~PartialDisk();
 	void render(glm::dmat4 const& modelViewMat) const;
 private:
 	GLdouble innerRadius, outerRadius, startAngle, sweepAngle;

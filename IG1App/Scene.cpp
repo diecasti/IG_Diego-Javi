@@ -17,6 +17,7 @@ void Scene::init()
 	else if(mId == 2)
 		scene2();
 
+	//gObjects.push_back(new EjesRGB(400.0));
 }
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
@@ -124,12 +125,13 @@ void Scene::changeScene(int id) {
 		resetGL();
 
 		setGL(mId);
-		if (mId == 1) {
-			scene1();
-		}
-		else if (mId == 0) {
+		if (mId == 0) {
 			scene0();
 		}
+		else if (mId == 1) {
+			scene1();
+		}
+	
 		else if (mId == 2) {
 			scene2();
 		}
@@ -149,6 +151,11 @@ void Scene::free()
 		delete el;  el = nullptr;
 	}
 	gTextures.clear();
+	for (Abs_Entity* el : gObjectsTranslucid)
+	{
+		delete el;  el = nullptr;
+	}
+	gObjectsTranslucid.clear();
 }
 //-------------------------------------------------------------------------
 void Scene::setGL(int id)
@@ -218,23 +225,25 @@ void Scene::sceneDirLight(Camera const& cam) const {
 }
 
 void Scene::scene2() {
+	//TEXTURAS
 	Texture* noche = new Texture();
 	noche->load("..\\Bmps\\noche.bmp");
 	gTextures.push_back(noche);
 
-
-	//# Para ver comentarios de estos enunciados en toda la solucion
+	//NAVE
 	gObjects.push_back(new Sphere(100, 50, 50));
 
+	//VENTANA
 	gObjects.push_back(new Cylinder(80, 80, 50, 50, 50));
-
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(60, 0, 0)));
 	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 
+	//CRISTALVENTANA
 	gObjects.push_back(new Disk(0, 80, 50, 50));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(110, 0, 0)));
 	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 
+	//UNION ALAS
 	gObjects.push_back(new Cylinder(20, 20, 400, 50, 50));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -200)));
 
@@ -244,7 +253,9 @@ void Scene::scene2() {
 	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
 	gObjects.back()->setTexture(noche);
 
-	gObjects.push_back(new Disk(0, 300, 6, 6));
+	gObjects.push_back(new DiskText(0, 300, 6, 6));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, 200)));
 	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
+	gObjects.back()->setTexture(noche);
+
 }
