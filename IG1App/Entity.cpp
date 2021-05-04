@@ -517,11 +517,11 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_COLOR_MATERIAL);
+	glColor3f(0.0, 0.25, 0.41);
 	gluQuadricDrawStyle(q, GL_FILL);
-	glColor4f(0.0, 0.25, 0.41, 0.0);
 	gluSphere(q, radio, slices, stacks);
-	glDisable(GL_COLOR_MATERIAL);
+	glColor3f(1.0, 1.0, 1.0);
 }
 //-------------------------------------------------------------------------
 Cylinder::Cylinder(GLdouble br, GLdouble tr, GLdouble h, GLint s, GLint st) : QuadricEntity() {
@@ -539,11 +539,11 @@ void Cylinder::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_COLOR_MATERIAL);
+	glColor3f(0.0, 0.25, 0.41);
 	gluQuadricDrawStyle(q, GL_FILL);
-	glColor4f(0.0, 0.25, 0.41, 0.0);
 	gluCylinder(q, baseRadius, topRadius, height, slices, stacks);
-	glDisable(GL_COLOR_MATERIAL);
+	glColor3f(1.0, 1.0, 1.0);
 }
 //-------------------------------------------------------------------------
 Disk::Disk(GLdouble ir, GLdouble ors, GLint s, GLint  l) : QuadricEntity() {
@@ -560,11 +560,11 @@ void Disk::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_COLOR_MATERIAL);
+	glColor3f(0.0, 0.25, 0.41);
 	gluQuadricDrawStyle(q, GL_FILL);
-	glColor4f(0.0, 0.25, 0.41, 0.0);
 	gluDisk(q, innerRadius, outerRadius, slices, loops);
-	glDisable(GL_COLOR_MATERIAL);
+	glColor3f(1.0, 1.0, 1.0);
 }
 //-------------------------------------------------------------------------
 DiskText::DiskText(GLdouble ir, GLdouble ors, GLint s, GLint  l) : QuadricEntity() {
@@ -582,7 +582,6 @@ void DiskText::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	glEnable(GL_COLOR_MATERIAL);
 
 	mTexture->bind(GL_MODULATE);
 	gluQuadricTexture(q, GL_TRUE);
@@ -590,7 +589,6 @@ void DiskText::render(glm::dmat4 const& modelViewMat) const
 	gluDisk(q, innerRadius, outerRadius, slices, loops);
 
 	mTexture->unbind();
-	glDisable(GL_COLOR_MATERIAL);
 }
 //-------------------------------------------------------------------------
 PartialDisk::PartialDisk(GLdouble            ir,
@@ -614,9 +612,9 @@ void PartialDisk::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_COLOR_MATERIAL);
+	glColor3f(0.0, 0.25, 0.41);
 	gluQuadricDrawStyle(q, GL_FILL);
-	glColor4f(0.0, 0.25, 0.41, 0.0);
 	gluPartialDisk(q, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle);
-	glDisable(GL_COLOR_MATERIAL);
+	glColor3f(1.0, 1.0, 1.0);
 }

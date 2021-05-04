@@ -231,9 +231,9 @@ void Scene::scene2() {
 	noche->load("..\\Bmps\\noche.bmp");
 	gTextures.push_back(noche);
 
-	gObjects.push_back(new EjesRGB(400.0));
 	//NAVE
 	gObjects.push_back(new Sphere(100, 50, 50));
+	gObjects.push_back(new EjesRGB(400.0));
 
 	//VENTANA
 	gObjects.push_back(new Cylinder(80, 80, 50, 50, 50));
