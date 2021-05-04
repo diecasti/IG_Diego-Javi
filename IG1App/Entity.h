@@ -174,4 +174,80 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat)const;
 };
 //-------------------------------------------------------------------------
+//PRACTICA 2
+//-------------------------------------------------------------------------
+//!CLASES PRACTICA 2
+class QuadricEntity : public Abs_Entity
+{
+public:
+	QuadricEntity() { q = gluNewQuadric(); };
+	~QuadricEntity() { gluDeleteQuadric(q); };
+
+protected:
+	GLUquadricObj* q;
+};
+
+class Sphere : public QuadricEntity {
+public:
+	Sphere(GLuint radio, GLuint slices, GLuint stacks);
+	~Sphere();
+	void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLuint radio;
+	GLuint slices;
+	GLuint stacks;
+
+};
+
+class Cylinder : public QuadricEntity {
+public:
+	Cylinder(GLdouble baseRadius, GLdouble topRadius, GLdouble height, GLint slices, GLint stacks);
+	~Cylinder();
+	void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble baseRadius;
+	GLdouble topRadius, height;
+	GLint slices, stacks;
+};
+
+class Disk : public QuadricEntity {
+public:
+	Disk(GLdouble innerRadius,
+		GLdouble outerRadius,
+		GLint  slices,
+		GLint loops);
+	~Disk();
+	void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble innerRadius, outerRadius;
+	GLint slices, loops;
+};
+
+class DiskText : public QuadricEntity {
+public:
+	DiskText(GLdouble innerRadius,
+		GLdouble outerRadius,
+		GLint  slices,
+		GLint loops);
+	~DiskText();
+	void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble innerRadius, outerRadius;
+	GLint slices, loops;
+};
+
+class PartialDisk : public QuadricEntity {
+public:
+	PartialDisk(GLdouble            innerRadius,
+		GLdouble            outerRadius,
+		GLint               slices,
+		GLint               loops,
+		GLdouble            startAngle,
+		GLdouble            sweepAngle);
+	~PartialDisk();
+	void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble innerRadius, outerRadius, startAngle, sweepAngle;
+	GLint slices, loops;
+};
 #endif //_H_Entities_H_
