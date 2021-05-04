@@ -78,5 +78,33 @@ void Scene::sceneDirLight(Camera const& cam) const {
 void Scene::scenePart1(){
 	gObjects.push_back(new Sphere(100,50,50));
 
+	gObjects.push_back(new Cylinder(80, 80, 50, 50, 50));
+
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(60, 0, 0)));
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
+
+	gObjects.push_back(new Disk(0, 80, 50, 50)); 
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(110, 0, 0)));
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
+
+	gObjects.push_back(new Cylinder(20, 20, 400, 50, 50));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -200)));
+
+	gObjects.push_back(new Disk(0, 300, 6, 6));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -200)));
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
+
+	gObjects.push_back(new Disk(0, 300, 6, 6));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, 200)));
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
+	/*
+	
+	
+	*/
+	/*
+
+	gObjects.push_back(new Disk(100, 50, 50));
+	*/
+
 }
 

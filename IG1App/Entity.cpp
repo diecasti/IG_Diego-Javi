@@ -56,7 +56,8 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 		glColor4f(0.0, 0.25, 0.41, 0.0);
 		gluSphere(q, radio, slices, stacks);
 		glDisable(GL_COLOR_MATERIAL);
-}//-------------------------------------------------------------------------
+}
+//-------------------------------------------------------------------------
 Cylinder::Cylinder(GLdouble br, GLdouble tr, GLdouble h, GLint s, GLint st) : QuadricEntity() {
 	baseRadius = br;
 	topRadius = tr;
