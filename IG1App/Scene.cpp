@@ -231,9 +231,10 @@ void Scene::scene2() {
 	//noche->load("..\\Bmps\\noche.bmp", 200);
 	//gTextures.push_back(noche);
 
+	gObjects.push_back(new EjesRGB(400.0));
+
 	////NAVE
 	//gObjects.push_back(new Sphere(100, 50, 50));
-	gObjects.push_back(new EjesRGB(400.0));
 
 	////VENTANA
 	//gObjects.push_back(new Cylinder(80, 80, 50, 50, 50));
@@ -260,6 +261,9 @@ void Scene::scene2() {
 	//gObjectsTranslucid.back()->setModelMat(glm::rotate(gObjectsTranslucid.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
 	//gObjectsTranslucid.back()->setTexture(noche);
 
-	gObjects.push_back(new AnilloCuadrado());
+	//Escena2
+	//gObjects.push_back(new AnilloCuadrado());
 
+	//Escena 3
+	gObjects.push_back(new Cubo(100));
 }
