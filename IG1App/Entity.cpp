@@ -33,9 +33,12 @@ void EjesRGB::render(dmat4 const& modelViewMat) const
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
+
+		glEnable(GL_COLOR_MATERIAL);
 		glLineWidth(2);
 		mMesh->render();
 		glLineWidth(1);
+		glDisable(GL_COLOR_MATERIAL);
 	}
 }
 //-------------------------------------------------------------------------
@@ -517,11 +520,13 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	//glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_COLOR_MATERIAL);
 	glColor3f(0.0, 0.25, 0.41);
 	gluQuadricDrawStyle(q, GL_FILL);
 	gluSphere(q, radio, slices, stacks);
 	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+
 }
 //-------------------------------------------------------------------------
 Cylinder::Cylinder(GLdouble br, GLdouble tr, GLdouble h, GLint s, GLint st) : QuadricEntity() {
@@ -539,11 +544,15 @@ void Cylinder::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	//glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_COLOR_MATERIAL);
 	glColor3f(0.0, 0.25, 0.41);
 	gluQuadricDrawStyle(q, GL_FILL);
+
 	gluCylinder(q, baseRadius, topRadius, height, slices, stacks);
+
 	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+
 }
 //-------------------------------------------------------------------------
 Disk::Disk(GLdouble ir, GLdouble ors, GLint s, GLint  l) : QuadricEntity() {
@@ -560,11 +569,13 @@ void Disk::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	//glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_COLOR_MATERIAL);
 	glColor3f(0.0, 0.25, 0.41);
 	gluQuadricDrawStyle(q, GL_FILL);
 	gluDisk(q, innerRadius, outerRadius, slices, loops);
 	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+
 }
 //-------------------------------------------------------------------------
 DiskText::DiskText(GLdouble ir, GLdouble ors, GLint s, GLint  l) : QuadricEntity() {
@@ -583,11 +594,13 @@ void DiskText::render(glm::dmat4 const& modelViewMat) const
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
 
+	glEnable(GL_COLOR_MATERIAL);
 	mTexture->bind(GL_MODULATE);
 	gluQuadricTexture(q, GL_TRUE);
 
 	gluDisk(q, innerRadius, outerRadius, slices, loops);
 
+	glDisable(GL_COLOR_MATERIAL);
 	mTexture->unbind();
 }
 //-------------------------------------------------------------------------
@@ -612,13 +625,34 @@ void PartialDisk::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	//glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_COLOR_MATERIAL);
 	glColor3f(0.0, 0.25, 0.41);
 	gluQuadricDrawStyle(q, GL_FILL);
 	gluPartialDisk(q, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle);
 	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+
 }
 //--------------------------------------------------------------------------------------------------------------
+EntityWithIndexMesh::EntityWithIndexMesh() { mMesh = nullptr; }
+EntityWithIndexMesh::~EntityWithIndexMesh() {}
+void EntityWithIndexMesh::render(glm::dmat4 const& modelViewMat) const
+{
+	//if (mMesh != nullptr) {
+	//	glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+	//	upload(aMat);
+	//	glEnable(GL_COLOR_MATERIAL);
+
+	//	glLineWidth(2);
+	//	glColor4dv(value_ptr(mColor));
+	//	mMesh->render();
+	//	glLineWidth(1);
+	//	glColor4d(1.0, 1.0, 1.0, 1);
+	//	glDisable(GL_COLOR_MATERIAL);
+	//}
+}
+//--------------------------------------------------------------------------------------------------------------
+
 AnilloCuadrado::AnilloCuadrado() {
 	mMesh = IndexMesh::generaAnilloCuadradoIndexado();
 
@@ -630,11 +664,14 @@ void AnilloCuadrado::render(glm::dmat4 const& modelViewMat) const
 	if (mMesh != nullptr) {
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
+		glEnable(GL_COLOR_MATERIAL);
+
 		glLineWidth(2);
 		glColor4dv(value_ptr(mColor));
 		mMesh->render();
 		glLineWidth(1);
 		glColor4d(1.0, 1.0, 1.0, 1);
+		glDisable(GL_COLOR_MATERIAL);
 	}
 }
 
@@ -648,13 +685,38 @@ Cubo::~Cubo() {}
 void Cubo::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
-		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		glm::dmat4 aMat = modelViewMat *  mModelMat;  // glm matrix multiplication
 		upload(aMat);
+		glEnable(GL_COLOR_MATERIAL);
+
 		glLineWidth(2);
 		glColor4dv(value_ptr(mColor));
 		mMesh->render();
 		glLineWidth(1);
 		glColor4d(1.0, 1.0, 1.0, 1);
+		glDisable(GL_COLOR_MATERIAL);
+
 	}
 }
+//--------------------------------------------------------------------------------------------------------------
+CompoundEntity::CompoundEntity() {
 
+}
+CompoundEntity::~CompoundEntity() {
+	////Literalmente free() de scene
+	//for (Abs_Entity* el : gObjects)
+	//{
+	//	delete el;  el = nullptr;
+	//}
+	//gObjects.clear();
+	//for (Texture* el : gTextures)
+	//{
+	//	delete el;  el = nullptr;
+	//}
+	//gTextures.clear();
+	//for (Abs_Entity* el : gObjectsTranslucid)
+	//{
+	//	delete el;  el = nullptr;
+	//}
+	//gObjectsTranslucid.clear();
+}

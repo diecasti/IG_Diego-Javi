@@ -301,15 +301,38 @@ Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
 //-------------------------------------------------------------------------
 //Clase Practica 2
 void IndexMesh::render() const {
-	Mesh::render();
-	// Nuevos comandos para la tabla de �ndices
-	if (vIndices != nullptr) {
-		glEnableClientState(GL_INDEX_ARRAY);
-		glIndexPointer(GL_UNSIGNED_INT, 0, vIndices);
+	if (vVertices.size() > 0) {  // transfer data
+	  // transfer the coordinates of the vertices
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(3, GL_DOUBLE, 0, vVertices.data());  // number of coordinates per vertex, type of each coordinate, stride, pointer 
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		if (vColors.size() > 0) { // transfer colors
+			glEnableClientState(GL_COLOR_ARRAY);
+			glColorPointer(4, GL_DOUBLE, 0, vColors.data());  // components number (rgba=4), type of each component, stride, pointer  
+		}
+		if (vTexCoords.size() > 0) {
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+		}
+		if (vNormals.size() > 0) {
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glNormalPointer(GL_DOUBLE, 0, vNormals.data());
+		}
+		if (vIndices != nullptr) {
+			glEnableClientState(GL_INDEX_ARRAY);
+			glIndexPointer(GL_UNSIGNED_INT, 0, vIndices);
+		}
+		draw();
+
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_INDEX_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
 	}
-	// Comandos OpenGL para deshabilitar datos enviados
-	// Nuevo comando para la tabla de �ndices:
-	glDisableClientState(GL_INDEX_ARRAY);
 }
 //-------------------------------------------------------------------------
 
@@ -346,12 +369,17 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0);
 	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 
+	//Saco normales
 	anilloMesh->vNormals.reserve(anilloMesh->mNumVertices);
 	for (int i = 0; i < anilloMesh->mNumVertices - 2; i++) {
 		GLuint* auxArr = new GLuint[anilloMesh->nNumIndices]{ (GLuint)i,(GLuint)i + 1,(GLuint)i + 2 };
 		glm::dvec3 aux = anilloMesh->CalculoVectorNormalPorNewell(auxArr);
 		anilloMesh->vNormals.emplace_back(aux);
 	}
+
+	//Saco normales como dice el motherfucker del Aaron que es un maquina
+	//anilloMesh->sacaNormales();
+
 
 	return anilloMesh;
 }
@@ -376,13 +404,36 @@ glm::dvec3 IndexMesh::CalculoVectorNormalPorNewell(GLuint* face) {
 	return glm::normalize(n);
 }
 
+void IndexMesh::sacaNormales() {
+	vNormals.reserve(mNumVertices);
+
+	for (int i = 0; i < mNumVertices; i++)
+		vNormals.emplace_back(0, 0, 0);
+
+	for (int i = 0; i < nNumIndices; i += 3) {
+		dvec3 a, b, c;
+		a = vVertices[vIndices[i]];
+		b = vVertices[vIndices[i + 1]];
+		c = vVertices[vIndices[i + 2]];
+
+		dvec3 n = cross((b - a), (c - a));
+
+		vNormals[vIndices[i]] += n;
+		vNormals[vIndices[i + 1]] += n;
+		vNormals[vIndices[i + 2]] += n;
+	}
+
+	for (int i = 0; i < mNumVertices; i++)
+		vNormals[i] = glm::normalize(vNormals[i]);
+}
+
 IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l) {
 	IndexMesh* cuboMesh = new IndexMesh();
 	cuboMesh->mPrimitive = GL_TRIANGLES;
 
 	//Indices
 	cuboMesh->nNumIndices = 36;
-	cuboMesh->vIndices = new GLuint[cuboMesh->nNumIndices]{ 0,1,2,2,1,3,2,3,4,2,5,4,4,5,7,6,4,7,6,7,0,0,7,1,4,2,0,6,0,4,1,3,5,5,7,1};
+	cuboMesh->vIndices = new GLuint[cuboMesh->nNumIndices]{0,1,2,2,1,3,2,3,4,4,3,5,4,5,6,6,5,7,6,7,1,0,6,1,6,0,2,4,6,2,5,7,1,5,1,3};
 
 	//Vertices
 	cuboMesh->mNumVertices = 8;
@@ -413,6 +464,9 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l) {
 		glm::dvec3 aux = cuboMesh->CalculoVectorNormalPorNewell(auxArr);
 		cuboMesh->vNormals.emplace_back(aux);
 	}*/
+
+	//Saco normales
+	cuboMesh->sacaNormales();
 
 	return cuboMesh;
 }
