@@ -346,11 +346,73 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0);
 	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 
+	anilloMesh->vNormals.reserve(anilloMesh->mNumVertices);
+	for (int i = 0; i < anilloMesh->mNumVertices - 2; i++) {
+		GLuint* auxArr = new GLuint[anilloMesh->nNumIndices]{ (GLuint)i,(GLuint)i + 1,(GLuint)i + 2 };
+		glm::dvec3 aux = anilloMesh->CalculoVectorNormalPorNewell(auxArr);
+		anilloMesh->vNormals.emplace_back(aux);
+	}
+
 	return anilloMesh;
 }
 
-//glm::dvec3* Mesh::devuelveNormal(Mesh* m) {
-//	glm::dvec3 normal;
-//	m->vVertices.
-//	return normal;
-//}
+glm::dvec3 IndexMesh::CalculoVectorNormalPorNewell(GLuint* face) {
+	dvec3 n = { 0, 0, 0 };
+	dvec3 vertActual;
+	dvec3 vertSiguiente;
+
+	for (int i = 0; i < 2; i++) {
+		vertActual = vVertices[face[i]];	//Accedemos al vertice que se corresponde a cada índice
+		vertSiguiente = vVertices[face[i + 1]];
+
+		n.x += (vertActual.y - vertSiguiente.y) *
+			(vertActual.z + vertSiguiente.z);
+		n.y += (vertActual.z - vertSiguiente.z) *
+			(vertActual.x + vertSiguiente.x);
+		n.z += (vertActual.x - vertSiguiente.x) *
+			(vertActual.y + vertSiguiente.y);
+	}
+
+	return glm::normalize(n);
+}
+
+IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l) {
+	IndexMesh* cuboMesh = new IndexMesh();
+	cuboMesh->mPrimitive = GL_TRIANGLES;
+
+	//Indices
+	cuboMesh->nNumIndices = 36;
+	cuboMesh->vIndices = new GLuint[cuboMesh->nNumIndices]{ 0,1,2,2,1,3,2,3,4,2,5,4,4,5,7,6,4,7,6,7,0,0,7,1,4,2,0,6,0,4,1,3,5,5,7,1};
+
+	//Vertices
+	cuboMesh->mNumVertices = 8;
+	cuboMesh->vVertices.reserve(cuboMesh->mNumVertices);
+	cuboMesh->vVertices.emplace_back(-l, l, l);
+	cuboMesh->vVertices.emplace_back(-l, -l, l);
+	cuboMesh->vVertices.emplace_back(l, l, l);
+	cuboMesh->vVertices.emplace_back(l, -l, l);
+
+	cuboMesh->vVertices.emplace_back(l, l, -l);
+	cuboMesh->vVertices.emplace_back(l, -l, -l);
+	cuboMesh->vVertices.emplace_back(-l, l, -l);
+	cuboMesh->vVertices.emplace_back(-l, -l, -l);
+
+	cuboMesh->vColors.reserve(cuboMesh->nNumIndices);
+	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+
+	/*cuboMesh->vNormals.reserve(cuboMesh->mNumVertices);
+	for (int i = 0; i < cuboMesh->mNumVertices - 2; i++) {
+		GLuint* auxArr = new GLuint[cuboMesh->nNumIndices]{ (GLuint)i,(GLuint)i + 1,(GLuint)i + 2 };
+		glm::dvec3 aux = cuboMesh->CalculoVectorNormalPorNewell(auxArr);
+		cuboMesh->vNormals.emplace_back(aux);
+	}*/
+
+	return cuboMesh;
+}

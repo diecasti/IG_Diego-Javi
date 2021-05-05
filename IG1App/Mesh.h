@@ -38,11 +38,10 @@ public:
 	static Mesh* generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h);
 
 	static Mesh* generaContCuboTexCor(GLdouble nl);
-	glm::dvec3* devuelveNormal(Mesh* m);
 protected:
 
 	GLuint mPrimitive = GL_TRIANGLES;   // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...
-	GLuint mNumVertices = 0;  // number of elements ( = vVertices.size())
+	GLuint mNumVertices = 0;			// number of elements ( = vVertices.size())
 	std::vector<glm::dvec3> vVertices;  // vertex array
 	std::vector<glm::dvec4> vColors;    // color array
 	std::vector<glm::dvec2> vTexCoords; // TEXTURA GOES BRR BRR
@@ -59,6 +58,9 @@ public:
 	virtual void draw() const;
 
 	static IndexMesh* generaAnilloCuadradoIndexado();
+	static IndexMesh* generaCuboConTapasIndexado(GLdouble l);
+
+	glm::dvec3 CalculoVectorNormalPorNewell(GLuint* face);
 protected:
 	GLuint* vIndices = nullptr; // tabla de índices
 	GLuint nNumIndices = 0;
