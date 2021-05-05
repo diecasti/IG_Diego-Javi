@@ -298,3 +298,54 @@ Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
 	return mesh;
 }
 
+//-------------------------------------------------------------------------
+//Clase Practica 2
+void IndexMesh::render() const {
+	Mesh::render();
+	// Nuevos comandos para la tabla de índices
+	if (vIndices != nullptr) {
+		glEnableClientState(GL_INDEX_ARRAY);
+		glIndexPointer(GL_UNSIGNED_INT, 0, vIndices);
+	}
+	//… // Comandos OpenGL para deshabilitar datos enviados
+	// Nuevo comando para la tabla de índices:
+	glDisableClientState(GL_INDEX_ARRAY);
+
+}
+//-------------------------------------------------------------------------
+
+// Comando para renderizar la malla indexada enviada
+void IndexMesh::draw() const {
+	glDrawElements(mPrimitive, nNumIndices, GL_UNSIGNED_INT, vIndices);
+}
+
+IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
+	//Asignamos vIndices para que genere la forma
+	IndexMesh* anilloMesh = new IndexMesh();
+	anilloMesh->nNumIndices = 10;
+	anilloMesh->vIndices = new GLuint[anilloMesh->nNumIndices]{ 0, 1, 2, 3, 4, 5, 6, 7, 0, 1 };
+	
+	//Definimos los vertices del poligono
+	anilloMesh->mNumVertices = 8;								//Definimos el nº de vertices
+	anilloMesh->vVertices.reserve(anilloMesh->mNumVertices);	//Y los reservamos
+	anilloMesh->vVertices.emplace_back(-50,-50,0);
+	anilloMesh->vVertices.emplace_back(-100, -100, 0);
+	anilloMesh->vVertices.emplace_back(50, -50, 0);
+	anilloMesh->vVertices.emplace_back(100, -100, 0);
+	anilloMesh->vVertices.emplace_back(50, 50, 0);
+	anilloMesh->vVertices.emplace_back(100, 100, 0);
+	anilloMesh->vVertices.emplace_back(-50, 50, 0);
+	anilloMesh->vVertices.emplace_back(-100, 100, 0);
+
+	anilloMesh->vColors.reserve(anilloMesh->mNumVertices);
+	anilloMesh->vColors.emplace_back(0.0, 0.0, 0.0 , 1.0);
+	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
+	anilloMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	anilloMesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0);
+	anilloMesh->vColors.emplace_back(1.0, 1.0, 0.0, 1.0);
+	anilloMesh->vColors.emplace_back(1.0, 0.0, 1.0, 1.0);
+	anilloMesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0);
+	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
+
+	return anilloMesh;
+}

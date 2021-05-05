@@ -9,24 +9,24 @@
 
 //-------------------------------------------------------------------------
 
-class Mesh 
+class Mesh
 {
 public:
 
 	static Mesh* createRGBAxes(GLdouble l); // creates a new 3D-RGB axes mesh
-	
+
 	Mesh() {};
 	virtual ~Mesh() {};
 
-	Mesh(const Mesh & m) = delete;  // no copy constructor
-	Mesh & operator=(const Mesh & m) = delete;  // no copy assignment
-	
+	Mesh(const Mesh& m) = delete;  // no copy constructor
+	Mesh& operator=(const Mesh& m) = delete;  // no copy assignment
+
 	virtual void render() const;
-	
+
 	GLuint size() const { return mNumVertices; };   // number of elements
 	std::vector<glm::dvec3> const& vertices() const { return vVertices; };
 	std::vector<glm::dvec4> const& colors() const { return vColors; };
-		
+
 	static 	Mesh* generaPoligono(GLuint numL, GLdouble rd);
 	static Mesh* generaSierpinski(GLdouble rd, GLuint numP);
 	static Mesh* generaTrianguloRGB(GLdouble rd);
@@ -40,7 +40,7 @@ public:
 	static Mesh* generaContCuboTexCor(GLdouble nl);
 protected:
 	std::vector<glm::dvec3> vNormals; // tabla de normales
-	
+
 	GLuint mPrimitive = GL_TRIANGLES;   // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...
 	GLuint mNumVertices = 0;  // number of elements ( = vVertices.size())
 	std::vector<glm::dvec3> vVertices;  // vertex array
@@ -50,5 +50,17 @@ protected:
 
 };
 //-------------------------------------------------------------------------
+class IndexMesh : public Mesh {
+public:
+	IndexMesh():Mesh() { mPrimitive = GL_TRIANGLE_STRIP; }
+	~IndexMesh() { delete[] vIndices; }
+	virtual void render() const;
+	virtual void draw() const;
+
+	static IndexMesh* generaAnilloCuadradoIndexado();
+protected:
+	GLuint* vIndices = nullptr; // tabla de índices
+	GLuint nNumIndices = 0;
+};
 
 #endif //_H_Scene_H_
