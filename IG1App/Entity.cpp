@@ -82,7 +82,7 @@ void Sierpinski::render(glm::dmat4 const& modelViewMat)const
 		glColor4dv(value_ptr(mColor));
 		mMesh->render();
 		glLineWidth(1);
-		glColor4d(1.0, 1.0, 1.0, 1);	
+		glColor4d(1.0, 1.0, 1.0, 1);
 	}
 }
 //-------------------------------------------------------------------------
@@ -239,7 +239,7 @@ void CajaConFondo::render(glm::dmat4 const& modelViewMat)const
 		glLineWidth(2);
 		mMesh->render();
 		//ahora el fondo hayq ue ahcer la translacion y bla bla
-		auto bMat = rotate(aMat, radians(-90.0), dvec3(1.0, 0 ,0));
+		auto bMat = rotate(aMat, radians(-90.0), dvec3(1.0, 0, 0));
 		bMat = translate(bMat, dvec3(0, 0, -ld_ / 2));
 		upload(bMat);
 		fondo->render();
@@ -339,8 +339,8 @@ void ContCuboTexCo::render(glm::dmat4 const& modelViewMat)const
 
 
 		//las texturas, supongo que ahbra que hacer dos renders segun he entendido
-		
-		
+
+
 		glColor4dv(value_ptr(mColor));
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
@@ -384,7 +384,7 @@ void CajaConFondoTx::render(glm::dmat4 const& modelViewMat)const
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		auto bMat = rotate(aMat, radians(-90.0), dvec3(1.0, 0, 0));
 		bMat = translate(bMat, dvec3(0, 0, -ld_ / 2));
-		
+
 
 		upload(aMat);
 		glLineWidth(2);
@@ -407,7 +407,7 @@ void CajaConFondoTx::render(glm::dmat4 const& modelViewMat)const
 		//INTERIOR
 		glCullFace(GL_BACK);
 		interior->bind(GL_REPLACE);
-		fondo->render(); 
+		fondo->render();
 		upload(aMat);
 		mMesh->render();
 		interior->unbind();
@@ -482,17 +482,17 @@ void Hierba::render(glm::dmat4 const& modelViewMat)const
 		//upload(aMat);
 		glLineWidth(2);
 		glColor4dv(value_ptr(mColor));
-		
+
 		mTexture->bind(GL_MODULATE);
 		mMesh->render();
 
-		
+
 		for (int i = 0; i < 2; i++) {
 			aMat = rotate(aMat, radians(60.0), dvec3(0, 1, 0));
 			upload(aMat);
 			mMesh->render();
 		}
-		
+
 
 		glLineWidth(1);
 		mTexture->unbind();
@@ -618,3 +618,23 @@ void PartialDisk::render(glm::dmat4 const& modelViewMat) const
 	gluPartialDisk(q, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle);
 	glColor3f(1.0, 1.0, 1.0);
 }
+//--------------------------------------------------------------------------------------------------------------
+AnilloCuadrado::AnilloCuadrado() {
+	mMesh = IndexMesh::generaAnilloCuadradoIndexado();
+
+}
+AnilloCuadrado::~AnilloCuadrado() {}
+
+void AnilloCuadrado::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		glColor4dv(value_ptr(mColor));
+		mMesh->render();
+		glLineWidth(1);
+		glColor4d(1.0, 1.0, 1.0, 1);
+	}
+}
+
