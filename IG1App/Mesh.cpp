@@ -14,7 +14,7 @@ void Mesh::draw() const
 
 void Mesh::render() const
 {
-	//.... // se añaden comandos para la tabla de normales:
+	//.... // se aï¿½aden comandos para la tabla de normales:
 	if (vNormals.size() > 0) {
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glNormalPointer(GL_DOUBLE, 0, vNormals.data());
@@ -101,11 +101,11 @@ Mesh* Mesh::generaPoligono(GLuint numL, GLdouble rd) {
 	Mesh* mesh = new Mesh();
 
 	mesh->mPrimitive = GL_LINE_LOOP;
-	mesh->mNumVertices = numL;						//Definimos el nº de vertices
+	mesh->mNumVertices = numL;						//Definimos el nï¿½ de vertices
 	mesh->vVertices.reserve(mesh->mNumVertices);	//Y los reservamos
 	//mesh->vColors.reserve(mesh->mNumVertices);		//Reservamos espacio para los colores	-> No hace falta definir 
 
-	double ang = 90;	//El primer vértice siempre se genera con este angulo
+	double ang = 90;	//El primer vï¿½rtice siempre se genera con este angulo
 
 	for (int i = 0; i < numL; i++) {
 		double x = 0 + rd * cos(radians(ang));	//x = Cx + rd*cos(ang) Cx es 0 porque la circunferencia tiene centro en (0,0)
@@ -124,7 +124,7 @@ Mesh* Mesh::generaSierpinski(GLdouble rd, GLuint numP) {
 	Mesh* triangulo = generaPoligono(3, rd);
 	Mesh* mesh = new Mesh();
 	mesh->mPrimitive = GL_POINTS;
-	mesh->mNumVertices = numP;						//Definimos el nº de vertices
+	mesh->mNumVertices = numP;						//Definimos el nï¿½ de vertices
 	mesh->vVertices.reserve(mesh->mNumVertices);	//Y los reservamos
 
 	//Crea la malla de Sierpinski
@@ -151,7 +151,7 @@ Mesh* Mesh::generaSierpinski(GLdouble rd, GLuint numP) {
 Mesh* Mesh::generaTrianguloRGB(GLdouble rd) {
 	Mesh* mesh = generaPoligono(3.0, rd);
 	mesh->mPrimitive = GL_TRIANGLES;
-	//añadimos vector de colores
+	//aï¿½adimos vector de colores
 	mesh->vColors.reserve(mesh->mNumVertices);
 	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
@@ -163,7 +163,7 @@ Mesh* Mesh::generaTrianguloRGB(GLdouble rd) {
 Mesh* Mesh::generaRectangulo(GLdouble w, GLdouble h) {
 	Mesh* mesh = new Mesh();
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
-	mesh->mNumVertices = 4;							//Definimos el nº de vertices
+	mesh->mNumVertices = 4;							//Definimos el nï¿½ de vertices
 	mesh->vVertices.reserve(mesh->mNumVertices);	//Y los reservamos
 	mesh->vVertices.emplace_back(-w / 2, h / 2, 0);
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0);
@@ -186,13 +186,13 @@ Mesh* Mesh::generaEstrella3D(GLdouble re, GLuint numL, GLdouble h) {
 	Mesh* mesh = new Mesh();
 
 	mesh->mPrimitive = GL_TRIANGLE_FAN;
-	mesh->mNumVertices = numL * 2 + 2;						//Definimos el nº de vertices
+	mesh->mNumVertices = numL * 2 + 2;						//Definimos el nï¿½ de vertices
 	mesh->vVertices.reserve(mesh->mNumVertices);	//Y los reservamos
 
 	double x;
 	double y;
 	double z;
-	double ang = 0;	//El primer vértice siempre se genera con este angulo
+	double ang = 0;	//El primer vï¿½rtice siempre se genera con este angulo
 	mesh->vVertices.emplace_back(0.0, 0.0, 0.0);
 
 	for (int i = 0; i < numL * 2 + 1; i++) {
@@ -218,7 +218,7 @@ Mesh* Mesh::generaEstrella3D(GLdouble re, GLuint numL, GLdouble h) {
 Mesh* Mesh::generaContCubo(GLdouble ld) {
 	Mesh* mesh = new Mesh();
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
-	mesh->mNumVertices = 10;							//Definimos el nº de vertices
+	mesh->mNumVertices = 10;							//Definimos el nï¿½ de vertices
 	mesh->vVertices.reserve(mesh->mNumVertices);	//Y los reservamos
 	mesh->vVertices.emplace_back(-ld / 2, -ld / 2, ld / 2);
 	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
@@ -239,7 +239,7 @@ Mesh* Mesh::generaContCubo(GLdouble ld) {
 Mesh* Mesh::generaRectanguloTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh) {
 	Mesh* mesh = generaRectangulo(w, h);
 
-	//los vertices para las texturas que avs como xd¿?
+	//los vertices para las texturas que avs como xdï¿½?
 	mesh->vTexCoords.reserve(mesh->mNumVertices);
 	mesh->vTexCoords.emplace_back(0, rh);
 	mesh->vTexCoords.emplace_back(0, 0);
@@ -262,7 +262,7 @@ Mesh* Mesh::generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
 
 	double x;
 	double y;
-	double ang = 0;	//El primer vértice siempre se genera con este angulo
+	double ang = 0;	//El primer vï¿½rtice siempre se genera con este angulo
 
 	for (int i = 0; i < np * 2 + 1; i++) {
 		x = 0.5 + 0.5 * cos(radians(ang));	//x = Cx + rd*cos(ang) Cx es 0 porque la circunferencia tiene centro en (0,0)
@@ -281,7 +281,7 @@ Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
 
 
 
-	//Definimos el nº de vertices
+	//Definimos el nï¿½ de vertices
 	mesh->vTexCoords.reserve(mesh->mNumVertices);	//Y los reservamos
 	mesh->vTexCoords.emplace_back(0, 0);
 	mesh->vTexCoords.emplace_back(1, 0);
@@ -302,15 +302,14 @@ Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
 //Clase Practica 2
 void IndexMesh::render() const {
 	Mesh::render();
-	// Nuevos comandos para la tabla de índices
+	// Nuevos comandos para la tabla de ï¿½ndices
 	if (vIndices != nullptr) {
 		glEnableClientState(GL_INDEX_ARRAY);
 		glIndexPointer(GL_UNSIGNED_INT, 0, vIndices);
 	}
-	//… // Comandos OpenGL para deshabilitar datos enviados
-	// Nuevo comando para la tabla de índices:
+	//ï¿½ // Comandos OpenGL para deshabilitar datos enviados
+	// Nuevo comando para la tabla de ï¿½ndices:
 	glDisableClientState(GL_INDEX_ARRAY);
-
 }
 //-------------------------------------------------------------------------
 
@@ -326,7 +325,7 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vIndices = new GLuint[anilloMesh->nNumIndices]{ 0, 1, 2, 3, 4, 5, 6, 7, 0, 1 };
 	
 	//Definimos los vertices del poligono
-	anilloMesh->mNumVertices = 8;								//Definimos el nº de vertices
+	anilloMesh->mNumVertices = 8;								//Definimos el nï¿½ de vertices
 	anilloMesh->vVertices.reserve(anilloMesh->mNumVertices);	//Y los reservamos
 	anilloMesh->vVertices.emplace_back(-50,-50,0);
 	anilloMesh->vVertices.emplace_back(-100, -100, 0);
