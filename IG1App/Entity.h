@@ -277,9 +277,11 @@ public:
 	CompoundEntity();
 	~CompoundEntity();
 	void addEntity(Abs_Entity* ae) { gObjects.push_back(ae); }
+	void addEntityTranslucid(Abs_Entity* ae) { gTranslucid.push_back(ae); }
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	std::vector<Abs_Entity*> gObjects;
+	std::vector<Abs_Entity*> gTranslucid;
 
 };
 #endif //_H_Entities_H_
