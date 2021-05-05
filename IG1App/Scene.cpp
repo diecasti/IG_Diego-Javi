@@ -183,7 +183,6 @@ void Scene::resetGL()
 
 void Scene::render(Camera const& cam) const
 {
-	glEnable(GL_COLOR_MATERIAL);
 	sceneDirLight(cam);
 	cam.upload();
 
@@ -195,7 +194,6 @@ void Scene::render(Camera const& cam) const
 	{
 		el->render(cam.viewMat());
 	}
-	glDisable(GL_COLOR_MATERIAL);
 }
 //-------------------------------------------------------------------------
 //Llamamos uno por uno a los updates de los elementos que componen la escena

@@ -59,6 +59,7 @@ public:
 
 	static IndexMesh* generaAnilloCuadradoIndexado();
 	static IndexMesh* generaCuboConTapasIndexado(GLdouble l);
+	void sacaNormales();
 
 	glm::dvec3 CalculoVectorNormalPorNewell(GLuint* face);
 protected:

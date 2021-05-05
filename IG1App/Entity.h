@@ -264,4 +264,21 @@ public:
 	virtual ~Cubo();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
+//----------------------------------------------------------
+class EntityWithIndexMesh: public Abs_Entity {
+public:
+	EntityWithIndexMesh();
+	~EntityWithIndexMesh();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+//----------------------------------------------------------
+class CompoundEntity : public Abs_Entity {
+public:
+	CompoundEntity();
+	~CompoundEntity();
+	void addEntity(Abs_Entity* ae);
+protected:
+	std::vector<Abs_Entity*> gObjects;
+
+};
 #endif //_H_Entities_H_
