@@ -14,31 +14,35 @@ void Mesh::draw() const
 
 void Mesh::render() const
 {
+<<<<<<< HEAD
 	//.... // se añaden comandos para la tabla de normales:
+=======
+	// se aÃ±aden comandos para la tabla de normales:
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	if (vColors.size() > 0) { // transfer colors
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(4, GL_DOUBLE, 0, vColors.data());  // components number (rgba=4), type of each component, stride, pointer  
+	}
+	if (vTexCoords.size() > 0) {
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+	}
+>>>>>>> d097980 (done)
 	if (vNormals.size() > 0) {
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glNormalPointer(GL_DOUBLE, 0, vNormals.data());
-		//...
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		if (vColors.size() > 0) { // transfer colors
-			glEnableClientState(GL_COLOR_ARRAY);
-			glColorPointer(4, GL_DOUBLE, 0, vColors.data());  // components number (rgba=4), type of each component, stride, pointer  
-		}
-		if (vTexCoords.size() > 0) {
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
-		}
-		draw();
-
-		glDisableClientState(GL_COLOR_ARRAY);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		//
-		glDisableClientState(GL_NORMAL_ARRAY);
 	}
+
+	draw();
+
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+
 	if (vVertices.size() > 0) {  // transfer data
 	  // transfer the coordinates of the vertices
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -312,8 +316,13 @@ void IndexMesh::render() const {
 		glEnableClientState(GL_INDEX_ARRAY);
 		glIndexPointer(GL_UNSIGNED_INT, 0, vIndices);
 	}
+<<<<<<< HEAD
 	//… // Comandos OpenGL para deshabilitar datos enviados
 	// Nuevo comando para la tabla de índices:
+=======
+	// Comandos OpenGL para deshabilitar datos enviados
+	// Nuevo comando para la tabla de ï¿½ndices:
+>>>>>>> d097980 (done)
 	glDisableClientState(GL_INDEX_ARRAY);
 <<<<<<< HEAD
 
@@ -333,11 +342,11 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	IndexMesh* anilloMesh = new IndexMesh();
 	anilloMesh->nNumIndices = 10;
 	anilloMesh->vIndices = new GLuint[anilloMesh->nNumIndices]{ 0, 1, 2, 3, 4, 5, 6, 7, 0, 1 };
-	
+
 	//Definimos los vertices del poligono
 	anilloMesh->mNumVertices = 8;								//Definimos el nº de vertices
 	anilloMesh->vVertices.reserve(anilloMesh->mNumVertices);	//Y los reservamos
-	anilloMesh->vVertices.emplace_back(-50,-50,0);
+	anilloMesh->vVertices.emplace_back(-50, -50, 0);
 	anilloMesh->vVertices.emplace_back(-100, -100, 0);
 	anilloMesh->vVertices.emplace_back(50, -50, 0);
 	anilloMesh->vVertices.emplace_back(100, -100, 0);
@@ -347,7 +356,7 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vVertices.emplace_back(-100, 100, 0);
 
 	anilloMesh->vColors.reserve(anilloMesh->mNumVertices);
-	anilloMesh->vColors.emplace_back(0.0, 0.0, 0.0 , 1.0);
+	anilloMesh->vColors.emplace_back(0.0, 0.0, 0.0, 1.0);
 	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 	anilloMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
 	anilloMesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0);
@@ -357,8 +366,18 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 
 	return anilloMesh;
+<<<<<<< HEAD
 =======
 	glDrawElements(mPrimitive, nNumIndices,
 		GL_UNSIGNED_INT, vIndices);
 >>>>>>> 58d69b5 (antonio te corot los webos)
 }
+=======
+}
+
+//glm::dvec3* Mesh::devuelveNormal(Mesh* m) {
+//	glm::dvec3 normal;
+//	m->vVertices.
+//	return normal;
+//}
+>>>>>>> d097980 (done)

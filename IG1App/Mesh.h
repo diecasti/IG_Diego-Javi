@@ -38,14 +38,15 @@ public:
 	static Mesh* generaEstrellaTexCor(GLdouble re, GLuint np, GLdouble h);
 
 	static Mesh* generaContCuboTexCor(GLdouble nl);
+	glm::dvec3* devuelveNormal(Mesh* m);
 protected:
-	std::vector<glm::dvec3> vNormals; // tabla de normales
 
 	GLuint mPrimitive = GL_TRIANGLES;   // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...
 	GLuint mNumVertices = 0;  // number of elements ( = vVertices.size())
 	std::vector<glm::dvec3> vVertices;  // vertex array
 	std::vector<glm::dvec4> vColors;    // color array
 	std::vector<glm::dvec2> vTexCoords; // TEXTURA GOES BRR BRR
+	std::vector<glm::dvec3> vNormals;	// tabla de normales
 	virtual void draw() const;
 
 };
@@ -69,5 +70,12 @@ protected:
 
 
 //-------------------------------------------------------------------------
+//Normales
+/*
+debe estar normalizado (módilo 1)
+- Ojo con el comando glEnable(GL_NORMALIZE);
 
+El comando glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+colorea caras traseras
+*/
 #endif
