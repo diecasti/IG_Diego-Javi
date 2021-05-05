@@ -732,6 +732,11 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 	{
 		el->render(aMat);
 	}
+	//los elementos translucidos
+	for (Abs_Entity* el : gTranslucid)
+	{
+		el->render(aMat);
+	}
 	
 	//y ya estaria segun als diapos
 
