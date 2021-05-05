@@ -700,7 +700,7 @@ void Cubo::render(glm::dmat4 const& modelViewMat) const
 }
 //--------------------------------------------------------------------------------------------------------------
 CompoundEntity::CompoundEntity() {
-
+	//no tiene mesh
 }
 CompoundEntity::~CompoundEntity() {
 	////Literalmente free() de scene
@@ -719,4 +719,34 @@ CompoundEntity::~CompoundEntity() {
 	//	delete el;  el = nullptr;
 	//}
 	//gObjectsTranslucid.clear();
+}
+
+void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
+{
+	glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+	//TODO, en las diapos dice que las upladeemos, pero realmente no es necesario, asi que arrideverchi
+	upload(aMat);
+		//ahora renderizar el resto de objetos respecto a esta aMat
+	
+	for (Abs_Entity* el : gObjects)
+	{
+		el->render(aMat);
+	}
+	
+	//y ya estaria segun als diapos
+
+	//esto importa shiet
+	/*
+	if (mMesh != nullptr) {
+		upload(aMat);
+		glEnable(GL_COLOR_MATERIAL);
+
+		glLineWidth(2);
+		glColor4dv(value_ptr(mColor));
+		mMesh->render();
+		glLineWidth(1);
+		glColor4d(1.0, 1.0, 1.0, 1);
+		glDisable(GL_COLOR_MATERIAL);
+	}
+	*/
 }

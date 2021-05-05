@@ -263,5 +263,22 @@ void Scene::scene2() {
 	//gObjects.push_back(new AnilloCuadrado());
 
 	//Escena 3
-	gObjects.push_back(new Cubo(100));
+	//gObjects.push_back(new Cubo(100));
+
+	//escena entidad compuesta
+	auto ce = new CompoundEntity();
+	gObjects.push_back(ce);
+	//el cubo (coordenada 0,0,0)
+	ce->addEntity(new Cubo(100));
+	//translacion de la entidad compuesta
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, 200)));
+	//segundo cubo
+	auto cubo2 = new Cubo(100);
+	cubo2->setModelMat(glm::translate(cubo2->modelMat(), dvec3(0, 0, 200)));
+	ce->addEntity(cubo2);
+	//rotate de la entidad compuesta
+
+	ce->setModelMat(glm::rotate(ce->modelMat(), radians(30.0), dvec3(0, 0, 1)));
+	/*
+	*/
 }
