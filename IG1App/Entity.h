@@ -276,7 +276,8 @@ class CompoundEntity : public Abs_Entity {
 public:
 	CompoundEntity();
 	~CompoundEntity();
-	void addEntity(Abs_Entity* ae);
+	void addEntity(Abs_Entity* ae) { gObjects.push_back(ae); }
+	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	std::vector<Abs_Entity*> gObjects;
 
