@@ -348,7 +348,7 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vIndices = new GLuint[anilloMesh->nNumIndices]{ 0, 1, 2, 3, 4, 5, 6, 7, 0, 1 };
 
 	//Definimos los vertices del poligono
-	anilloMesh->mNumVertices = 8;								//Definimos el n� de vertices
+	anilloMesh->mNumVertices = 8;								//Definimos el numero de vertices
 	anilloMesh->vVertices.reserve(anilloMesh->mNumVertices);	//Y los reservamos
 	anilloMesh->vVertices.emplace_back(-50, -50, 0);
 	anilloMesh->vVertices.emplace_back(-100, -100, 0);
@@ -369,13 +369,17 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0);
 	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 
-	//Saco normales
 	anilloMesh->vNormals.reserve(anilloMesh->mNumVertices);
+	for (int i = 0; i < anilloMesh->mNumVertices; i++) {
+		anilloMesh->vNormals.emplace_back(0.0, 0.0, 1.0);
+	}
+	//Saco normales
+	/*anilloMesh->vNormals.reserve(anilloMesh->mNumVertices);
 	for (int i = 0; i < anilloMesh->mNumVertices - 2; i++) {
 		GLuint* auxArr = new GLuint[anilloMesh->nNumIndices]{ (GLuint)i,(GLuint)i + 1,(GLuint)i + 2 };
 		glm::dvec3 aux = anilloMesh->CalculoVectorNormalPorNewell(auxArr);
 		anilloMesh->vNormals.emplace_back(aux);
-	}
+	}*/
 
 	//Saco normales como dice el motherfucker del Aaron que es un maquina
 	//anilloMesh->sacaNormales();
@@ -384,6 +388,7 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	return anilloMesh;
 }
 
+//SACA NORMALES POR NEWELL
 glm::dvec3 IndexMesh::CalculoVectorNormalPorNewell(GLuint* face) {
 	dvec3 n = { 0, 0, 0 };
 	dvec3 vertActual;
@@ -410,7 +415,7 @@ void IndexMesh::sacaNormales() {
 	for (int i = 0; i < mNumVertices; i++)
 		vNormals.emplace_back(0, 0, 0);
 
-	for (int i = 0; i < nNumIndices; i += 3) {
+	for (int i = 0; i < nNumIndices; i = i + 3) {
 		dvec3 a, b, c;
 		a = vVertices[vIndices[i]];
 		b = vVertices[vIndices[i + 1]];
@@ -433,7 +438,7 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l) {
 
 	//Indices
 	cuboMesh->nNumIndices = 36;
-	cuboMesh->vIndices = new GLuint[cuboMesh->nNumIndices]{0,1,2,2,1,3,2,3,4,4,3,5,4,5,6,6,5,7,6,7,1,0,6,1,6,0,2,4,6,2,5,7,1,5,1,3};
+	cuboMesh->vIndices = new GLuint[cuboMesh->nNumIndices]{ 0,1,2,2,1,3,2,3,4,4,3,5,4,5,6,6,5,7,6,7,1,0,6,1,  6,0,2,4,6,2,  1,7,5, 1,5,3 };			//Javi y aaron
 
 	//Vertices
 	cuboMesh->mNumVertices = 8;
