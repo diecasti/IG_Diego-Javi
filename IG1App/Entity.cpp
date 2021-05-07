@@ -685,7 +685,7 @@ Cubo::~Cubo() {}
 void Cubo::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
-		glm::dmat4 aMat = modelViewMat *  mModelMat;  // glm matrix multiplication
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
 		glEnable(GL_COLOR_MATERIAL);
 
@@ -726,8 +726,8 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 	glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 	//TODO, en las diapos dice que las upladeemos, pero realmente no es necesario, asi que arrideverchi
 	upload(aMat);
-		//ahora renderizar el resto de objetos respecto a esta aMat
-	
+	//ahora renderizar el resto de objetos respecto a esta aMat
+
 	for (Abs_Entity* el : gObjects)
 	{
 		el->render(aMat);
@@ -737,7 +737,7 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 	{
 		el->render(aMat);
 	}
-	
+
 	//y ya estaria segun als diapos
 
 	//esto importa shiet
