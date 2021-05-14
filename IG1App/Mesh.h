@@ -81,4 +81,19 @@ debe estar normalizado (módilo 1)
 El comando glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 colorea caras traseras
 */
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//PRACTICA 2.2
+class MbR : public IndexMesh {
+public:
+	MbR(int mm, int nn, glm::dvec3* perfill);
+	static MbR* generaMallaIndexadaPorRevolucion(int mm, int nn, glm::dvec3* perfill);
+protected:
+	int n;					//Numero de muestras de giro (resolucion)
+	glm::dvec3* perfil;			//Array de vertices de la vertical del giro
+	int m;					//numero de puntos del perfil
+
+};
+//-------------------------------------------------------------------------
+
 #endif
