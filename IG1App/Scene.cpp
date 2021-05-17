@@ -251,15 +251,20 @@ void Scene::scene0() {
 
 	//escena dos bolas
 
-	auto bola = new Esfera(100, 50, 50);
+	//auto bola = new Esfera(100, 50, 50);
 
-	gObjects.push_back(bola);
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, +200)));
-	gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	//gObjects.push_back(bola);
+	//gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, +200)));
+	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
 
-	//cuadratica
+	////cuadratica
 
-	gObjects.push_back(new Sphere(100, 50, 50));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(+200, 0, 0)));
-	gObjects.back()->setColor(dvec4(0.0, 0.0, 1.0, 1.0));
+	//gObjects.push_back(new Sphere(100, 50, 50));
+	//gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(+200, 0, 0)));
+	//gObjects.back()->setColor(dvec4(0.0, 0.0, 1.0, 1.0));
+
+	//escena rejilla
+
+	auto reja = new Rejilla(100, 2);
+	gObjects.push_back(reja);
 }

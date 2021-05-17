@@ -301,4 +301,11 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 //----------------------------------------------------------
+class Rejilla : public Abs_Entity {
+public:
+	Rejilla(GLdouble lado, int nDiv);
+	~Rejilla() {}
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+//----------------------------------------------------------
 #endif //_H_Entities_H_
