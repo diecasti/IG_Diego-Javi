@@ -785,3 +785,43 @@ void Cone::render(glm::dmat4 const& modelViewMat) const
 
 	}
 }
+
+Esfera::Esfera(GLdouble r, GLdouble p, GLuint n)
+{
+	// h=altura del cono, r=radio de la base
+	// n=número de muestras, m=número de puntos del perfil
+
+
+	dvec3* perfil = new dvec3[p + 1];
+	for (int i = 0; i < p + 1; i++) {
+
+		GLdouble theta = 90 + i * 180 / p; //para que se ahga kla media circunferencia y no una entera
+		GLdouble c = cos(radians(theta));
+		GLdouble s = sin(radians(theta));
+
+
+		GLdouble x = c * r;
+		GLdouble y = -s * r;
+
+		perfil[i] = dvec3(x, y, 0.0); 
+	}
+
+	mMesh = MbR::generaMallaIndexadaPorRevolucion(p + 1, n, perfil);
+}
+
+void Esfera::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		glEnable(GL_COLOR_MATERIAL);
+
+		glLineWidth(2);
+		glColor4dv(value_ptr(mColor));
+		mMesh->render();
+		glLineWidth(1);
+		glColor4d(1.0, 1.0, 1.0, 1);
+		glDisable(GL_COLOR_MATERIAL);
+
+	}
+}

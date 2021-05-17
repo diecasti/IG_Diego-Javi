@@ -239,7 +239,11 @@ void Scene::scene0() {
 	//EJES RGB
 	gObjects.push_back(new EjesRGB(400.0));
 
-	auto arbeloa = new Cone(500, 100, 6);
+	//auto arbeloa = new Cone(500, 100, 6);
 
-	gObjects.push_back(arbeloa);
+	//gObjects.push_back(arbeloa);
+
+	auto bola = new Esfera(100, 10, 10);
+
+	gObjects.push_back(bola);
 }

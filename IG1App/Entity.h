@@ -293,4 +293,12 @@ public:
 	~Cone() {}
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
+
+class Esfera : public Abs_Entity {
+public:
+	Esfera(GLdouble r, GLdouble p, GLuint n);
+	~Esfera() {}
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+//----------------------------------------------------------
 #endif //_H_Entities_H_
