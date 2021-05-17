@@ -240,4 +240,6 @@ void Scene::scene0() {
 	gObjects.push_back(new EjesRGB(400.0));
 
 	auto arbeloa = new Cone(500, 100, 6);
+
+	gObjects.push_back(arbeloa);
 }

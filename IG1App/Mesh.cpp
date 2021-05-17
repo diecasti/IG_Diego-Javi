@@ -545,6 +545,8 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int mm, int nn, glm::dvec3* perfill) 
 	mesh->mPrimitive = GL_TRIANGLES;
 	// Definir el número de vértices como nn*mm
 	mesh->mNumVertices = nn * mm;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	//mesh->vColors.reserve(mesh->mNumVertices);
 
 	// Usar un vector auxiliar de vértices
 	glm::dvec3* vertices = new dvec3[mesh->mNumVertices];
@@ -555,17 +557,20 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int mm, int nn, glm::dvec3* perfill) 
 		GLdouble s = sin(radians(theta));
 		// R_y(theta) es la matriz de rotación alrededor del eje Y
 		for (int j = 0; j < mm; j++) {
-			int indice = i * mm + j;
+			int indice = i * mm + j; // 
 			GLdouble x = c * perfill[j].x + s * perfill[j].z;
 			GLdouble z = -s * perfill[j].x + c * perfill[j].z;
 			vertices[indice] = glm::dvec3(x, perfill[j].y, z);
 
-			mesh->vVertices.emplace_back(vertices[indice]);			//Vamos metiendo los vertices
+			mesh->vVertices.emplace_back(vertices[indice].x, vertices[indice].y, vertices[indice].z);			//Vamos metiendo los vertices
+			//mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0);
 		}
 	}
 
+
 	//Determinar los indices de las caras cuadrangulares
 	int indiceMayor = 0;
+	mesh->nNumIndices = mesh->nNumIndices = nn * (mm - 1) * 6;
 	mesh->vIndices = new GLuint[mesh->nNumIndices];
 	// El contador i recorre las muestras alrededor del eje Y
 	for (int i = 0; i < nn; i++) {
@@ -601,7 +606,7 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int mm, int nn, glm::dvec3* perfill) 
 
 
 	//Sacamos las normales y returneamos la mesh
-	//mesh->sacaNormales();
+	mesh->sacaNormales();
 	return mesh;
 }
 >>>>>>> f3ca3be (ole los caracole)
