@@ -239,11 +239,27 @@ void Scene::scene0() {
 	//EJES RGB
 	gObjects.push_back(new EjesRGB(400.0));
 
+	//escena cono
 	//auto arbeloa = new Cone(500, 100, 6);
 
 	//gObjects.push_back(arbeloa);
 
-	auto bola = new Esfera(100, 10, 10);
+	//escena bola
+	//auto bola = new Esfera(100, 10, 10);
+
+	//gObjects.push_back(bola);
+
+	//escena dos bolas
+
+	auto bola = new Esfera(100, 50, 50);
 
 	gObjects.push_back(bola);
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, +200)));
+	gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+
+	//cuadratica
+
+	gObjects.push_back(new Sphere(100, 50, 50));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(+200, 0, 0)));
+	gObjects.back()->setColor(dvec4(0.0, 0.0, 1.0, 1.0));
 }

@@ -521,10 +521,10 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
 	glEnable(GL_COLOR_MATERIAL);
-	glColor3f(0.0, 0.25, 0.41);
+	glColor4dv(value_ptr(mColor));
 	gluQuadricDrawStyle(q, GL_FILL);
 	gluSphere(q, radio, slices, stacks);
-	glColor3f(1.0, 1.0, 1.0);
+	glColor4f(1.0, 1.0, 1.0, 1.0);
 	glDisable(GL_COLOR_MATERIAL);
 
 }
