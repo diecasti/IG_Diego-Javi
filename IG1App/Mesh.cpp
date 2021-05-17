@@ -534,9 +534,6 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l) {
 //-------------------------------------------------------------------------
 //Clase Practica 2.1
 MbR::MbR(int mm, int nn, glm::dvec3* perfill) {
-	m = mm;
-	n = nn;
-	perfil = perfill;
 }
 
 MbR* MbR::generaMallaIndexadaPorRevolucion(int mm, int nn, glm::dvec3* perfill) {
@@ -609,4 +606,64 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int mm, int nn, glm::dvec3* perfill) 
 	mesh->sacaNormales();
 	return mesh;
 }
+<<<<<<< HEAD
 >>>>>>> f3ca3be (ole los caracole)
+=======
+
+Grid::Grid(GLuint lado, int divisiones)
+{
+	lado_ = lado;
+	divisiones_ = divisiones;
+}
+
+Grid* Grid::generateGrid(GLdouble lado, GLuint nDiv)
+{
+	Grid* mesh = new Grid(lado, nDiv);
+
+	GLdouble incr = lado / nDiv; // incremento para la coordenada x, y la c. z
+	GLuint numFC = nDiv + 1; // número de vértices por filas y columnas
+
+	// Generación de vértices
+	mesh->mNumVertices = numFC * numFC;
+	//mesh->vertices = new dvec3[mesh->mNumVertices];
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	GLuint z = -lado / 2,
+		x = -lado / 2;
+	for (int f = 0; f < nDiv; f++) {
+		for (int c = 0; c < nDiv; c++) {
+			mesh->vVertices.emplace_back(x + c * incr,
+				0,
+				z + f * incr);
+
+			/*mesh->vVertices[f * numFC + c] = dvec3(x + c * incr,
+													0,
+													z + f * incr);*/
+		}
+	}
+
+	// Generación de índices
+	mesh->nNumIndices = nDiv * nDiv * 6;
+	mesh->vIndices = new GLuint[mesh->nNumIndices];
+
+	///
+	int i = 0; // array de índices
+
+	for (int f = 0; f < nDiv; f++) {
+		for (int c = 0; c < nDiv; c++) {
+			GLuint iv = f * numFC + c;
+			mesh->vIndices[i++] = iv;
+			mesh->vIndices[i++] = iv + numFC;
+			mesh->vIndices[i++] = iv + 1;
+
+			mesh->vIndices[i++] = iv + 1;
+			mesh->vIndices[i++] = iv + numFC;
+			mesh->vIndices[i++] = iv + numFC + 1;
+		}
+	}
+
+	//Sacamos las normales y returneamos la mesh
+	//mesh->sacaNormales();
+	return mesh;
+}
+>>>>>>> b099b2d (memento mori)
