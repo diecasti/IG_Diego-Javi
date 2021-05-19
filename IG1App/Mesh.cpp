@@ -561,6 +561,9 @@ Grid* Grid::generateGrid(GLdouble lado, GLuint nDiv)
 {
 	Grid* mesh = new Grid(lado, nDiv);
 
+	//primitiva
+	mesh->mPrimitive = GL_TRIANGLES;
+
 	GLdouble incr = lado / nDiv; // incremento para la coordenada x, y la c. z
 	GLuint numFC = nDiv + 1; // número de vértices por filas y columnas
 
@@ -569,10 +572,10 @@ Grid* Grid::generateGrid(GLdouble lado, GLuint nDiv)
 	//mesh->vertices = new dvec3[mesh->mNumVertices];
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
-	GLuint z = -lado / 2,
+	GLdouble z = -lado / 2,
 		x = -lado / 2;
-	for (int f = 0; f < nDiv; f++) {
-		for (int c = 0; c < nDiv; c++) {
+	for (int f = 0; f < numFC; f++) {
+		for (int c = 0; c < numFC; c++) {
 			mesh->vVertices.emplace_back(x + c * incr,
 				0,
 				z + f * incr);
@@ -587,7 +590,7 @@ Grid* Grid::generateGrid(GLdouble lado, GLuint nDiv)
 	mesh->nNumIndices = nDiv * nDiv * 6;
 	mesh->vIndices = new GLuint[mesh->nNumIndices];
 
-	///
+
 	int i = 0; // array de índices
 
 	for (int f = 0; f < nDiv; f++) {
@@ -604,6 +607,6 @@ Grid* Grid::generateGrid(GLdouble lado, GLuint nDiv)
 	}
 
 	//Sacamos las normales y returneamos la mesh
-	//mesh->sacaNormales();
+	mesh->sacaNormales();
 	return mesh;
 }
