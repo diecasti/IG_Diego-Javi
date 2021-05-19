@@ -265,6 +265,8 @@ void Scene::scene0() {
 
 	//escena rejilla
 
-	auto reja = new Rejilla(100, 2);
+	auto reja = new Rejilla(1000, 10);
 	gObjects.push_back(reja);
+	gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+
 }
