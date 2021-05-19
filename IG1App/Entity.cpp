@@ -860,7 +860,8 @@ void RejillaTex::render(glm::dmat4 const& modelViewMat) const
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
 		glEnable(GL_COLOR_MATERIAL);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_LINE);
 
 		mTexture->bind(GL_MODULATE);
 
@@ -874,4 +875,83 @@ void RejillaTex::render(glm::dmat4 const& modelViewMat) const
 		mTexture->unbind();
 
 	}
+}
+
+GridCube::GridCube(GLdouble lado, int nDiv, Texture* tapa, Texture* pared)
+{
+
+	auto reja = new RejillaTex(lado, nDiv);
+	gObjects.push_back(reja);
+	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.back()->setTexture(tapa);
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado/2.0, 0)));
+
+	auto pared1 = new RejillaTex(lado, nDiv);
+	gObjects.push_back(pared1);
+	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.back()->setTexture(pared);
+
+	pared1->setModelMat(glm::rotate(pared1->modelMat(), radians(90.0), dvec3(0, 0, -1)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
+
+	auto pared2 = new RejillaTex(lado, nDiv);
+	gObjects.push_back(pared2);
+	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.back()->setTexture(pared);
+
+	pared2->setModelMat(glm::rotate(pared2->modelMat(), radians(90.0), dvec3(0, 1, 0)));
+	pared2->setModelMat(glm::rotate(pared2->modelMat(), radians(90.0), dvec3(0, 0, -1)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
+
+	//pared 3
+
+	auto pared3 = new RejillaTex(lado, nDiv);
+	gObjects.push_back(pared3);
+	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.back()->setTexture(pared);
+
+	pared3->setModelMat(glm::rotate(pared3->modelMat(), radians(180.0), dvec3(0, 1, 0)));
+	pared3->setModelMat(glm::rotate(pared3->modelMat(), radians(90.0), dvec3(0, 0, -1)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
+
+
+	//pared 4
+
+	auto pared4 = new RejillaTex(lado, nDiv);
+	gObjects.push_back(pared4);
+	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.back()->setTexture(pared);
+
+	pared4->setModelMat(glm::rotate(pared4->modelMat(), radians(270.0), dvec3(0, 1, 0)));
+	pared4->setModelMat(glm::rotate(pared4->modelMat(), radians(90.0), dvec3(0, 0, -1)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
+
+	//tapa de abajo
+	auto tapa2 = new RejillaTex(lado, nDiv);
+	gObjects.push_back(tapa2);
+	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.back()->setTexture(tapa);
+
+	tapa2->setModelMat(glm::rotate(tapa2->modelMat(), radians(180.0), dvec3(0, 0, 1)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
+
+}
+
+void GridCube::render(glm::dmat4 const& modelViewMat) const
+{
+	glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+	//TODO, en las diapos dice que las upladeemos, pero realmente no es necesario, asi que arrideverchi
+	upload(aMat);
+	//ahora renderizar el resto de objetos respecto a esta aMat
+
+	for (Abs_Entity* el : gObjects)
+	{
+		el->render(aMat);
+	}
+	//los elementos translucidos
+	for (Abs_Entity* el : gTranslucid)
+	{
+		el->render(aMat);
+	}
+
 }

@@ -263,16 +263,29 @@ void Scene::scene0() {
 	//gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(+200, 0, 0)));
 	//gObjects.back()->setColor(dvec4(0.0, 0.0, 1.0, 1.0));
 
-	//escena rejilla
+	//escena rejilla TEXTURIZADA
+
+	//Texture* ajedrez = new Texture();
+	//ajedrez->load("..\\Bmps\\checker.bmp", 200);
+	//gTextures.push_back(ajedrez);
+
+
+	//auto reja = new RejillaTex(1000, 2);
+	//gObjects.push_back(reja);
+	////gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	//gObjects.back()->setTexture(ajedrez);
+
+	//Escena CUBO, esta es la escena 5
 
 	Texture* ajedrez = new Texture();
 	ajedrez->load("..\\Bmps\\checker.bmp", 200);
 	gTextures.push_back(ajedrez);
 
+	Texture* piedra = new Texture();
+	piedra->load("..\\Bmps\\stones.bmp", 200);
+	gTextures.push_back(piedra);
 
-	auto reja = new RejillaTex(1000, 2);
-	gObjects.push_back(reja);
-	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
-	gObjects.back()->setTexture(ajedrez);
+	auto cubo = new GridCube(100, 2, ajedrez, piedra);
+	gObjects.push_back(cubo);
 
 }
