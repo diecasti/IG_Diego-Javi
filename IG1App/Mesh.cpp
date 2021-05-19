@@ -1,6 +1,7 @@
 #include "Mesh.h"
 #include "CheckML.h"
 #include <fstream>
+//#include <iostream>
 using namespace std;
 using namespace glm;
 
@@ -609,4 +610,27 @@ Grid* Grid::generateGrid(GLdouble lado, GLuint nDiv)
 	//Sacamos las normales y returneamos la mesh
 	mesh->sacaNormales();
 	return mesh;
+}
+
+Grid* Grid::generaGridTex(GLdouble lado, GLuint numDiv) {
+
+	// Grid cuadrado de lado*lado, centrado en el plano Y=0,
+	// dividido en numDiv*numDiv celdas
+	Grid* mesh = generateGrid(lado, numDiv);
+	GLuint numFC = numDiv + 1; // número de vértices por filas y columnas
+	// Generación de las coordenadas de textura
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	int s = 0,
+		t = 1;
+	GLdouble aux = (GLdouble)1.0/numDiv;
+
+	for (int f = 0; f < numFC; f++) {
+		for (int c = 0; c < numFC; c++) {
+			mesh->vTexCoords.emplace_back(dvec2(s + (f * aux), t - (c * aux)));
+			//cout << (s + (f * aux)) << " " << (t - (c * aux)) << "\n";
+		}
+	}
+
+		return mesh;
 }

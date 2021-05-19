@@ -848,3 +848,30 @@ void Rejilla::render(glm::dmat4 const& modelViewMat) const
 
 	}
 }
+
+RejillaTex::RejillaTex(GLdouble lado, int nDiv)
+{
+	mMesh = Grid::generaGridTex(lado, nDiv);
+}
+
+void RejillaTex::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		glEnable(GL_COLOR_MATERIAL);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+		mTexture->bind(GL_MODULATE);
+
+		glLineWidth(2);
+		glColor4dv(value_ptr(mColor));
+		mMesh->render();
+		glLineWidth(1);
+		glColor4d(1.0, 1.0, 1.0, 1);
+		glDisable(GL_COLOR_MATERIAL);
+
+		mTexture->unbind();
+
+	}
+}

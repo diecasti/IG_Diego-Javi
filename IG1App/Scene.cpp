@@ -265,8 +265,14 @@ void Scene::scene0() {
 
 	//escena rejilla
 
-	auto reja = new Rejilla(1000, 10);
+	Texture* ajedrez = new Texture();
+	ajedrez->load("..\\Bmps\\checker.bmp", 200);
+	gTextures.push_back(ajedrez);
+
+
+	auto reja = new RejillaTex(1000, 2);
 	gObjects.push_back(reja);
-	gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.back()->setTexture(ajedrez);
 
 }
