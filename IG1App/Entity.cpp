@@ -860,8 +860,8 @@ void RejillaTex::render(glm::dmat4 const& modelViewMat) const
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
 		glEnable(GL_COLOR_MATERIAL);
-		glPolygonMode(GL_FRONT, GL_FILL);
-		glPolygonMode(GL_BACK, GL_LINE);
+		/*glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_LINE);*/
 
 		mTexture->bind(GL_MODULATE);
 
