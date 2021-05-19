@@ -632,5 +632,5 @@ Grid* Grid::generaGridTex(GLdouble lado, GLuint numDiv) {
 		}
 	}
 
-		return mesh;
+	return mesh;
 }

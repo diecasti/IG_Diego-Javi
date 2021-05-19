@@ -315,4 +315,12 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 //----------------------------------------------------------
+//----------------------------------------------------------
+class GridCube : public CompoundEntity {
+public:
+	GridCube(GLdouble lado, int nDiv, Texture* tapa, Texture* pared);
+	~GridCube() {}
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+//----------------------------------------------------------
 #endif //_H_Entities_H_
