@@ -100,6 +100,7 @@ class Grid : public IndexMesh {
 public:
 	Grid(GLuint lado, int divisiones);
 	static Grid* generateGrid(GLdouble lado, GLuint nDiv);
+	static Grid* generaGridTex(GLdouble lado, GLuint numDiv);
 protected:
 	GLuint lado_;					//Numero de muestras de giro (resolucion)
 	int divisiones_;					//numero de puntos del perfil
