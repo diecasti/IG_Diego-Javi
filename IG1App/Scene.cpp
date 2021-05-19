@@ -266,7 +266,7 @@ void Scene::scene0() {
 	//escena rejilla TEXTURIZADA
 
 	//Texture* ajedrez = new Texture();
-	//ajedrez->load("..\\Bmps\\checker.bmp", 200);
+	//ajedrez->load("..\\Bmps\\checker.bmp");
 	//gTextures.push_back(ajedrez);
 
 
@@ -278,14 +278,14 @@ void Scene::scene0() {
 	//Escena CUBO, esta es la escena 5
 
 	Texture* ajedrez = new Texture();
-	ajedrez->load("..\\Bmps\\checker.bmp", 200);
+	ajedrez->load("..\\Bmps\\checker.bmp");
 	gTextures.push_back(ajedrez);
 
 	Texture* piedra = new Texture();
-	piedra->load("..\\Bmps\\stones.bmp", 200);
+	piedra->load("..\\Bmps\\stones.bmp");
 	gTextures.push_back(piedra);
 
-	auto cubo = new GridCube(100, 2, ajedrez, piedra);
+	auto cubo = new GridCube(100, 100, ajedrez, piedra);
 	gObjects.push_back(cubo);
 
 }
