@@ -18,6 +18,10 @@ void Scene::init()
 		scene2();
 	else if (mId == 3)
 		scene3();
+	else if (mId == 4)
+		scene4();
+	else if (mId == 5)
+		scene5();
 
 }
 //-------------------------------------------------------------------------
@@ -41,6 +45,12 @@ void Scene::changeScene(int id) {
 		}
 		else if (mId == 3) {
 			scene3();
+		}
+		else if (mId == 4) {
+			scene4();
+		}
+		else if (mId == 5) {
+			scene5();
 		}
 	}
 }
@@ -238,43 +248,31 @@ void Scene::scene2() {
 void Scene::scene0() {
 	//EJES RGB
 	gObjects.push_back(new EjesRGB(400.0));
+	
 
-	//escena cono
-	//auto arbeloa = new Cone(500, 100, 6);
-
-	//gObjects.push_back(arbeloa);
-
-	//escena bola
-	//auto bola = new Esfera(100, 10, 10);
-
-	//gObjects.push_back(bola);
-
+}
+void Scene::scene4() {
+	//EJES RGB
+	gObjects.push_back(new EjesRGB(400.0));
 	//escena dos bolas
 
-	//auto bola = new Esfera(100, 50, 50);
+	auto bola = new Esfera(100, 50, 50);
 
-	//gObjects.push_back(bola);
-	//gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, +200)));
-	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.push_back(bola);
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, +200)));
+	gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
 
-	////cuadratica
+	//cuadratica
 
-	//gObjects.push_back(new Sphere(100, 50, 50));
-	//gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(+200, 0, 0)));
-	//gObjects.back()->setColor(dvec4(0.0, 0.0, 1.0, 1.0));
+	gObjects.push_back(new Sphere(100, 50, 50));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(+200, 0, 0)));
+	gObjects.back()->setColor(dvec4(0.0, 0.0, 1.0, 1.0));
 
-	//escena rejilla TEXTURIZADA
+}
+void Scene::scene5() {
 
-	//Texture* ajedrez = new Texture();
-	//ajedrez->load("..\\Bmps\\checker.bmp");
-	//gTextures.push_back(ajedrez);
-
-
-	//auto reja = new RejillaTex(1000, 2);
-	//gObjects.push_back(reja);
-	////gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
-	//gObjects.back()->setTexture(ajedrez);
-
+	//EJES RGB
+	gObjects.push_back(new EjesRGB(400.0));
 	//Escena CUBO, esta es la escena 5
 
 	Texture* ajedrez = new Texture();
@@ -287,5 +285,4 @@ void Scene::scene0() {
 
 	auto cubo = new GridCube(100, 100, ajedrez, piedra);
 	gObjects.push_back(cubo);
-
 }
