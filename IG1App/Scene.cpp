@@ -22,6 +22,8 @@ void Scene::init()
 		scene4();
 	else if (mId == 5)
 		scene5();
+	else if (mId == 6)
+		scene6();
 
 }
 //-------------------------------------------------------------------------
@@ -51,6 +53,9 @@ void Scene::changeScene(int id) {
 		}
 		else if (mId == 5) {
 			scene5();
+		}
+		else if (mId == 6) {
+			scene6();
 		}
 	}
 }
@@ -146,32 +151,7 @@ void Scene::scene3() {
 	gObjects.push_back(new EjesRGB(400.0));
 
 	//NAVE
-	gObjects.push_back(new Sphere(100, 50, 50));
-
-	//VENTANA
-	gObjects.push_back(new Cylinder(80, 80, 50, 50, 50));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(60, 0, 0)));
-	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
-
-	//CRISTALVENTANA
-	gObjects.push_back(new Disk(0, 80, 50, 50));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(110, 0, 0)));
-	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
-
-	//UNION ALAS
-	gObjects.push_back(new Cylinder(20, 20, 400, 50, 50));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -200)));
-
-	//ALAS
-	gObjectsTranslucid.push_back(new DiskText(0, 300, 6, 6));
-	gObjectsTranslucid.back()->setModelMat(glm::translate(gObjectsTranslucid.back()->modelMat(), dvec3(0, 0, -200)));
-	gObjectsTranslucid.back()->setModelMat(glm::rotate(gObjectsTranslucid.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
-	gObjectsTranslucid.back()->setTexture(noche);
-
-	gObjectsTranslucid.push_back(new DiskText(0, 300, 6, 6));
-	gObjectsTranslucid.back()->setModelMat(glm::translate(gObjectsTranslucid.back()->modelMat(), dvec3(0, 0, 200)));
-	gObjectsTranslucid.back()->setModelMat(glm::rotate(gObjectsTranslucid.back()->modelMat(), radians(30.0), dvec3(0, 0, 1)));
-	gObjectsTranslucid.back()->setTexture(noche);
+	gObjects.push_back(new TIE(100, noche, 50));
 
 }
 
@@ -285,4 +265,16 @@ void Scene::scene5() {
 
 	auto cubo = new GridCube(100, 100, ajedrez, piedra);
 	gObjects.push_back(cubo);
+}
+
+void Scene::scene6() {
+	//EJES RGB
+	gObjects.push_back(new EjesRGB(2000.0));
+
+
+	auto bola = new Esfera(1000, 50, 50);
+
+	gObjects.push_back(bola);
+	gObjects.back()->setColor(dvec4(0.0, 1.0, 1.0, 1.0));
+
 }

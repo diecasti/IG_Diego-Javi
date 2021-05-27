@@ -287,6 +287,13 @@ protected:
 //----------------------------------------------------------
 //----------------------------------------------------------
 //ENTIDADES PRACTICA 2.2
+class TIE : public CompoundEntity {
+public:
+	TIE(GLdouble tamanyo, Texture* textura, GLuint slices);
+	~TIE() {}
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+
 class Cone : public Abs_Entity {
 public:
 	Cone(GLdouble h, GLdouble r, GLuint n);
