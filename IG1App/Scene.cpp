@@ -268,13 +268,41 @@ void Scene::scene5() {
 }
 
 void Scene::scene6() {
+
+
+	//TEXTURAS
+	Texture* noche = new Texture();
+	noche->load("..\\Bmps\\noche.bmp", 200);
+	gTextures.push_back(noche);
+
 	//EJES RGB
-	gObjects.push_back(new EjesRGB(2000.0));
+	gObjects.push_back(new EjesRGB(4000.0));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, -2000, 0)));
 
 
 	auto bola = new Esfera(1000, 50, 50);
 
 	gObjects.push_back(bola);
 	gObjects.back()->setColor(dvec4(0.0, 1.0, 1.0, 1.0));
+
+	auto ceTIEs = new CompoundEntity();
+	gObjects.push_back(ceTIEs);
+
+
+	auto tie1 = new TIE(10, noche, 50);
+	tie1->setModelMat(glm::translate(tie1->modelMat(), dvec3(0, 1100, 0)));
+	ceTIEs->addEntity(tie1);
+
+
+	auto tie2 = new TIE(10, noche, 50);
+	tie2->setModelMat(glm::translate(tie2->modelMat(), dvec3(-50, 1080, -50)));
+	tie2->setModelMat(glm::rotate(tie2->modelMat(), radians(15.0), dvec3(0, 1, 1)));
+	ceTIEs->addEntity(tie2);
+
+
+	auto tie3 = new TIE(10, noche, 50);
+	tie3->setModelMat(glm::translate(tie3->modelMat(), dvec3(-60, 1050, 50)));
+	tie3->setModelMat(glm::rotate(tie3->modelMat(), radians(10.0), dvec3(0, 1, -1)));
+	ceTIEs->addEntity(tie3);
 
 }

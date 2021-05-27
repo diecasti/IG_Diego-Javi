@@ -964,7 +964,7 @@ TIE::TIE(GLdouble tamanyo, Texture* textura, GLuint slices)
 	gObjects.back()->setColor(dvec4(0.0, 0.25, 0.41, 1.0));
 
 	//VENTANA
-	gObjects.push_back(new Cylinder(tamanyo * 0.8, tamanyo * 0.8, slices, slices, slices));
+	gObjects.push_back(new Cylinder(tamanyo * 0.8, tamanyo * 0.8, tamanyo * 0.5, slices, slices));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(tamanyo* 0.6, 0, 0)));
 	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 
