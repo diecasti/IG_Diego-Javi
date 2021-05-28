@@ -155,6 +155,16 @@ void Scene::createLight()
 	dirLightOn = true;
 }
 
+void Scene::createPosLight()
+{
+	posLight = new PosLight;
+	//posLight->setDiffuse({ 1, 1, 1, 1 });
+	//posLight->setAmb({ 0, 0, 0, 1 });
+	//posLight->setSpecular({ 0.5, 0.5, 0.5, 1 });
+	posLight->setPosDir({ 1, 1, 1 });
+	dirLightOn = true;
+}
+
 void Scene::scene3() {
 	//TEXTURAS
 	Texture* noche = new Texture();
@@ -321,4 +331,5 @@ void Scene::scene6() {
 	ceTIEs->addEntity(tie3);
 
 	createLight();
+	createPosLight();
 }
