@@ -204,7 +204,7 @@ void Scene::TIEsLightsOff()
 
 void Scene::defaultLighting()
 {
-	if (tieGroup != nullptr) TIEsLightsOn();
+	if (tieGroup != nullptr) TIEsLightsOff();
 	desactivarLuces();
 	//luz ambiente tenue
 	GLfloat amb[] = { 0.2, 0.2, 0.2, 1.0 };
