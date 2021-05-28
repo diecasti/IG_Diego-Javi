@@ -35,6 +35,10 @@ public:
 	SpotLight* spotLight = nullptr;
 
 
+	CompoundEntity* tieGroup;
+
+	void TIEsLightsOff();
+
 	void defaultLighting();
 	void darkScene();
 
@@ -58,6 +62,7 @@ protected:
 	void sceneDirLight(Camera const& cam) const;
 	void createLights();
 	void desactivarLuces();
+	void TIEsLightsOn();
 };
 //-------------------------------------------------------------------------
 

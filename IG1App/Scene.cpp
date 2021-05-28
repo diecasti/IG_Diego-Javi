@@ -182,13 +182,29 @@ void Scene::createLights()
 
 void Scene::desactivarLuces()
 {
+	if (tieGroup != nullptr) TIEsLightsOff();
 	dirLight->disable();
 	posLight->disable();
 	spotLight->disable();
 }
 
+void Scene::TIEsLightsOn()
+{
+	for (Abs_Entity* tie : tieGroup->gObjects)
+		static_cast<TIE*>(tie)->focoDeLuz()->enable();
+}
+
+
+
+void Scene::TIEsLightsOff()
+{
+	for (Abs_Entity* tie : tieGroup->gObjects)
+		static_cast<TIE*>(tie)->focoDeLuz()->disable();
+}
+
 void Scene::defaultLighting()
 {
+	if (tieGroup != nullptr) TIEsLightsOn();
 	desactivarLuces();
 	//luz ambiente tenue
 	GLfloat amb[] = { 0.2, 0.2, 0.2, 1.0 };
@@ -352,25 +368,25 @@ void Scene::scene6() {
 	gObjects.push_back(bola);
 	gObjects.back()->setColor(dvec4(0.0, 1.0, 1.0, 1.0));
 
-	auto ceTIEs = new CompoundEntity();
-	gObjects.push_back(ceTIEs);
+	tieGroup = new CompoundEntity();
+	gObjects.push_back(tieGroup);
 
 
 	auto tie1 = new TIE(10, noche, 50);
 	tie1->setModelMat(glm::translate(tie1->modelMat(), dvec3(0, 110 + 550, 0)));
-	ceTIEs->addEntity(tie1);
+	tieGroup->addEntity(tie1);
 
 
 	auto tie2 = new TIE(10, noche, 50);
 	tie2->setModelMat(glm::translate(tie2->modelMat(), dvec3(-50, 108 + 550, -50)));
 	tie2->setModelMat(glm::rotate(tie2->modelMat(), radians(15.0), dvec3(0, 1, 1)));
-	ceTIEs->addEntity(tie2);
+	tieGroup->addEntity(tie2);
 
 
 	auto tie3 = new TIE(10, noche, 50);
 	tie3->setModelMat(glm::translate(tie3->modelMat(), dvec3(-60, 105 + 550, 50)));
 	tie3->setModelMat(glm::rotate(tie3->modelMat(), radians(10.0), dvec3(0, 1, -1)));
-	ceTIEs->addEntity(tie3);
+	tieGroup->addEntity(tie3);
 
 
 	

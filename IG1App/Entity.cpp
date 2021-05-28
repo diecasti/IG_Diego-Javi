@@ -968,6 +968,13 @@ TIE::TIE(GLdouble tamanyo, Texture* textura, GLuint slices)
 	gObjects.push_back(new Sphere(tamanyo, slices, slices));
 	gObjects.back()->setColor(dvec4(0.0, 0.25, 0.41, 1.0));
 
+	light = new SpotLight();
+	light->setDiffuse({ 1, 1, 1, 1 });
+	light->setAmb({ 0, 0, 0, 1 });
+	light->setSpecular({ 0.5, 0.5, 0.5, 1 });
+	light->setPosDir({ 0, 0, 0 });
+	light->setSpot(glm::fvec3(0.0, -1.0, 0.0), 2, 8);
+
 	//VENTANA
 	gObjects.push_back(new Cylinder(tamanyo * 0.8, tamanyo * 0.8, tamanyo * 0.5, slices, slices));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(tamanyo* 0.6, 0, 0)));
@@ -997,6 +1004,8 @@ TIE::TIE(GLdouble tamanyo, Texture* textura, GLuint slices)
 void TIE::render(glm::dmat4 const& modelViewMat) const
 {
 	glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+
+	if (light != nullptr) light->upload(aMat);
 	//TODO, en las diapos dice que las upladeemos, pero realmente no es necesario, asi que arrideverchi
 	upload(aMat);
 	//ahora renderizar el resto de objetos respecto a esta aMat
