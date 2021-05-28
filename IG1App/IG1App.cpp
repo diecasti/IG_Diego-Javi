@@ -301,7 +301,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->moveFB(-1.5);
 		break;
-	case 'w':
+	case 'x':
 		if (m2Scenes) {
 			if (mCoord.x >= mWinW / 2) {
 				mCamera1->moveUD(1);
@@ -354,11 +354,16 @@ void IG1App::key(unsigned char key, int x, int y)
 		//if (m2Vistas)m2Vistas = false;	//Si tenemos 2 vistas y pasamos a 2 escenas deshabilitamos las 2 vistas
 		break;
 	case 'q':
-		if (mScene->dirLightOn)
-			mScene->dirLight->disable();
-		else
+		if (!mScene->dirLightOn && mScene->dirLight != nullptr) {
 			mScene->dirLight->enable();
-		mScene->dirLightOn = !mScene->dirLightOn;
+			mScene->dirLightOn = true;
+		}
+		break;
+	case 'w':
+		if (mScene->dirLightOn && mScene->dirLight != nullptr) {
+			mScene->dirLight->disable();
+			mScene->dirLightOn = false;
+		}
 		break;
 	default:
 		if (m2Scenes) {

@@ -152,6 +152,7 @@ void Scene::createLight()
 	dirLight->setAmb({ 0, 0, 0, 1 });
 	dirLight->setSpecular({ 0.5, 0.5, 0.5, 1 });
 	dirLight->setPosDir({ 1, 1, 1 });
+	dirLightOn = true;
 }
 
 void Scene::scene3() {
