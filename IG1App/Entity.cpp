@@ -860,23 +860,25 @@ RejillaTex::RejillaTex(GLdouble lado, int nDiv)
 void RejillaTex::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
-		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
-		glEnable(GL_COLOR_MATERIAL);
-		/*glPolygonMode(GL_FRONT, GL_FILL);
-		glPolygonMode(GL_BACK, GL_LINE);*/
 
-		mTexture->bind(GL_MODULATE);
-
-		glLineWidth(2);
-		glColor4dv(value_ptr(mColor));
+		if (mTexture == nullptr) {
+			glEnable(GL_COLOR_MATERIAL);
+			glColor3f(0.0, 0.0, 1.0);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else
+			mTexture->bind(GL_MODULATE);
 		mMesh->render();
-		glLineWidth(1);
-		glColor4d(1.0, 1.0, 1.0, 1);
-		glDisable(GL_COLOR_MATERIAL);
 
-		mTexture->unbind();
-
+		if (mTexture == nullptr) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			glColor3f(1.0, 1.0, 1.0);
+			glDisable(GL_COLOR_MATERIAL);
+		}
+		else
+			mTexture->unbind();
 	}
 }
 

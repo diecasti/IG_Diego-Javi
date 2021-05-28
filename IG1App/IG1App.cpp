@@ -268,7 +268,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->moveLR(1.5);
 		break;
-	case 'a':
+	case 'b':
 		if (m2Scenes) {
 			if (mCoord.x >= mWinW / 2) {
 				mCamera1->moveLR(-1.5);
@@ -301,7 +301,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->moveFB(-1.5);
 		break;
-	case 'x':
+	case 'h':
 		if (m2Scenes) {
 			if (mCoord.x >= mWinW / 2) {
 				mCamera1->moveUD(1);
@@ -312,7 +312,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->moveUD(1);
 		break;
-	case 's':
+	case 'n':
 		if (m2Scenes) {
 			if (mCoord.x >= mWinW / 2) {
 				mCamera1->moveUD(-1);
@@ -354,15 +354,35 @@ void IG1App::key(unsigned char key, int x, int y)
 		//if (m2Vistas)m2Vistas = false;	//Si tenemos 2 vistas y pasamos a 2 escenas deshabilitamos las 2 vistas
 		break;
 	case 'q':
-		if (!mScene->dirLightOn && mScene->dirLight != nullptr) {
+		if (!mScene->lucesEncendidas && mScene->dirLight != nullptr) {
 			mScene->dirLight->enable();
-			mScene->dirLightOn = true;
+			mScene->lucesEncendidas = true;
 		}
 		break;
 	case 'w':
-		if (mScene->dirLightOn && mScene->dirLight != nullptr) {
+		if (mScene->lucesEncendidas && mScene->dirLight != nullptr) {
 			mScene->dirLight->disable();
-			mScene->dirLightOn = false;
+			mScene->lucesEncendidas = false;
+		}
+		break;
+	case 'a':
+		if (mScene->posLight != nullptr) {
+			mScene->posLight->enable();
+		}
+		break;
+	case 's':
+		if (mScene->posLight != nullptr) {
+			mScene->posLight->disable();
+		}
+		break;
+	case 'z':
+		if (mScene->spotLight != nullptr) {
+			mScene->spotLight->enable();
+		}
+		break;
+	case 'x':
+		if (mScene->spotLight != nullptr) {
+			mScene->spotLight->disable();
 		}
 		break;
 	default:

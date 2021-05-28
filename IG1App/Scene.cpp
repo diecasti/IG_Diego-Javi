@@ -6,9 +6,14 @@
 using namespace glm;
 //-------------------------------------------------------------------------
 
+bool Scene::lucesEncendidas = false;
+
 void Scene::init()
 {
 	setGL(mId);
+	if (!lucesEncendidas) {
+		createLights();
+	}
 
 	if (mId == 1)
 		scene1();
@@ -78,6 +83,7 @@ void Scene::free()
 		delete el;  el = nullptr;
 	}
 	gObjectsTranslucid.clear();
+
 }
 //-------------------------------------------------------------------------
 void Scene::setGL(int id)
@@ -104,7 +110,11 @@ void Scene::resetGL()
 void Scene::render(Camera const& cam) const
 {
 	if (dirLight != nullptr)
-	dirLight->upload(cam.viewMat());
+		dirLight->upload(cam.viewMat());
+	if (posLight != nullptr)
+		posLight->upload(cam.viewMat());
+	if (spotLight != nullptr)
+		spotLight->upload(cam.viewMat());
 	//sceneDirLight(cam);
 	cam.upload();
 
@@ -145,24 +155,29 @@ void Scene::sceneDirLight(Camera const& cam) const {
 	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
 }
 
-void Scene::createLight()
+void Scene::createLights()
 {
-	dirLight = new DirLight;
+	dirLight = new DirLight();
 	dirLight->setDiffuse({ 1, 1, 1, 1 });
 	dirLight->setAmb({ 0, 0, 0, 1 });
 	dirLight->setSpecular({ 0.5, 0.5, 0.5, 1 });
 	dirLight->setPosDir({ 1, 1, 1 });
-	dirLightOn = true;
-}
 
-void Scene::createPosLight()
-{
-	posLight = new PosLight;
-	//posLight->setDiffuse({ 1, 1, 1, 1 });
-	//posLight->setAmb({ 0, 0, 0, 1 });
-	//posLight->setSpecular({ 0.5, 0.5, 0.5, 1 });
-	posLight->setPosDir({ 1, 1, 1 });
-	dirLightOn = true;
+
+	posLight = new PosLight();
+	posLight->setDiffuse({ 1, 1, 0, 1 });
+	posLight->setAmb({ 0.2, 0.2, 0, 1 });
+	posLight->setSpecular({ 0.5, 0.5, 0.5, 1 });
+	posLight->setPosDir({ 600, 200, 0 });
+
+	spotLight = new SpotLight();
+	spotLight->setDiffuse({ 1, 1, 1, 1 });
+	spotLight->setAmb({ 0, 0, 0, 1 });
+	spotLight->setSpecular({ 0.5, 0.5, 0.5, 1 });
+	spotLight->setPosDir({ 0, 0, 800 });
+	spotLight->setSpot(glm::fvec3(0.0, 0.0, -1.0), 60, 0);
+
+	lucesEncendidas = true;
 }
 
 void Scene::scene3() {
@@ -287,7 +302,7 @@ void Scene::scene5() {
 	piedra->load("..\\Bmps\\stones.bmp");
 	gTextures.push_back(piedra);
 
-	auto cubo = new GridCube(100, 100, ajedrez, piedra);
+	auto cubo = new GridCube(800, 100, ajedrez, piedra);
 	gObjects.push_back(cubo);
 }
 
@@ -302,10 +317,9 @@ void Scene::scene6() {
 
 	//EJES RGB
 	gObjects.push_back(new EjesRGB(4000.0));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, -2000, 0)));
 
 
-	auto bola = new Esfera(1000, 50, 50);
+	auto bola = new Esfera(600, 50, 50);
 
 	gObjects.push_back(bola);
 	gObjects.back()->setColor(dvec4(0.0, 1.0, 1.0, 1.0));
@@ -315,21 +329,22 @@ void Scene::scene6() {
 
 
 	auto tie1 = new TIE(10, noche, 50);
-	tie1->setModelMat(glm::translate(tie1->modelMat(), dvec3(0, 1100, 0)));
+	tie1->setModelMat(glm::translate(tie1->modelMat(), dvec3(0, 110 + 550, 0)));
 	ceTIEs->addEntity(tie1);
 
 
 	auto tie2 = new TIE(10, noche, 50);
-	tie2->setModelMat(glm::translate(tie2->modelMat(), dvec3(-50, 1080, -50)));
+	tie2->setModelMat(glm::translate(tie2->modelMat(), dvec3(-50, 108 + 550, -50)));
 	tie2->setModelMat(glm::rotate(tie2->modelMat(), radians(15.0), dvec3(0, 1, 1)));
 	ceTIEs->addEntity(tie2);
 
 
 	auto tie3 = new TIE(10, noche, 50);
-	tie3->setModelMat(glm::translate(tie3->modelMat(), dvec3(-60, 1050, 50)));
+	tie3->setModelMat(glm::translate(tie3->modelMat(), dvec3(-60, 105 + 550, 50)));
 	tie3->setModelMat(glm::rotate(tie3->modelMat(), radians(10.0), dvec3(0, 1, -1)));
 	ceTIEs->addEntity(tie3);
 
-	createLight();
-	createPosLight();
+
+	
+
 }
