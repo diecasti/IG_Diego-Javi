@@ -39,6 +39,7 @@ void Scene::changeScene(int id) {
 		free();	//freeFire();
 		resetGL();
 
+
 		setGL(mId);
 		if (mId == 0) {
 			scene0();
@@ -84,7 +85,7 @@ void Scene::free()
 	}
 	gObjectsTranslucid.clear();
 
-	/*if (dirLight != nullptr) {
+	if (dirLight != nullptr) {
 		delete dirLight; dirLight = nullptr;
 	}
 	if (spotLight != nullptr) {
@@ -95,7 +96,7 @@ void Scene::free()
 	}
 	if (tieGroup != nullptr) {
 
-	}*/
+	}
 
 }
 //-------------------------------------------------------------------------
@@ -322,8 +323,6 @@ void Scene::scene0() {
 
 	//EJES RGB
 	gObjects.push_back(new EjesRGB(400.0));
-	
-
 }
 void Scene::scene4() {
 	//EJES RGB
@@ -334,7 +333,7 @@ void Scene::scene4() {
 
 	gObjects.push_back(bola);
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, +200)));
-	gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
+	gObjects.back()->setColor(dvec4(0.0, 0.0, 1.0, 1.0));
 
 	//cuadratica
 
@@ -388,6 +387,7 @@ void Scene::scene6() {
 	gObjects.push_back(tieGroup);
 
 
+
 	auto tie1 = new TIE(10, noche, 50);
 	tie1->setModelMat(glm::translate(tie1->modelMat(), dvec3(0, 110 + 650, 0)));
 	tieGroup->addEntity(tie1);
@@ -404,9 +404,9 @@ void Scene::scene6() {
 	tie3->setModelMat(glm::rotate(tie3->modelMat(), radians(10.0), dvec3(0, 1, -1)));
 	tieGroup->addEntity(tie3);
 
-	//tieGroup->setModelMat(glm::translate(tieGroup->modelMat(), dvec3(100,0,0)));
+	tieGroup->setModelMat(glm::translate(tieGroup->modelMat(), dvec3(100,0,0)));
 
-	
+
 
 }
 

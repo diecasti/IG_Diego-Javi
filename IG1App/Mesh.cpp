@@ -564,7 +564,7 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int mm, int nn, glm::dvec3* perfill) 
 			//mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0);
 		}
 	}
-
+	delete[] vertices;
 
 	//Determinar los indices de las caras cuadrangulares
 	int indiceMayor = 0;
@@ -685,7 +685,7 @@ Grid* Grid::generaGridTex(GLdouble lado, GLuint numDiv) {
 
 	int s = 0,
 		t = 1;
-	GLdouble aux = (GLdouble)1.0/numDiv;
+	GLdouble aux = (GLdouble)1.0 / numDiv;
 
 	for (int f = 0; f < numFC; f++) {
 		for (int c = 0; c < numFC; c++) {
