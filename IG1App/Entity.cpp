@@ -24,7 +24,6 @@ EjesRGB::EjesRGB(GLdouble l) : Abs_Entity()
 
 EjesRGB::~EjesRGB()
 {
-	delete mMesh; mMesh = nullptr;
 };
 //-------------------------------------------------------------------------
 
@@ -50,7 +49,6 @@ Poligono::Poligono(GLuint numL, GLdouble l) : Abs_Entity()
 //-------------------------------------------------------------------------
 Poligono::~Poligono()
 {
-	delete mMesh; mMesh = nullptr;
 };
 //-------------------------------------------------------------------------
 void Poligono::render(glm::dmat4 const& modelViewMat)const
@@ -73,7 +71,6 @@ Sierpinski::Sierpinski(GLdouble rd, GLuint numP) {
 //-------------------------------------------------------------------------
 Sierpinski::~Sierpinski()
 {
-	delete mMesh; mMesh = nullptr;
 };
 //-------------------------------------------------------------------------
 void Sierpinski::render(glm::dmat4 const& modelViewMat)const
@@ -98,7 +95,6 @@ TrianguloRGB::TrianguloRGB(GLdouble rd) {
 }
 //-------------------------------------------------------------------------
 TrianguloRGB::~TrianguloRGB() {
-	delete mMesh; mMesh = nullptr;
 }
 //-------------------------------------------------------------------------
 void TrianguloRGB::render(glm::dmat4 const& modelViewMat)const
@@ -139,7 +135,6 @@ RectanguloRGB::RectanguloRGB(GLdouble w, GLdouble h) {
 }
 //-------------------------------------------------------------------------
 RectanguloRGB::~RectanguloRGB() {
-	delete mMesh; mMesh = nullptr;
 }
 //-------------------------------------------------------------------------
 void RectanguloRGB::render(glm::dmat4 const& modelViewMat)const
@@ -162,7 +157,6 @@ Estrella3D::Estrella3D(GLdouble re, GLuint np, GLdouble h) {
 }
 //-------------------------------------------------------------------------
 Estrella3D::~Estrella3D() {
-	delete mMesh; mMesh = nullptr;
 }
 //-------------------------------------------------------------------------
 void Estrella3D::render(glm::dmat4 const& modelViewMat)const
@@ -207,7 +201,6 @@ ContCubo::ContCubo(GLdouble ld) {
 }
 //-------------------------------------------------------------------------
 ContCubo::~ContCubo() {
-	delete mMesh; mMesh = nullptr;
 }
 //-------------------------------------------------------------------------
 void ContCubo::render(glm::dmat4 const& modelViewMat)const
@@ -229,7 +222,6 @@ CajaConFondo::CajaConFondo(GLdouble ld) {
 }
 //-------------------------------------------------------------------------
 CajaConFondo::~CajaConFondo() {
-	delete mMesh; mMesh = nullptr;
 	delete fondo; fondo = nullptr;
 }
 //-------------------------------------------------------------------------
@@ -255,7 +247,6 @@ Suelo::Suelo(GLdouble w, GLdouble h, GLuint rw, GLuint rh) {
 }
 //-------------------------------------------------------------------------
 Suelo::~Suelo() {
-	delete mMesh; mMesh = nullptr;
 }
 //-------------------------------------------------------------------------
 void Suelo::render(glm::dmat4 const& modelViewMat)const
@@ -281,7 +272,6 @@ EstrellaTexCor::EstrellaTexCor(GLdouble re, GLuint np, GLdouble h) {
 }
 //-------------------------------------------------------------------------
 EstrellaTexCor::~EstrellaTexCor() {
-	delete mMesh; mMesh = nullptr;
 }
 //-------------------------------------------------------------------------
 void EstrellaTexCor::render(glm::dmat4 const& modelViewMat)const
@@ -327,7 +317,6 @@ ContCuboTexCo::ContCuboTexCo(GLdouble nl) {
 }
 //-------------------------------------------------------------------------
 ContCuboTexCo::~ContCuboTexCo() {
-	delete mMesh; mMesh = nullptr;
 }
 //-------------------------------------------------------------------------
 void ContCuboTexCo::render(glm::dmat4 const& modelViewMat)const
@@ -376,7 +365,6 @@ CajaConFondoTx::CajaConFondoTx(GLdouble nl, GLdouble dist) {
 }
 //-------------------------------------------------------------------------
 CajaConFondoTx::~CajaConFondoTx() {
-	delete mMesh; mMesh = nullptr;
 	delete fondo; fondo = nullptr;
 }
 //-------------------------------------------------------------------------
@@ -437,7 +425,6 @@ Foto::Foto(GLdouble w, GLdouble h) {
 }
 //-------------------------------------------------------------------------
 Foto::~Foto() {
-	delete mMesh; mMesh = nullptr;
 	delete mTexture; mTexture = nullptr;
 }
 //-------------------------------------------------------------------------
@@ -468,7 +455,6 @@ Hierba::Hierba(GLdouble w, GLdouble h) {
 }
 //-------------------------------------------------------------------------
 Hierba::~Hierba() {
-	delete mMesh; mMesh = nullptr;
 }
 //-------------------------------------------------------------------------
 void Hierba::render(glm::dmat4 const& modelViewMat)const
@@ -635,7 +621,6 @@ void PartialDisk::render(glm::dmat4 const& modelViewMat) const
 }
 //--------------------------------------------------------------------------------------------------------------
 EntityWithIndexMesh::EntityWithIndexMesh() { mMesh = nullptr; }
-EntityWithIndexMesh::~EntityWithIndexMesh() {}
 void EntityWithIndexMesh::render(glm::dmat4 const& modelViewMat) const
 {
 	//if (mMesh != nullptr) {
@@ -657,8 +642,6 @@ AnilloCuadrado::AnilloCuadrado() {
 	mMesh = IndexMesh::generaAnilloCuadradoIndexado();
 
 }
-AnilloCuadrado::~AnilloCuadrado() {}
-
 void AnilloCuadrado::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
@@ -680,7 +663,6 @@ Cubo::Cubo(int l) {
 	mMesh = IndexMesh::generaCuboConTapasIndexado(l);
 
 }
-Cubo::~Cubo() {}
 
 void Cubo::render(glm::dmat4 const& modelViewMat) const
 {
@@ -704,21 +686,21 @@ CompoundEntity::CompoundEntity() {
 }
 CompoundEntity::~CompoundEntity() {
 	////Literalmente free() de scene
-	//for (Abs_Entity* el : gObjects)
-	//{
-	//	delete el;  el = nullptr;
-	//}
-	//gObjects.clear();
+	for (Abs_Entity* el : gObjects)
+	{
+		delete el;  el = nullptr;
+	}
+	gObjects.clear();
 	//for (Texture* el : gTextures)
 	//{
 	//	delete el;  el = nullptr;
 	//}
 	//gTextures.clear();
-	//for (Abs_Entity* el : gObjectsTranslucid)
-	//{
-	//	delete el;  el = nullptr;
-	//}
-	//gObjectsTranslucid.clear();
+	for (Abs_Entity* el : gTranslucid)
+	{
+		delete el;  el = nullptr;
+	}
+	gTranslucid.clear();
 }
 
 void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
@@ -757,7 +739,7 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 }
 //--------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------
-Cone::Cone(GLdouble h, GLdouble r, GLuint n)  {
+Cone::Cone(GLdouble h, GLdouble r, GLuint n) {
 	// h=altura del cono, r=radio de la base
 	// n=número de muestras, m=número de puntos del perfil
 	int m = 3;
@@ -766,7 +748,7 @@ Cone::Cone(GLdouble h, GLdouble r, GLuint n)  {
 	perfil[1] = dvec3(r, 0.0, 0.0);
 	perfil[2] = dvec3(0.5, h, 0.0);
 	mMesh = MbR::generaMallaIndexadaPorRevolucion(m, n, perfil);
-
+	delete perfil; perfil = nullptr;
 }
 
 void Cone::render(glm::dmat4 const& modelViewMat) const
@@ -803,10 +785,11 @@ Esfera::Esfera(GLdouble r, GLdouble p, GLuint n)
 		GLdouble x = c * r;
 		GLdouble y = -s * r;
 
-		perfil[i] = dvec3(x, y, 0.0); 
+		perfil[i] = dvec3(x, y, 0.0);
 	}
 
 	mMesh = MbR::generaMallaIndexadaPorRevolucion(p + 1, n, perfil);
+	delete perfil; perfil = nullptr;
 }
 
 void Esfera::render(glm::dmat4 const& modelViewMat) const
@@ -816,15 +799,15 @@ void Esfera::render(glm::dmat4 const& modelViewMat) const
 		upload(aMat);
 		if (material != nullptr) material->upload();
 		else
-		glEnable(GL_COLOR_MATERIAL);
+			glEnable(GL_COLOR_MATERIAL);
 
 		glLineWidth(2);
 		glColor4dv(value_ptr(mColor));
 		mMesh->render();
 		glLineWidth(1);
-		glColor4d(1.0, 1.0, 1.0, 1); 
+		glColor4d(1.0, 1.0, 1.0, 1);
 		if (material == nullptr)
-		glDisable(GL_COLOR_MATERIAL);
+			glDisable(GL_COLOR_MATERIAL);
 
 	}
 }
@@ -889,7 +872,7 @@ GridCube::GridCube(GLdouble lado, int nDiv, Texture* tapa, Texture* pared)
 	gObjects.push_back(reja);
 	//gObjects.back()->setColor(dvec4(0.0,0.0,1.0,1.0));
 	gObjects.back()->setTexture(tapa);
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado/2.0, 0)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
 
 	auto pared1 = new RejillaTex(lado, nDiv);
 	gObjects.push_back(pared1);
@@ -973,21 +956,21 @@ TIE::TIE(GLdouble tamanyo, Texture* textura, GLuint slices)
 	light->setAmb({ 0, 0, 0, 1 });
 	light->setSpecular({ 0.5, 0.5, 0.5, 1 });
 	light->setPosDir({ 0, 0, 0 });
-	light->setSpot(glm::fvec3(0.0, -1.0, 0.0), 20, 80);
+	light->setSpot(glm::fvec3(0.0, -1.0, 0.0), 20, 80);	//Posicion del punto, radio y exponente
 
 	//VENTANA
 	gObjects.push_back(new Cylinder(tamanyo * 0.8, tamanyo * 0.8, tamanyo * 0.5, slices, slices));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(tamanyo* 0.6, 0, 0)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(tamanyo * 0.6, 0, 0)));
 	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 
 	//CRISTALVENTANA
 	gObjects.push_back(new Disk(0, tamanyo * 0.8, slices, slices));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(tamanyo* 1.1, 0, 0)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(tamanyo * 1.1, 0, 0)));
 	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 
 	//UNION ALAS
 	gObjects.push_back(new Cylinder(tamanyo * 0.2, tamanyo * 0.2, tamanyo * 4, slices, slices));
-	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -tamanyo* 2)));
+	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, -tamanyo * 2)));
 
 	//ALAS
 	gTranslucid.push_back(new DiskText(0, tamanyo * 3, 6, 6));
@@ -1005,7 +988,7 @@ void TIE::render(glm::dmat4 const& modelViewMat) const
 {
 	glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 
-	if (light != nullptr) light->upload(aMat);
+	if (light != nullptr) light->upload(aMat);	//Se actualiza la luz
 	//TODO, en las diapos dice que las upladeemos, pero realmente no es necesario, asi que arrideverchi
 	upload(aMat);
 	//ahora renderizar el resto de objetos respecto a esta aMat

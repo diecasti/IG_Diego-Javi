@@ -10,13 +10,20 @@
 #include "Material.h"
 #include "Light.h"
 
+#include "CheckML.h"
+
 //-------------------------------------------------------------------------
 
 class Abs_Entity  // abstract class
 {
 public:
 	Abs_Entity() : mModelMat(1.0) {};  // 4x4 identity matrix
-	virtual ~Abs_Entity() {};			//!No se como definir la constructora -> delete this;??
+	virtual ~Abs_Entity() {
+		if (mMesh != nullptr) {
+			delete mMesh;
+			mMesh = nullptr;
+		}
+	};
 
 	Abs_Entity(const Abs_Entity& e) = delete;  // no copy constructor
 	Abs_Entity& operator=(const Abs_Entity& e) = delete;  // no copy assignment
@@ -183,7 +190,8 @@ class QuadricEntity : public Abs_Entity
 {
 public:
 	QuadricEntity() { q = gluNewQuadric(); };
-	virtual ~QuadricEntity() { gluDeleteQuadric(q); };
+	virtual ~QuadricEntity() { gluDeleteQuadric(q); 
+	};
 
 protected:
 	GLUquadricObj* q;
@@ -256,21 +264,21 @@ private:
 class AnilloCuadrado : public Abs_Entity {
 public:
 	AnilloCuadrado();
-	virtual ~AnilloCuadrado();
+	virtual ~AnilloCuadrado() { };
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 //----------------------------------------------------------
 class Cubo : public Abs_Entity {
 public:
 	Cubo(int l);
-	virtual ~Cubo();
+	virtual ~Cubo() {};
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 //----------------------------------------------------------
-class EntityWithIndexMesh: public Abs_Entity {
+class EntityWithIndexMesh : public Abs_Entity {
 public:
 	EntityWithIndexMesh();
-	~EntityWithIndexMesh();
+	~EntityWithIndexMesh() {};
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 //----------------------------------------------------------
@@ -292,7 +300,10 @@ protected:
 class TIE : public CompoundEntity {
 public:
 	TIE(GLdouble tamanyo, Texture* textura, GLuint slices);
-	~TIE() { if (light != nullptr) { light->disable(); delete light; } };
+	~TIE() { if (light != nullptr) { 
+		light->disable(); 
+		delete light; }
+	};
 	SpotLight* focoDeLuz() { return light; }
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 private:
@@ -303,7 +314,7 @@ private:
 class Cone : public Abs_Entity {
 public:
 	Cone(GLdouble h, GLdouble r, GLuint n);
-	~Cone() {}
+	~Cone() {  }
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 
@@ -339,7 +350,7 @@ public:
 class EntityWithMaterial : public Abs_Entity {
 public:
 	EntityWithMaterial() : Abs_Entity() { };
-	virtual ~EntityWithMaterial() { };
+	virtual ~EntityWithMaterial() { delete material; material = nullptr; };
 	void setMaterial(Material* matl) { material = matl; };
 protected:
 	Material* material = nullptr;
