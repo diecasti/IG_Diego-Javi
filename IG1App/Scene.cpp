@@ -84,6 +84,19 @@ void Scene::free()
 	}
 	gObjectsTranslucid.clear();
 
+	/*if (dirLight != nullptr) {
+		delete dirLight; dirLight = nullptr;
+	}
+	if (spotLight != nullptr) {
+		delete spotLight; spotLight = nullptr;
+	}
+	if (posLight != nullptr) {
+		delete posLight; posLight = nullptr;
+	}
+	if (tieGroup != nullptr) {
+
+	}*/
+
 }
 //-------------------------------------------------------------------------
 void Scene::setGL(int id)
@@ -183,9 +196,9 @@ void Scene::createLights()
 void Scene::desactivarLuces()
 {
 	if (tieGroup != nullptr) TIEsLightsOff();
-	dirLight->disable();
-	posLight->disable();
-	spotLight->disable();
+	if (dirLight != nullptr) dirLight->disable();
+	if (posLight != nullptr) posLight->disable();
+	if (spotLight != nullptr) spotLight->disable();
 }
 
 void Scene::TIEsLightsOn()
