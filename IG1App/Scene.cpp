@@ -338,11 +338,16 @@ void Scene::scene6() {
 	noche->load("..\\Bmps\\noche.bmp", 200);
 	gTextures.push_back(noche);
 
+
+	Material* laton = new Material();
+	laton->setCopper();
+
 	//EJES RGB
 	gObjects.push_back(new EjesRGB(4000.0));
 
 
 	auto bola = new Esfera(600, 50, 50);
+	bola->setMaterial(laton);
 
 	gObjects.push_back(bola);
 	gObjects.back()->setColor(dvec4(0.0, 1.0, 1.0, 1.0));
