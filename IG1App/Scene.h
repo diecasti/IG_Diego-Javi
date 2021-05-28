@@ -31,6 +31,7 @@ public:
 	void changeScene(int id);
 	bool dirLightOn = false;
 	DirLight* dirLight = nullptr;
+	PosLight* posLight = nullptr;
 protected:
 	void free();
 	void setGL(int id);
@@ -50,6 +51,7 @@ protected:
 	//PRACTICA 2
 	void sceneDirLight(Camera const& cam) const;
 	void createLight();
+	void createPosLight();
 };
 //-------------------------------------------------------------------------
 
