@@ -365,7 +365,7 @@ void Scene::scene6() {
 	gObjects.push_back(new EjesRGB(4000.0));
 
 
-	auto bola = new Esfera(600, 50, 50);
+	auto bola = new Esfera(600, 200, 200);
 	bola->setMaterial(laton);
 
 	gObjects.push_back(bola);
@@ -391,6 +391,7 @@ void Scene::scene6() {
 	tie3->setModelMat(glm::rotate(tie3->modelMat(), radians(10.0), dvec3(0, 1, -1)));
 	tieGroup->addEntity(tie3);
 
+	tieGroup->setModelMat(glm::translate(tieGroup->modelMat(), dvec3(100,0,0)));
 
 	
 
