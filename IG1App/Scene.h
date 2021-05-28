@@ -18,7 +18,18 @@ class Scene
 { 
 public:
 	Scene(int id) { mId = id; };
-	~Scene() { free(); resetGL(); lucesEncendidas = false; };
+	~Scene() { free(); resetGL(); lucesEncendidas = false;
+
+	if (dirLight != nullptr) {
+		delete dirLight; dirLight = nullptr;
+	}
+	if (spotLight != nullptr) {
+		delete spotLight; spotLight = nullptr;
+	}
+	if (posLight != nullptr) {
+		delete posLight; posLight = nullptr;
+	}
+	};
 
 	Scene(const Scene& s) = delete;  // no copy constructor
 	Scene& operator=(const Scene& s) = delete;  // no copy assignment
