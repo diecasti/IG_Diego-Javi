@@ -88,6 +88,7 @@ void Scene::setGL(int id)
 	glEnable(GL_DEPTH_TEST);  // enable Depth test 
 	//Textures
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_LIGHTING);
 
 }
 //-------------------------------------------------------------------------
@@ -96,12 +97,15 @@ void Scene::resetGL()
 	glClearColor(.0, .0, .0, .0);  // background color (alpha=1 -> opaque)
 	glDisable(GL_DEPTH_TEST);  // disable Depth test 	
 	glDisable(GL_TEXTURE_2D); //desactivar texturitas
+	glDisable(GL_LIGHTING);
 }
 //-------------------------------------------------------------------------
 
 void Scene::render(Camera const& cam) const
 {
-	sceneDirLight(cam);
+	if (dirLight != nullptr)
+	dirLight->upload(cam.viewMat());
+	//sceneDirLight(cam);
 	cam.upload();
 
 	for (Abs_Entity* el : gObjects)
@@ -139,6 +143,15 @@ void Scene::sceneDirLight(Camera const& cam) const {
 	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
 	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
+
+void Scene::createLight()
+{
+	dirLight = new DirLight;
+	dirLight->setDiffuse({ 1, 1, 1, 1 });
+	dirLight->setAmb({ 0, 0, 0, 1 });
+	dirLight->setSpecular({ 0.5, 0.5, 0.5, 1 });
+	dirLight->setPosDir({ 1, 1, 1 });
 }
 
 void Scene::scene3() {
@@ -306,4 +319,5 @@ void Scene::scene6() {
 	tie3->setModelMat(glm::rotate(tie3->modelMat(), radians(10.0), dvec3(0, 1, -1)));
 	ceTIEs->addEntity(tie3);
 
+	createLight();
 }

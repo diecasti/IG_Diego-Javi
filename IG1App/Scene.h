@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Entity.h"
 #include "Texture.h"
+#include "Light.h"
 
 #include <vector>
 
@@ -28,6 +29,8 @@ public:
 	void update();
 
 	void changeScene(int id);
+	bool dirLightOn = false;
+	DirLight* dirLight = nullptr;
 protected:
 	void free();
 	void setGL(int id);
@@ -46,6 +49,7 @@ protected:
 	void scene6();
 	//PRACTICA 2
 	void sceneDirLight(Camera const& cam) const;
+	void createLight();
 };
 //-------------------------------------------------------------------------
 
