@@ -389,22 +389,22 @@ void Scene::scene6() {
 
 
 	auto tie1 = new TIE(10, noche, 50);
-	tie1->setModelMat(glm::translate(tie1->modelMat(), dvec3(0, 110 + 550, 0)));
+	tie1->setModelMat(glm::translate(tie1->modelMat(), dvec3(0, 110 + 650, 0)));
 	tieGroup->addEntity(tie1);
 
 
 	auto tie2 = new TIE(10, noche, 50);
-	tie2->setModelMat(glm::translate(tie2->modelMat(), dvec3(-50, 108 + 550, -50)));
+	tie2->setModelMat(glm::translate(tie2->modelMat(), dvec3(-50, 108 + 650, -50)));
 	tie2->setModelMat(glm::rotate(tie2->modelMat(), radians(15.0), dvec3(0, 1, 1)));
 	tieGroup->addEntity(tie2);
 
 
 	auto tie3 = new TIE(10, noche, 50);
-	tie3->setModelMat(glm::translate(tie3->modelMat(), dvec3(-60, 105 + 550, 50)));
+	tie3->setModelMat(glm::translate(tie3->modelMat(), dvec3(-60, 105 + 650, 50)));
 	tie3->setModelMat(glm::rotate(tie3->modelMat(), radians(10.0), dvec3(0, 1, -1)));
 	tieGroup->addEntity(tie3);
 
-	tieGroup->setModelMat(glm::translate(tieGroup->modelMat(), dvec3(100,0,0)));
+	//tieGroup->setModelMat(glm::translate(tieGroup->modelMat(), dvec3(100,0,0)));
 
 	
 
@@ -415,7 +415,7 @@ void Scene::orbita()
 {
 	dmat4 mat = tieGroup->modelMat();
 	//mat = translate(mat, dvec3(0.0, -350.0, 0.0));
-	mat = rotate(mat, radians(1.0), dvec3(1, 0.0, 0));
+	mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
 	//mat = translate(mat, dvec3(0.0, 350.0, 0.0));
 
 	tieGroup->setModelMat(mat);
