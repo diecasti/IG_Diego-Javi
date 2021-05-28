@@ -18,7 +18,7 @@ class Scene
 { 
 public:
 	Scene(int id) { mId = id; };
-	~Scene() { free(); resetGL(); };
+	~Scene() { free(); resetGL(); lucesEncendidas = false; };
 
 	Scene(const Scene& s) = delete;  // no copy constructor
 	Scene& operator=(const Scene& s) = delete;  // no copy assignment
@@ -38,6 +38,7 @@ public:
 	CompoundEntity* tieGroup;
 
 	void TIEsLightsOff();
+	void TIEsLightsOn();
 
 	void defaultLighting();
 	void darkScene();
@@ -62,7 +63,6 @@ protected:
 	void sceneDirLight(Camera const& cam) const;
 	void createLights();
 	void desactivarLuces();
-	void TIEsLightsOn();
 };
 //-------------------------------------------------------------------------
 

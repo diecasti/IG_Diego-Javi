@@ -345,7 +345,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->changePrj();	//Angulo y altura por iteracion
 		break;
-	case 't':
+	case 'y':
 		//cambair al modo dos camaras
 		m2Vistas = !m2Vistas;
 
@@ -390,6 +390,12 @@ void IG1App::key(unsigned char key, int x, int y)
 		break;
 	case 'r':
 		mScene->darkScene();
+		break;
+	case 't':
+		mScene->TIEsLightsOff();
+		break;
+	case 'g':
+		mScene->TIEsLightsOn();
 		break;
 	default:
 		if (m2Scenes) {
