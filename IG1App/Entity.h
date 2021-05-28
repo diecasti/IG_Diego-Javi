@@ -8,6 +8,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Light.h"
 
 //-------------------------------------------------------------------------
 
@@ -280,8 +281,8 @@ public:
 	void addEntity(Abs_Entity* ae) { gObjects.push_back(ae); }
 	void addEntityTranslucid(Abs_Entity* ae) { gTranslucid.push_back(ae); }
 	virtual void render(glm::dmat4 const& modelViewMat) const;
-protected:
 	std::vector<Abs_Entity*> gObjects;
+protected:
 	std::vector<Abs_Entity*> gTranslucid;
 
 };
@@ -291,8 +292,12 @@ protected:
 class TIE : public CompoundEntity {
 public:
 	TIE(GLdouble tamanyo, Texture* textura, GLuint slices);
-	~TIE() {}
+	~TIE() { if (light != nullptr) { light->disable(); delete light; } };
+	SpotLight* focoDeLuz() { return light; }
 	virtual void render(glm::dmat4 const& modelViewMat) const;
+private:
+	SpotLight* light = nullptr;
+
 };
 
 class Cone : public Abs_Entity {
