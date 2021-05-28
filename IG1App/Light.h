@@ -19,7 +19,7 @@ public:
 	void setSpecular(glm::fvec4 value);
 	void setPosDir(glm::fvec4 value);
 	Light();
-	virtual ~Light() { disable(); }
+	virtual ~Light() { disable(); --cont; }
 	 void uploadL() const;
 	// Método abstracto
 	virtual void upload(glm::dmat4 const& modelViewMat) const = 0;

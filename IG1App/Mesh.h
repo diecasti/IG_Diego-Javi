@@ -99,6 +99,7 @@ protected:
 class Grid : public IndexMesh {
 public:
 	Grid(GLuint lado, int divisiones);
+	~Grid() {}
 	static Grid* generateGrid(GLdouble lado, GLuint nDiv);
 	static Grid* generaGridTex(GLdouble lado, GLuint numDiv);
 protected:
