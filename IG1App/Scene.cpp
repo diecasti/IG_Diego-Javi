@@ -180,6 +180,29 @@ void Scene::createLights()
 	lucesEncendidas = true;
 }
 
+void Scene::desactivarLuces()
+{
+	dirLight->disable();
+	posLight->disable();
+	spotLight->disable();
+}
+
+void Scene::defaultLighting()
+{
+	desactivarLuces();
+	//luz ambiente tenue
+	GLfloat amb[] = { 0.2, 0.2, 0.2, 1.0 };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
+}
+
+void Scene::darkScene()
+{
+	desactivarLuces();
+	//no hay luz, todo negro
+	GLfloat amb[] = { 0.0, 0.0, 0.0, 1.0 };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
+}
+
 void Scene::scene3() {
 	//TEXTURAS
 	Texture* noche = new Texture();
