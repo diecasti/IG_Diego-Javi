@@ -304,6 +304,9 @@ void Scene::scene2() {
 
 //ESCENAS PRACTICA 2.2
 void Scene::scene0() {
+
+	glClearColor(.0, .0, .0, .0);  // background color (alpha=1 -> opaque)
+
 	//EJES RGB
 	gObjects.push_back(new EjesRGB(400.0));
 	
