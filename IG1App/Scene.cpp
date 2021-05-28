@@ -85,18 +85,6 @@ void Scene::free()
 	}
 	gObjectsTranslucid.clear();
 
-	if (dirLight != nullptr) {
-		delete dirLight; dirLight = nullptr;
-	}
-	if (spotLight != nullptr) {
-		delete spotLight; spotLight = nullptr;
-	}
-	if (posLight != nullptr) {
-		delete posLight; posLight = nullptr;
-	}
-	if (tieGroup != nullptr) {
-
-	}
 
 }
 //-------------------------------------------------------------------------
