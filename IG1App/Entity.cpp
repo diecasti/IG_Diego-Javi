@@ -814,13 +814,16 @@ void Esfera::render(glm::dmat4 const& modelViewMat) const
 	if (mMesh != nullptr) {
 		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
+		if (material != nullptr) material->upload();
+		else
 		glEnable(GL_COLOR_MATERIAL);
 
 		glLineWidth(2);
 		glColor4dv(value_ptr(mColor));
 		mMesh->render();
 		glLineWidth(1);
-		glColor4d(1.0, 1.0, 1.0, 1);
+		glColor4d(1.0, 1.0, 1.0, 1); 
+		if (material == nullptr)
 		glDisable(GL_COLOR_MATERIAL);
 
 	}
