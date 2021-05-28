@@ -279,7 +279,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->moveLR(-1.5);
 		break;
-	case 'e':
+	case 'k':
 		if (m2Scenes) {
 			if (mCoord.x >= mWinW / 2) {
 				mCamera1->moveFB(1.5);
@@ -323,7 +323,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->moveUD(-1);
 		break;
-	case 'r':
+	case 'j':
 		if (m2Scenes) {
 			if (mCoord.x >= mWinW / 2) {
 				mCamera1->orbit(5, 0);	//Angulo y altura por iteracion
@@ -345,7 +345,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->changePrj();	//Angulo y altura por iteracion
 		break;
-	case 'k':
+	case 't':
 		//cambair al modo dos camaras
 		m2Vistas = !m2Vistas;
 
@@ -384,6 +384,12 @@ void IG1App::key(unsigned char key, int x, int y)
 		if (mScene->spotLight != nullptr) {
 			mScene->spotLight->disable();
 		}
+		break;
+	case 'e':
+		mScene->defaultLighting();
+		break;
+	case 'r':
+		mScene->darkScene();
 		break;
 	default:
 		if (m2Scenes) {

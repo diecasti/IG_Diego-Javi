@@ -33,6 +33,11 @@ public:
 	DirLight* dirLight = nullptr;
 	PosLight* posLight = nullptr;
 	SpotLight* spotLight = nullptr;
+
+
+	void defaultLighting();
+	void darkScene();
+
 protected:
 	void free();
 	void setGL(int id);
@@ -52,6 +57,7 @@ protected:
 	//PRACTICA 2
 	void sceneDirLight(Camera const& cam) const;
 	void createLights();
+	void desactivarLuces();
 };
 //-------------------------------------------------------------------------
 
