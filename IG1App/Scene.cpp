@@ -269,6 +269,7 @@ void Scene::scene5() {
 
 void Scene::scene6() {
 
+	glClearColor(.0, .0, .0, .0);  // background color (alpha=1 -> opaque)
 
 	//TEXTURAS
 	Texture* noche = new Texture();

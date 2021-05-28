@@ -7,6 +7,7 @@
 
 #include "Mesh.h"
 #include "Texture.h"
+#include "Material.h"
 
 //-------------------------------------------------------------------------
 
@@ -301,12 +302,12 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 
-class Esfera : public Abs_Entity {
-public:
-	Esfera(GLdouble r, GLdouble p, GLuint n);
-	~Esfera() {}
-	virtual void render(glm::dmat4 const& modelViewMat) const;
-};
+//class Esfera : public Abs_Entity {
+//public:
+//	Esfera(GLdouble r, GLdouble p, GLuint n);
+//	~Esfera() {}
+//	virtual void render(glm::dmat4 const& modelViewMat) const;
+//};
 //----------------------------------------------------------
 class Rejilla : public Abs_Entity {
 public:
@@ -330,4 +331,19 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 //----------------------------------------------------------
+class EntityWithMaterial : public Abs_Entity {
+public:
+	EntityWithMaterial() : Abs_Entity() { };
+	virtual ~EntityWithMaterial() { };
+	void setMaterial(Material* matl) { material = matl; };
+protected:
+	Material* material = nullptr;
+};
+//--------------------------------------------------------------------
+class Esfera : public EntityWithMaterial {
+public:
+	Esfera(GLdouble r, GLdouble p, GLuint n);
+	~Esfera() {}
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
 #endif //_H_Entities_H_

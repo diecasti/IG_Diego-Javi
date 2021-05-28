@@ -2,10 +2,6 @@
 #include <GL/freeglut.h>
 #include <glm.hpp>
 
-#include "Camera.h"
-#include "Entity.h"
-#include "Texture.h"
-
 #include <vector>
 class Light { // Abstract class
 protected:
