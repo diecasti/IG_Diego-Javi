@@ -973,7 +973,7 @@ TIE::TIE(GLdouble tamanyo, Texture* textura, GLuint slices)
 	light->setAmb({ 0, 0, 0, 1 });
 	light->setSpecular({ 0.5, 0.5, 0.5, 1 });
 	light->setPosDir({ 0, 0, 0 });
-	light->setSpot(glm::fvec3(0.0, -1.0, 0.0), 2, 8);
+	light->setSpot(glm::fvec3(0.0, -1.0, 0.0), 20, 80);
 
 	//VENTANA
 	gObjects.push_back(new Cylinder(tamanyo * 0.8, tamanyo * 0.8, tamanyo * 0.5, slices, slices));
