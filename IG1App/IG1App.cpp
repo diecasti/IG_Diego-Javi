@@ -43,7 +43,7 @@ void IG1App::init()
 	mCamera = new Camera(mViewPort);
 	mCamera1 = new Camera(mViewPort);
 	mScene = new Scene(6);
-	mScene1 = new Scene(6);
+	mScene1 = new Scene(0);
 
 	m2Vistas = false;
 	m2Scenes = false;
