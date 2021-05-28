@@ -346,7 +346,7 @@ void Scene::scene4() {
 void Scene::scene5() {
 
 	//EJES RGB
-	gObjects.push_back(new EjesRGB(400.0));
+	gObjects.push_back(new EjesRGB(1000.0));
 	//Escena CUBO, esta es la escena 5
 
 	Texture* ajedrez = new Texture();
@@ -357,7 +357,7 @@ void Scene::scene5() {
 	piedra->load("..\\Bmps\\stones.bmp");
 	gTextures.push_back(piedra);
 
-	auto cubo = new GridCube(800, 100, ajedrez, piedra);
+	auto cubo = new GridCube(1200, 100, ajedrez, piedra);
 	gObjects.push_back(cubo);
 }
 
