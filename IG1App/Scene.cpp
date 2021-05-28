@@ -85,6 +85,8 @@ void Scene::free()
 	}
 	gObjectsTranslucid.clear();
 
+	tieGroup = nullptr;
+
 
 }
 //-------------------------------------------------------------------------
