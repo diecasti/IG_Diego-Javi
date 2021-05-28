@@ -409,3 +409,24 @@ void Scene::scene6() {
 	
 
 }
+
+
+void Scene::orbita()
+{
+	dmat4 mat = tieGroup->modelMat();
+	//mat = translate(mat, dvec3(0.0, -350.0, 0.0));
+	mat = rotate(mat, radians(1.0), dvec3(1, 0.0, 0));
+	//mat = translate(mat, dvec3(0.0, 350.0, 0.0));
+
+	tieGroup->setModelMat(mat);
+}
+//-------------------------------------------------------------------------
+
+void Scene::rota()
+{
+	dmat4 mat = tieGroup->modelMat();
+	mat = rotate(mat, radians(tieLocalAngle), dvec3(0.0, 1.0, 0.0));
+
+	tieLocalAngle += 0.1;
+	tieGroup->setModelMat(mat);
+}

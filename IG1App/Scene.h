@@ -27,6 +27,7 @@ public:
 
     void render(Camera const& cam) const;
 	void update();
+	int getId() const { return mId; };
 
 	void changeScene(int id);
 	static bool lucesEncendidas;
@@ -36,12 +37,15 @@ public:
 
 
 	CompoundEntity* tieGroup;
+	GLdouble tieLocalAngle;
 
 	void TIEsLightsOff();
 	void TIEsLightsOn();
 
 	void defaultLighting();
 	void darkScene();
+	void orbita();
+	void rota();
 
 protected:
 	void free();
