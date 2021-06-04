@@ -880,6 +880,7 @@ GridCube::GridCube(GLdouble lado, int nDiv, Texture* tapa, Texture* pared)
 	gObjects.back()->setTexture(pared);
 
 	pared1->setModelMat(glm::rotate(pared1->modelMat(), radians(90.0), dvec3(0, 0, -1)));
+	pared1->setModelMat(glm::rotate(pared1->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
 
 	auto pared2 = new RejillaTex(lado, nDiv);
@@ -889,6 +890,7 @@ GridCube::GridCube(GLdouble lado, int nDiv, Texture* tapa, Texture* pared)
 
 	pared2->setModelMat(glm::rotate(pared2->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 	pared2->setModelMat(glm::rotate(pared2->modelMat(), radians(90.0), dvec3(0, 0, -1)));
+	pared2->setModelMat(glm::rotate(pared2->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
 
 	//pared 3
@@ -900,6 +902,7 @@ GridCube::GridCube(GLdouble lado, int nDiv, Texture* tapa, Texture* pared)
 
 	pared3->setModelMat(glm::rotate(pared3->modelMat(), radians(180.0), dvec3(0, 1, 0)));
 	pared3->setModelMat(glm::rotate(pared3->modelMat(), radians(90.0), dvec3(0, 0, -1)));
+	pared3->setModelMat(glm::rotate(pared3->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
 
 
@@ -912,6 +915,7 @@ GridCube::GridCube(GLdouble lado, int nDiv, Texture* tapa, Texture* pared)
 
 	pared4->setModelMat(glm::rotate(pared4->modelMat(), radians(270.0), dvec3(0, 1, 0)));
 	pared4->setModelMat(glm::rotate(pared4->modelMat(), radians(90.0), dvec3(0, 0, -1)));
+	pared4->setModelMat(glm::rotate(pared4->modelMat(), radians(90.0), dvec3(0, 1, 0)));
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, lado / 2.0, 0)));
 
 	//tapa de abajo
