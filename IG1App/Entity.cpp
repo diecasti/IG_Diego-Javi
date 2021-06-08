@@ -492,7 +492,7 @@ void Hierba::render(glm::dmat4 const& modelViewMat)const
 }
 //-------------------------------------------------------------------------
 //!PRACTICA 2
-//!Clases práctica 2
+//!Clases practica 2
 //-------------------------------------------------------------------------
 Sphere::Sphere(GLuint r, GLuint s, GLuint st) : QuadricEntity() {
 	radio = r;

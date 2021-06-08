@@ -42,7 +42,7 @@ void IG1App::init()
 	mViewPort = new Viewport(mWinW, mWinH); //glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera = new Camera(mViewPort);
 	mCamera1 = new Camera(mViewPort);
-	mScene = new Scene(6);
+	mScene = new Scene(0);
 	mScene1 = new Scene(0);
 
 	m2Vistas = false;
@@ -345,7 +345,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else
 			mCamera->changePrj();	//Angulo y altura por iteracion
 		break;
-	case 'v':
+	case 'i':
 		//cambair al modo dos camaras
 		m2Vistas = !m2Vistas;
 
@@ -390,18 +390,18 @@ void IG1App::key(unsigned char key, int x, int y)
 		mScene->darkScene();
 		break;
 	case 't':
-		if (mScene->getId() == 6) mScene->TIEsLightsOff();
+		if (mScene->getId() == 7) mScene->TIEsLightsOff();
 		break;
 	case 'g':
-		if (mScene->getId() == 6) mScene->TIEsLightsOn();
+		if (mScene->getId() == 7) mScene->TIEsLightsOn();
 		break;
 	case 'y':
-		if (mScene->getId() == 6) mScene->orbita();
+		if (mScene->getId() == 7) mScene->orbita();
 		break;
 	case 'b':
-		if (mScene->getId() == 6) mScene->rota();
-		break;
+		if (mScene->getId() == 7) mScene->rota();
 
+		break;
 	default:
 		if (m2Scenes) {
 			if (mCoord.x >= mWinW / 2) {

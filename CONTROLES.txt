@@ -1,0 +1,36 @@
++	->	zoom in
+-	->	zoom out
+
+l	->	set 3d
+o	->	set 2d
+
+u	->	update anim
+
+d	->	mover hacia la derecha
+c	->	mover hacia la izquierda
+k	->	mover hacia adelante
+m	->	mover hacia atras
+h	->	mover hacia arriba
+n	->	mover hacia abajo
+
+j	->	rotar sobre si
+
+p	->	cambiar proyeccion de vista (perspectiva/ortogonal)
+
+v	->	cambiar a modo dos vistas
+
+q	->	activar Dirlight
+w	->	desactivar Dirlight
+a	->	activar Poslight
+s	->	desactivar Poslight
+z	->	activar Spotlight
+x	->	desactivar Spotlight
+
+e	->	activar SOLO luz ambiente
+r	->	desactivar todas las luces
+
+t	->	luz ties off
+g	->	luz ties on
+
+y	->	orbitar ties
+b	->	rotar ties
