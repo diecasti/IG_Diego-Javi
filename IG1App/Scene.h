@@ -48,7 +48,7 @@ public:
 	SpotLight* spotLight = nullptr;
 
 
-	CompoundEntity* tieGroup;
+	CompoundEntity* tieGroup = nullptr;
 	GLdouble tieLocalAngle;
 
 	void TIEsLightsOff();
