@@ -506,10 +506,13 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
+	// Aquí se puede fijar el color de la esfera así
 	glEnable(GL_COLOR_MATERIAL);
 	glColor4dv(value_ptr(mColor));
+	// Aquí se puede fijar el modo de dibujar la esfera
 	gluQuadricDrawStyle(q, GL_FILL);
 	gluSphere(q, radio, slices, stacks);
+	// Aquí se debe recuperar valores
 	glColor4f(1.0, 1.0, 1.0, 1.0);
 	glDisable(GL_COLOR_MATERIAL);
 
@@ -612,13 +615,49 @@ void PartialDisk::render(glm::dmat4 const& modelViewMat) const
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
 	glEnable(GL_COLOR_MATERIAL);
-	glColor3f(0.0, 0.25, 0.41);
+	glColor3f(mColor.r, mColor.g, mColor.b);
 	gluQuadricDrawStyle(q, GL_FILL);
 	gluPartialDisk(q, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle);
 	glColor3f(1.0, 1.0, 1.0);
 	glDisable(GL_COLOR_MATERIAL);
 
 }
+//PartialDiskText
+PartialDiskText::PartialDiskText(GLdouble ir,
+	GLdouble            ors,
+	GLint               s,
+	GLint               l,
+	GLdouble            sa,
+	GLdouble            swa) : QuadricEntity() {
+	innerRadius = ir;
+	outerRadius = ors;
+	slices = s;
+	loops = l;
+	startAngle = sa;
+	sweepAngle = swa;
+}
+PartialDiskText::~PartialDiskText() {
+
+}
+void PartialDiskText::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(mColor.r, mColor.g, mColor.b);
+
+	mTexture->bind(GL_FILL);
+	gluQuadricTexture(q, GL_TRUE);		//Habilitar materiales
+	gluQuadricDrawStyle(q, GL_FILL);	//GLU_FILL, GLU_LINE, GLU_POINT
+
+	gluPartialDisk(q, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle);
+	
+	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+	mTexture->unbind();
+}
+
 //--------------------------------------------------------------------------------------------------------------
 EntityWithIndexMesh::EntityWithIndexMesh() { mMesh = nullptr; }
 void EntityWithIndexMesh::render(glm::dmat4 const& modelViewMat) const

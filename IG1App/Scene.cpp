@@ -68,6 +68,9 @@ void Scene::changeScene(int id) {
 		else if (mId == 7) {
 			scene7();
 		}
+		else if (mId == 8) {
+			scene8();
+		}
 	}
 }
 //-------------------------------------------------------------------------
@@ -549,7 +552,7 @@ void Scene::scene2() {
 
 	//NAVE
 	auto esfera = new Sphere(100, 50, 50);
-	esfera->setColor(dvec4(0.0, 0.25, 0.41,1.0));
+	esfera->setColor(dvec4(0.0, 0.25, 0.41, 1.0));
 	ce->addEntity(esfera);
 
 	//VENTANA
@@ -637,8 +640,9 @@ void Scene::scene6() {
 	piedra->load("..\\Bmps\\stones.bmp");
 	gTextures.push_back(piedra);
 
-	auto cubo = new GridCube(1200, 100, ajedrez, piedra);
+	auto cubo = new GridCube(1200, 1, ajedrez, piedra);
 	gObjects.push_back(cubo);
+	//gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(45.0), dvec3(0, 0, 1)));
 }
 
 void Scene::scene7() {
@@ -686,4 +690,25 @@ void Scene::scene7() {
 	tieGroup->addEntity(tie3);
 
 	tieGroup->setModelMat(glm::translate(tieGroup->modelMat(), dvec3(100, 0, 0)));
+}
+void Scene::scene8() {
+	//TEXTURAS
+	Texture* noche = new Texture();
+	noche->load("..\\Bmps\\noche.bmp", 200);
+	gTextures.push_back(noche);
+
+
+	//EJES RGB
+	gObjects.push_back(new EjesRGB(4000.0));
+
+	auto partial = new PartialDiskText(100,
+		200,
+		50,
+		300,
+		0,
+		90);
+	gObjects.push_back(partial);
+	gObjects.back()->setColor(dvec4(1.0, 1.0, 0.0, 1.0));
+	gObjects.back()->setTexture(noche);
+
 }

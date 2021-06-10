@@ -370,10 +370,11 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 	anilloMesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0);
 	anilloMesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 
-	anilloMesh->vNormals.reserve(anilloMesh->mNumVertices);
+	//anilloMesh->vNormals.reserve(anilloMesh->mNumVertices);
 	for (int i = 0; i < anilloMesh->mNumVertices; i++) {
 		anilloMesh->vNormals.emplace_back(0.0, 0.0, 1.0);
 	}
+
 	//Saco normales
 	/*anilloMesh->vNormals.reserve(anilloMesh->mNumVertices);
 	for (int i = 0; i < anilloMesh->mNumVertices - 2; i++) {
@@ -382,7 +383,7 @@ IndexMesh* IndexMesh::generaAnilloCuadradoIndexado() {
 		anilloMesh->vNormals.emplace_back(aux);
 	}*/
 
-	//Saco normales como dice el motherfucker del Aaron que es un maquina
+	//Saco normales como dice el motherfucker del Aaron que es un maquina EN ESTE CASO NO VALE
 	//anilloMesh->sacaNormales();
 
 
@@ -463,13 +464,6 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l) {
 	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
 	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
 	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
-
-	/*cuboMesh->vNormals.reserve(cuboMesh->mNumVertices);
-	for (int i = 0; i < cuboMesh->mNumVertices - 2; i++) {
-		GLuint* auxArr = new GLuint[cuboMesh->nNumIndices]{ (GLuint)i,(GLuint)i + 1,(GLuint)i + 2 };
-		glm::dvec3 aux = cuboMesh->CalculoVectorNormalPorNewell(auxArr);
-		cuboMesh->vNormals.emplace_back(aux);
-	}*/
 
 	//Saco normales
 	cuboMesh->sacaNormales();

@@ -69,7 +69,7 @@ protected:
 	std::vector<Texture*> gTextures; //textures (imagenes a pinyon) of the scene
 
 	bool sceneWithLight[10] = { false,false,true,true,true, true,true,true,false,false };
-	bool sceneWithTexture[10] = { false,true,true,true,false, false,true,true,false,false };
+	bool sceneWithTexture[10] = { false,true,true,true,false, false,true,true,true,false };
 
 	int mId;
 	void scene0();
@@ -80,6 +80,7 @@ protected:
 	void scene5();
 	void scene6();
 	void scene7();
+	void scene8();
 
 	//PRACTICA 2
 	void sceneDirLight(Camera const& cam) const;

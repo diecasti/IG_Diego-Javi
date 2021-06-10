@@ -260,6 +260,21 @@ private:
 	GLdouble innerRadius, outerRadius, startAngle, sweepAngle;
 	GLint slices, loops;
 };
+
+class PartialDiskText : public QuadricEntity {
+public:
+	PartialDiskText(GLdouble            innerRadius,
+		GLdouble            outerRadius,
+		GLint               slices,
+		GLint               loops,
+		GLdouble            startAngle,
+		GLdouble            sweepAngle);
+	virtual ~PartialDiskText();
+	void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble innerRadius, outerRadius, startAngle, sweepAngle;
+	GLint slices, loops;
+};
 //----------------------------------------------------------
 class AnilloCuadrado : public Abs_Entity {
 public:
