@@ -71,6 +71,9 @@ void Scene::changeScene(int id) {
 		else if (mId == 8) {
 			scene8();
 		}
+		else if (mId == 9) {
+			scene9();
+		}
 	}
 }
 //-------------------------------------------------------------------------
@@ -159,6 +162,10 @@ void Scene::update() {
 	{
 		el->update();
 	}
+	if (mId == 7 || mId == 9) {
+		orbita();
+		//rota();
+	}
 }
 //-------------------------------------------------------------------------
 //!Métodos practica 2
@@ -188,7 +195,7 @@ void Scene::createLights()
 
 	//Luz omnidireccional
 	posLight = new PosLight();
-	posLight->setDiffuse({ 1, 0, 0, 1 });	
+	posLight->setDiffuse({ 1, 0, 0, 1 });
 	posLight->setAmb({ 0.0, 0.0, 0, 1 });					//COLOR AMBIENTE
 	posLight->setSpecular({ 0.5, 0.5, 0.5, 1 });
 	posLight->setPosDir({ 600, 200, 0 });
@@ -423,22 +430,124 @@ void Scene::darkScene()
 
 void Scene::orbita()
 {
-	dmat4 mat = tieGroup->modelMat();
-	//mat = translate(mat, dvec3(0.0, -350.0, 0.0));
-	mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
-	//mat = translate(mat, dvec3(0.0, 350.0, 0.0));
-
-	tieGroup->setModelMat(mat);
+	if (tieGroup != nullptr) {
+		dmat4 mat = tieGroup->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		tieGroup->setModelMat(mat);
+	}
+	if (mariano0 != nullptr) {
+		dmat4 mat = mariano0->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano0->setModelMat(mat);
+	}
+	if (mariano1 != nullptr) {
+		dmat4 mat = mariano1->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano1->setModelMat(mat);
+	}
+	if (mariano2 != nullptr) {
+		dmat4 mat = mariano2->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano2->setModelMat(mat);
+	}
+	if (mariano3 != nullptr) {
+		dmat4 mat = mariano3->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano3->setModelMat(mat);
+	}
+	if (mariano4 != nullptr) {
+		dmat4 mat = mariano4->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano4->setModelMat(mat);
+	}
+	if (mariano5 != nullptr) {
+		dmat4 mat = mariano5->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano5->setModelMat(mat);
+	}
+	if (mariano6 != nullptr) {
+		dmat4 mat = mariano6->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano6->setModelMat(mat);
+	}
+	if (mariano7 != nullptr) {
+		dmat4 mat = mariano7->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano7->setModelMat(mat);
+	}
+	if (mariano8 != nullptr) {
+		dmat4 mat = mariano8->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano8->setModelMat(mat);
+	}
+	if (mariano9 != nullptr) {
+		dmat4 mat = mariano9->modelMat();
+		mat = rotate(mat, radians(-1.0), dvec3(0, 0.0, 1));
+		mariano9->setModelMat(mat);
+	}
 }
 //-------------------------------------------------------------------------
 
 void Scene::rota()
 {
-	dmat4 mat = tieGroup->modelMat();
-	mat = rotate(mat, radians(tieLocalAngle), dvec3(0.0, 1.0, 0.0));
+	if (tieGroup != nullptr) {
+		dmat4 mat = tieGroup->modelMat();
+		mat = rotate(mat, radians(tieLocalAngle), dvec3(0.0, 1.0, 0.0));
 
-	tieLocalAngle += 0.1;
-	tieGroup->setModelMat(mat);
+		tieLocalAngle += 0.1;
+		tieGroup->setModelMat(mat);
+	}
+
+	if (mariano0 != nullptr) {
+		dmat4 mat = mariano0->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano0->setModelMat(mat);
+	}
+	if (mariano1 != nullptr) {
+		dmat4 mat = mariano1->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano1->setModelMat(mat);
+	}
+	if (mariano2 != nullptr) {
+		dmat4 mat = mariano2->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano2->setModelMat(mat);
+	}
+	if (mariano3 != nullptr) {
+		dmat4 mat = mariano3->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano3->setModelMat(mat);
+	}
+	if (mariano4 != nullptr) {
+		dmat4 mat = mariano4->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano4->setModelMat(mat);
+	}
+	if (mariano5 != nullptr) {
+		dmat4 mat = mariano5->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano5->setModelMat(mat);
+	}
+	if (mariano6 != nullptr) {
+		dmat4 mat = mariano6->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano6->setModelMat(mat);
+	}
+	if (mariano7 != nullptr) {
+		dmat4 mat = mariano7->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano7->setModelMat(mat);
+	}
+	if (mariano8 != nullptr) {
+		dmat4 mat = mariano8->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano8->setModelMat(mat);
+	}
+	if (mariano9 != nullptr) {
+		dmat4 mat = mariano9->modelMat();
+		mat = rotate(mat, radians(1.0), dvec3(0.0, 1.0, 0.0));
+		mariano9->setModelMat(mat);
+	}
 }
 
 
@@ -611,6 +720,10 @@ void Scene::scene4() {
 //PRACTICA 2 EJERCICIOS 15-34
 
 void Scene::scene5() {
+	Texture* ajedrez = new Texture();
+	ajedrez->load("..\\Bmps\\checker.bmp");
+	gTextures.push_back(ajedrez);
+
 	//EJES RGB
 	gObjects.push_back(new EjesRGB(400.0));
 	//escena dos bolas
@@ -620,7 +733,7 @@ void Scene::scene5() {
 	gObjects.push_back(bola);
 	gObjects.back()->setModelMat(glm::translate(gObjects.back()->modelMat(), dvec3(0, 0, +200)));
 	gObjects.back()->setColor(dvec4(0.0, 0.0, 1.0, 1.0));
-
+	gObjects.back()->setTexture(ajedrez);
 	//cuadratica
 
 	gObjects.push_back(new Sphere(100, 50, 50));
@@ -713,4 +826,139 @@ void Scene::scene8() {
 	gObjects.back()->setColor(dvec4(1.0, 1.0, 0.0, 1.0));
 	gObjects.back()->setTexture(noche);
 
+}
+
+void Scene::scene9() {
+	Texture* mariano = new Texture();
+	mariano->load("..\\Bmps\\marianoText.bmp");
+	gTextures.push_back(mariano);
+
+
+	//EJES RGB
+	gObjects.push_back(new EjesRGB(4000.0));
+
+	mariano0 = new CompoundEntity();
+	gObjects.push_back(mariano0);
+	mariano1 = new CompoundEntity();
+	gObjects.push_back(mariano1);
+	mariano2 = new CompoundEntity();
+	gObjects.push_back(mariano2);
+	mariano3 = new CompoundEntity();
+	gObjects.push_back(mariano3);
+	mariano4 = new CompoundEntity();
+	gObjects.push_back(mariano4);
+	mariano5 = new CompoundEntity();
+	gObjects.push_back(mariano5);
+	mariano6 = new CompoundEntity();
+	gObjects.push_back(mariano6);
+	mariano7 = new CompoundEntity();
+	gObjects.push_back(mariano7);
+	mariano8 = new CompoundEntity();
+	gObjects.push_back(mariano8);
+	mariano9 = new CompoundEntity();
+	gObjects.push_back(mariano9);
+
+	//Mariano cajoy
+	MarianoCajoy* a = new MarianoCajoy(100, 650);
+	a->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	a->setTexture(gTextures.back());
+
+	auto t1 = glm::translate(dmat4(1), dvec3(0, 650, 0));
+	auto t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	a->setModelMat(t1 * t3);
+	mariano0->addEntity(a);
+	mariano0->setModelMat(glm::rotate(dmat4(1), radians(35.0), dvec3(0, 1, 0)));
+
+
+	MarianoCajoy* b = new MarianoCajoy(100, 450);
+	b->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	b->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 450, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	b->setModelMat(t1 * t3);
+	mariano1->addEntity(b);
+	mariano1->setModelMat(glm::rotate(dmat4(1), radians(95.0), dvec3(0, 1, 0)));
+
+	MarianoCajoy* c = new MarianoCajoy(100, 550);
+	c->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	c->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 550, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	c->setModelMat(t1 * t3);
+	mariano2->addEntity(c);
+	mariano2->setModelMat(glm::rotate(dmat4(1), radians(246.0), dvec3(0, 1, 0)));
+
+	MarianoCajoy* d = new MarianoCajoy(100, 590);
+	d->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	d->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 590, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	d->setModelMat(t1 * t3);
+	mariano3->addEntity(d);
+	mariano3->setModelMat(glm::rotate(dmat4(1), radians(47.0), dvec3(0, 1, 0)));
+
+	MarianoCajoy* e = new MarianoCajoy(100, 290);
+	e->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	e->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 290, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	e->setModelMat(t1 * t3);
+	mariano4->addEntity(e);
+	mariano4->setModelMat(glm::rotate(dmat4(1), radians(218.0), dvec3(0, 1, 0)));
+
+
+	MarianoCajoy* f = new MarianoCajoy(100, 720);
+	f->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	f->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 720, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	f->setModelMat(t1 * t3);
+	mariano5->addEntity(f);
+	mariano5->setModelMat(glm::rotate(dmat4(1), radians(273.0), dvec3(0, 1, 0)));
+
+
+	MarianoCajoy* g = new MarianoCajoy(100, 610);
+	g->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	g->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 610, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	g->setModelMat(t1 * t3);
+	mariano6->addEntity(g);
+	mariano6->setModelMat(glm::rotate(dmat4(1), radians(81.0), dvec3(0, 1, 0)));
+
+
+	MarianoCajoy* h = new MarianoCajoy(100, 170);
+	h->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	h->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 170, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	h->setModelMat(t1 * t3);
+	mariano7->addEntity(h);
+	mariano7->setModelMat(glm::rotate(dmat4(1), radians(293.0), dvec3(0, 1, 0)));
+
+
+	MarianoCajoy* i = new MarianoCajoy(100, 300);
+	i->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	i->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 300, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	i->setModelMat(t1 * t3);
+	mariano8->addEntity(i);
+	mariano8->setModelMat(glm::rotate(dmat4(1), radians(253.0), dvec3(0, 1, 0)));
+
+
+	MarianoCajoy* j = new MarianoCajoy(100, 320);
+	j->setColor({ 255.0 / 255.0,0.0 / 255.0,0.0 / 255.0,1 });
+	j->setTexture(gTextures.back());
+	t1 = glm::translate(dmat4(1), dvec3(0, 320, 0));
+	t3 = glm::scale(dmat4(1), dvec3(0.5, 0.5, 0.5));
+	j->setModelMat(t1 * t3);
+	mariano9->addEntity(j);
+	mariano9->setModelMat(glm::rotate(dmat4(1), radians(221.0), dvec3(0, 1, 0)));
+
+	//Obamide
+	auto obamide = new CylinderText(200, 0, 200, 4, 4);
+	gObjects.push_back(obamide);
+	gObjects.back()->setModelMat(glm::rotate(gObjects.back()->modelMat(), radians(-90.0), dvec3(1, 0, 0)));
+	gObjects.back()->setTexture(gTextures.back());
 }

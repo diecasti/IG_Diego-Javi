@@ -420,7 +420,44 @@ void CajaConFondoTx::update() {
 	//Primero se realiza la traslación con la matriz identidad 
 	setModelMat(rotate(modelMat(), radians(anguloDesplazamiento), dvec3(0, 0, 1)));
 }
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+MarianoCajoy::MarianoCajoy(GLdouble nl, GLdouble dist) {
+	mMesh = Mesh::generaContCuboTexCorCerrado(nl);
 
+	ld_ = nl;
+	distancia = dist;
+	anguloDesplazamiento = 0;
+}
+//-------------------------------------------------------------------------
+MarianoCajoy::~MarianoCajoy() {
+}
+//-------------------------------------------------------------------------
+void MarianoCajoy::render(glm::dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+
+
+		upload(aMat);
+		glLineWidth(2);
+
+
+		//las texturas, supongo que ahbra que hacer dos renders segun he entendido
+
+
+		glColor4dv(value_ptr(mColor));
+		mTexture->bind(GL_REPLACE);
+		mMesh->render();
+		upload(aMat);
+
+
+		mTexture->unbind();
+
+		glLineWidth(1);
+
+	}
+}
 //-------------------------------------------------------------------------
 Foto::Foto(GLdouble w, GLdouble h) {
 	mMesh = Mesh::generaRectanguloTexCor(w, h, 1, 1);
@@ -547,6 +584,37 @@ void Cylinder::render(glm::dmat4 const& modelViewMat) const
 	glDisable(GL_COLOR_MATERIAL);
 
 }
+
+CylinderText::CylinderText(GLdouble br, GLdouble tr, GLdouble h, GLint s, GLint st) : QuadricEntity() {
+	baseRadius = br;
+	topRadius = tr;
+	height = h;
+	slices = s;
+	stacks = st;
+}
+CylinderText::~CylinderText() {
+
+}
+
+void CylinderText::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(mColor.r, mColor.g, mColor.b);
+
+	mTexture->bind(GL_FILL);
+	gluQuadricTexture(q, GL_TRUE);		//Habilitar materiales
+	gluQuadricDrawStyle(q, GLU_FILL);	//GLU_FILL, GLU_LINE, GLU_POINT
+
+	gluCylinder(q, baseRadius, topRadius, height, slices, stacks);
+
+	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+	mTexture->unbind();
+}
+//-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 Disk::Disk(GLdouble ir, GLdouble ors, GLint s, GLint  l) : QuadricEntity() {
 	innerRadius = ir;
@@ -838,21 +906,24 @@ Esfera::Esfera(GLdouble r, GLdouble p, GLuint n)
 
 void Esfera::render(glm::dmat4 const& modelViewMat) const
 {
+
 	if (mMesh != nullptr) {
-		glm::dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		upload(aMat);
-		if (material != nullptr) material->upload();
-		else
+
+		if (mTexture == nullptr) {
 			glEnable(GL_COLOR_MATERIAL);
+			glColor3f(0.0, 0.0, 1.0);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else
+			mTexture->bind(GL_MODULATE);
 
-		glLineWidth(2);
-		glColor4dv(value_ptr(mColor));
 		mMesh->render();
-		glLineWidth(1);
-		glColor4d(1.0, 1.0, 1.0, 1);
-		if (material == nullptr)
-			glDisable(GL_COLOR_MATERIAL);
 
+		glColor3f(1.0, 1.0, 1.0);
+		glDisable(GL_COLOR_MATERIAL);
+		mTexture->unbind();
 	}
 }
 

@@ -49,6 +49,19 @@ public:
 
 
 	CompoundEntity* tieGroup = nullptr;
+
+	CompoundEntity* mariano0 = nullptr;
+	CompoundEntity* mariano1 = nullptr;
+	CompoundEntity* mariano2 = nullptr;
+	CompoundEntity* mariano3 = nullptr;
+	CompoundEntity* mariano4 = nullptr;
+	CompoundEntity* mariano5 = nullptr;
+	CompoundEntity* mariano6 = nullptr;
+	CompoundEntity* mariano7 = nullptr;
+	CompoundEntity* mariano8 = nullptr;
+	CompoundEntity* mariano9 = nullptr;
+
+
 	GLdouble tieLocalAngle;
 
 	void TIEsLightsOff();
@@ -58,6 +71,8 @@ public:
 	void darkScene();
 	void orbita();
 	void rota();
+
+
 
 protected:
 	void free();
@@ -69,7 +84,7 @@ protected:
 	std::vector<Texture*> gTextures; //textures (imagenes a pinyon) of the scene
 
 	bool sceneWithLight[10] = { false,false,true,true,true, true,true,true,false,false };
-	bool sceneWithTexture[10] = { false,true,true,true,false, false,true,true,true,false };
+	bool sceneWithTexture[10] = { false,true,true,true,true, true,true,true,true,true };
 
 	int mId;
 	void scene0();
@@ -81,6 +96,7 @@ protected:
 	void scene6();
 	void scene7();
 	void scene8();
+	void scene9();
 
 	//PRACTICA 2
 	void sceneDirLight(Camera const& cam) const;

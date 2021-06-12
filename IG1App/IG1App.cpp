@@ -390,16 +390,16 @@ void IG1App::key(unsigned char key, int x, int y)
 		mScene->darkScene();
 		break;
 	case 't':
-		if (mScene->getId() == 7) mScene->TIEsLightsOff();
+		if (mScene->getId() == 7 || mScene->getId() == 9) mScene->TIEsLightsOff();
 		break;
 	case 'g':
-		if (mScene->getId() == 7) mScene->TIEsLightsOn();
+		if (mScene->getId() == 7 || mScene->getId() == 9) mScene->TIEsLightsOn();
 		break;
 	case 'y':
-		if (mScene->getId() == 7) mScene->orbita();
+		if (mScene->getId() == 7 || mScene->getId() == 9) mScene->orbita();
 		break;
 	case 'b':
-		if (mScene->getId() == 7) mScene->rota();
+		if (mScene->getId() == 7 || mScene->getId() == 9) mScene->rota();
 
 		break;
 	default:

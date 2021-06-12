@@ -121,7 +121,6 @@ protected:
 	Mesh* fondo = nullptr;   // the fondo
 	GLdouble ld_ = NULL; // the lado
 };
-
 //-------------------------------------------------------------------------
 class Suelo : public Abs_Entity {
 public:
@@ -165,7 +164,17 @@ protected:
 
 };
 //-------------------------------------------------------------------------
+class MarianoCajoy : public Abs_Entity {
+public:
+	MarianoCajoy(GLdouble ld, GLdouble dist);
+	~MarianoCajoy();
+	virtual void render(glm::dmat4 const& modelViewMat)const;
+protected:
+	GLdouble ld_ = NULL; // the lado
+	GLdouble distancia; // distancia al centro de coordenadas;
+	GLdouble anguloDesplazamiento;
 
+};
 //-------------------------------------------------------------------------
 class Foto : public Abs_Entity {
 public:
@@ -207,6 +216,17 @@ private:
 	GLuint slices;
 	GLuint stacks;
 
+};
+
+class CylinderText : public QuadricEntity {
+public:
+	CylinderText(GLdouble baseRadius, GLdouble topRadius, GLdouble height, GLint slices, GLint stacks);
+	virtual ~CylinderText();
+	void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble baseRadius;
+	GLdouble topRadius, height;
+	GLint slices, stacks;
 };
 
 class Cylinder : public QuadricEntity {
@@ -309,7 +329,6 @@ protected:
 	std::vector<Abs_Entity*> gTranslucid;
 
 };
-//----------------------------------------------------------
 //----------------------------------------------------------
 //ENTIDADES PRACTICA 2.2
 class TIE : public CompoundEntity {

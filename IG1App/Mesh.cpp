@@ -234,9 +234,41 @@ Mesh* Mesh::generaContCubo(GLdouble ld) {
 	//finalmente los mismos dos ultimos puntos que son los mismos que el principio
 	mesh->vVertices.emplace_back(-ld / 2, -ld / 2, ld / 2);
 	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
+
 	//cubo cerrado
 	return mesh;
 }
+
+Mesh* Mesh::generaContCuboCerrado(GLdouble ld) {
+	Mesh* mesh = new Mesh();
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 14;							//Definimos el n� de vertices
+	mesh->vVertices.reserve(mesh->mNumVertices);	//Y los reservamos
+	mesh->vVertices.emplace_back(-ld / 2, -ld / 2, ld / 2);
+	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
+	mesh->vVertices.emplace_back(ld / 2, -ld / 2, ld / 2);
+	mesh->vVertices.emplace_back(ld / 2, ld / 2, ld / 2);
+	//esto genera la primera cara, ahora la de la lado serian
+	mesh->vVertices.emplace_back(ld / 2, -ld / 2, -ld / 2);
+	mesh->vVertices.emplace_back(ld / 2, ld / 2, -ld / 2);
+	//la siguiente cara igual al contrario
+	mesh->vVertices.emplace_back(-ld / 2, -ld / 2, -ld / 2);
+	mesh->vVertices.emplace_back(-ld / 2, ld / 2, -ld / 2);
+	//finalmente los mismos dos ultimos puntos que son los mismos que el principio
+	mesh->vVertices.emplace_back(-ld / 2, -ld / 2, ld / 2);
+	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
+
+	//La parte de arriba
+	mesh->vVertices.emplace_back(-ld / 2, ld / 2, ld / 2);
+
+	mesh->vVertices.emplace_back(ld / 2, ld / 2, ld / 2);
+
+	mesh->vVertices.emplace_back(-ld / 2, ld / 2, -ld / 2);
+	mesh->vVertices.emplace_back(ld / 2, ld / 2, -ld / 2);
+	//cubo cerrado
+	return mesh;
+}
+
 Mesh* Mesh::generaRectanguloTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh) {
 	Mesh* mesh = generaRectangulo(w, h);
 
@@ -296,6 +328,36 @@ Mesh* Mesh::generaContCuboTexCor(GLdouble nl) {
 	//
 	mesh->vTexCoords.emplace_back(0, 0);
 	mesh->vTexCoords.emplace_back(1, 0);
+	return mesh;
+}
+
+Mesh* Mesh::generaContCuboTexCorCerrado(GLdouble nl) {
+	Mesh* mesh = generaContCuboCerrado(nl);
+
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+	mesh->vTexCoords.emplace_back(0, 1.0 / 3.0);
+	mesh->vTexCoords.emplace_back(0, 2.0 / 3.0);
+
+	mesh->vTexCoords.emplace_back(1.0 / 4.0, 1.0 / 3.0);
+	mesh->vTexCoords.emplace_back(1.0 / 4.0, 2.0 / 3.0);
+
+	mesh->vTexCoords.emplace_back(2.0 / 4.0, 1.0 / 3.0);
+	mesh->vTexCoords.emplace_back(2.0 / 4.0, 2.0 / 3.0);
+	//esto genera la primera cara, ahora la de la lado serian
+	mesh->vTexCoords.emplace_back(3.0 / 4.0, 1.0 / 3.0);
+	mesh->vTexCoords.emplace_back(3.0 / 4.0, 2.0 / 3.0);
+	//la siguiente cara igual al contrario
+	mesh->vTexCoords.emplace_back(1, 1.0 / 3.0);
+	mesh->vTexCoords.emplace_back(1, 2.0 / 3);
+	//finalmente los mismos dos ultimos puntos que son los mismos que el principio
+
+	//La parte de arriba
+	mesh->vTexCoords.emplace_back(1.0 / 4.0, 1);
+
+	mesh->vTexCoords.emplace_back(1.0 / 4.0, 2.0 / 3.0);
+	mesh->vTexCoords.emplace_back(2.0 / 4.0, 1);
+	mesh->vTexCoords.emplace_back(2.0 / 4.0, 2.0 / 3.0);
+
 	return mesh;
 }
 
@@ -465,6 +527,20 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l) {
 	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
 	cuboMesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
 
+	cuboMesh->vTexCoords.reserve(cuboMesh->mNumVertices);	//Y los reservamos
+	cuboMesh->vTexCoords.emplace_back(0, 0);
+	cuboMesh->vTexCoords.emplace_back(1, 0);
+	cuboMesh->vTexCoords.emplace_back(0, 1);
+	cuboMesh->vTexCoords.emplace_back(1, 1);
+	//OTRAS CARAS
+	cuboMesh->vTexCoords.emplace_back(0, 0);
+	cuboMesh->vTexCoords.emplace_back(1, 0);
+	cuboMesh->vTexCoords.emplace_back(0, 1);
+	cuboMesh->vTexCoords.emplace_back(1, 1);
+	//
+	cuboMesh->vTexCoords.emplace_back(0, 0);
+	cuboMesh->vTexCoords.emplace_back(1, 0);
+
 	//Saco normales
 	cuboMesh->sacaNormales();
 
@@ -539,6 +615,24 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int mm, int nn, glm::dvec3* perfill) 
 	// Los cuatro índices son entonces:
 	//indice, (indice + mm) % (nn * mm), (indice + mm + 1) % (nn * mm), indice + 1
 
+
+	// dividido en numDiv*numDiv celdas
+	//Grid* mesh = generateGrid(lado, numDiv);
+	GLuint numF = nn + 1; // número de vértices por filas y 
+	GLuint numC = mm + 1; // número de vértices por filas y columnas
+	// Generación de las coordenadas de textura
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	int s = 0,
+		t = 1;
+	GLdouble auxF = (GLdouble)1.0 / numF;
+	GLdouble auxC = (GLdouble)1.0 / numC;
+	for (int f = 0; f < nn; f++) {
+		for (int c = 0; c < mm; c++) {
+			mesh->vTexCoords.emplace_back(dvec2(s + (f * auxF), t - (c * auxC)));
+
+		}
+	}
 
 
 	//Sacamos las normales y returneamos la mesh
